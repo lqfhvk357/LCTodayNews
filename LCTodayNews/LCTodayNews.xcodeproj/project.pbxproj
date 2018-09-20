@@ -10,17 +10,19 @@
 		3E55152AC0EADFA8E2E3EF15 /* Pods_LCTodayNews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D86AF4DAC1125117EF54439 /* Pods_LCTodayNews.framework */; };
 		4349FD5521533B5100DDB94F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4349FD5421533B5100DDB94F /* AppDelegate.swift */; };
 		4349FD5A21533B5100DDB94F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4349FD5821533B5100DDB94F /* Main.storyboard */; };
-		4349FD5C21533B5200DDB94F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4349FD5B21533B5200DDB94F /* Assets.xcassets */; };
 		4349FD5F21533B5200DDB94F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4349FD5D21533B5200DDB94F /* LaunchScreen.storyboard */; };
+		435B1F8321534DB600A2AB3B /* LCTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B1F8221534DB600A2AB3B /* LCTabBarController.swift */; };
+		435B1F8521535BBD00A2AB3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 435B1F8421535BBD00A2AB3B /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4349FD5121533B5100DDB94F /* LCTodayNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LCTodayNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4349FD5421533B5100DDB94F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4349FD5921533B5100DDB94F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4349FD5B21533B5200DDB94F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4349FD5E21533B5200DDB94F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4349FD6021533B5200DDB94F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		435B1F8221534DB600A2AB3B /* LCTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCTabBarController.swift; sourceTree = "<group>"; };
+		435B1F8421535BBD00A2AB3B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6D86AF4DAC1125117EF54439 /* Pods_LCTodayNews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LCTodayNews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		846FF45BBFFED82FA92FFD30 /* Pods-LCTodayNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LCTodayNews.release.xcconfig"; path = "Pods/Target Support Files/Pods-LCTodayNews/Pods-LCTodayNews.release.xcconfig"; sourceTree = "<group>"; };
 		FF1528303C91EF61AD8F45B3 /* Pods-LCTodayNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LCTodayNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LCTodayNews/Pods-LCTodayNews.debug.xcconfig"; sourceTree = "<group>"; };
@@ -43,6 +45,7 @@
 			children = (
 				4349FD5321533B5100DDB94F /* LCTodayNews */,
 				4349FD5221533B5100DDB94F /* Products */,
+				435B1F8421535BBD00A2AB3B /* Assets.xcassets */,
 				FF72EF0EF889370382FFF50A /* Pods */,
 				4C624F27C1FD4F74BD88A1E4 /* Frameworks */,
 			);
@@ -63,7 +66,6 @@
 				435B1F7A2153495D00A2AB3B /* Main */,
 				4349FD5421533B5100DDB94F /* AppDelegate.swift */,
 				4349FD5821533B5100DDB94F /* Main.storyboard */,
-				4349FD5B21533B5200DDB94F /* Assets.xcassets */,
 				4349FD5D21533B5200DDB94F /* LaunchScreen.storyboard */,
 				4349FD6021533B5200DDB94F /* Info.plist */,
 			);
@@ -97,6 +99,7 @@
 		435B1F7D2153495D00A2AB3B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				435B1F8221534DB600A2AB3B /* LCTabBarController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -210,7 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4349FD5F21533B5200DDB94F /* LaunchScreen.storyboard in Resources */,
-				4349FD5C21533B5200DDB94F /* Assets.xcassets in Resources */,
+				435B1F8521535BBD00A2AB3B /* Assets.xcassets in Resources */,
 				4349FD5A21533B5100DDB94F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,6 +282,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				435B1F8321534DB600A2AB3B /* LCTabBarController.swift in Sources */,
 				4349FD5521533B5100DDB94F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
