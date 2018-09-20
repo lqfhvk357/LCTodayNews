@@ -1,0 +1,6 @@
+framework module Pods_LCTodayNews {
+  umbrella header "Pods-LCTodayNews-umbrella.h"
+
+  export *
+  module * { export * }
+}
