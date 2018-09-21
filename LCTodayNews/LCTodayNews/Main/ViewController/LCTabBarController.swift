@@ -13,20 +13,55 @@ class LCTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-     //  let item = UITabBarItem.init(title: "", image: <#T##UIImage?#>, selectedImage: <#T##UIImage?#>)
+        let appearance = UITabBar.appearance()
+        appearance.tintColor = UIColor(0xf55a5d)
+        appearance.barTintColor = UIColor.white
         
-        // Do any additional setup after loading the view.
+        var imageNames = ["home", "video", "weitoutiao", "huoshan", ]
+        UserDefaults.standard.bool(forKey: "login") ? imageNames.append("mine") : imageNames.append("no_login")
+        
+        for imageName in imageNames {
+            var viewController: UIViewController
+            var title: String = ""
+            
+            switch imageName {
+            case "home":
+                viewController = UIViewController()
+                title = "首页"
+            case "video":
+                viewController = UIViewController()
+                title = "西瓜视频"
+            case "weitoutiao":
+                viewController = UIViewController()
+                title = "微头条"
+            case "huoshan":
+                viewController = UIViewController()
+                title = "小视频"
+            case "no_login":
+                viewController = UIViewController()
+                title = "未登录"
+            case "mine":
+                viewController = UIViewController()
+                title = "我的"
+            default:
+                viewController = UIViewController()
+            }
+            
+            let item = UITabBarItem.init(title, imageName)
+            self.addChildViewController(viewController, withTabBarItem: item)
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func addChildViewController(_ viewController: UIViewController, withTabBarItem item: UITabBarItem) -> () {
+        viewController.tabBarItem = item
+        self.addChildViewController(viewController)
     }
-    */
-
 }
+
+extension UITabBarItem {
+    convenience init(_ title:String, _ imageName: String) {
+        self.init(title: title, image: UIImage(named: "\(imageName)_tabbar")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "\(imageName)_tabbar_press")?.withRenderingMode(.alwaysOriginal))
+    }
+}
+
+
