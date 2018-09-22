@@ -15,6 +15,7 @@ target 'LCTodayNews' do
   pod 'Moya/RxSwift', '~> 11.0'
   pod "PromiseKit", "~> 6.0"
   pod 'MJRefresh'
+  pod 'HandyJSON'
 # Pods for LCTodayNews
 
 end

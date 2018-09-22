@@ -8,22 +8,46 @@
 //
 
 import UIKit
+import Moya
+import Result
+import SwiftyJSON
+import HandyJSON
 
-public protocol LCDataSource {
-    var datas:[Any] { get }
+public protocol ResponseToModel {
+    static func dictsFrom(_ response: Response) -> JSON
+    static func modelArrayform(_ response: Response) -> [Self]
+    static func modelform(_ response: Response) -> Self?
 }
 
-extension LCDataSource where Self: UITableViewController{
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return datas.count
+extension ResponseToModel where Self: Decodable{
+    static func dictsFrom(_ response: Response) -> JSON {
+        let json = JSON(response.data)
+        return json["data"]["data"]
     }
     
+    static func modelArrayform(_ response: Response) -> [Self] {
+        let array = self.dictsFrom(response)
+        var titles = [Self]()
+        if let jsonArray = try? array.rawData(){
+            if let modelArray = try? JSONDecoder().decode([Self].self, from: jsonArray){
+                titles = modelArray
+            }
+        }
+        
+        if titles.count > 0 {
+            return titles;
+        }else{
+            return [];
+        }
+    }
     
-
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        let cell = UITableViewCell()
-        cell.textLabel?.text = datas[indexPath.row] as? String
-        return cell
+    static func modelform(_ response: Response) -> Self? {
+        let dcit = self.dictsFrom(response)
+        if let json = try? dcit.rawData(){
+            if let model = try? JSONDecoder().decode(Self.self, from: json){
+                return model
+            }
+        }
+        return nil
     }
 }
-

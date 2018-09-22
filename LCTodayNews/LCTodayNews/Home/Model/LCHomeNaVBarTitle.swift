@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import Moya
+import Result
 
-struct LCTitleModel : Decodable{
+struct LCNavTitle : Decodable{
 //    category = "news_health";
 //    "concern_id" = 6215497895248923137;
 //    "default_add" = 1;
@@ -20,11 +22,16 @@ struct LCTitleModel : Decodable{
 //    "web_url" = "";
     let category: String;
     let concern_id: String;
-    let default_add: String;
-    let flags: String;
+    let default_add: Int;
+    let flags: Int;
     let icon_url: String;
     let name: String;
-    let tip_new: String;
-    let type: String;
+    let tip_new: Int;
+    let type: Int;
     let web_url: String;
+    
 }
+
+extension LCNavTitle: ResponseToModel{}
+
+

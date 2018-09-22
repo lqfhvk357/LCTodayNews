@@ -53,17 +53,5 @@ extension LCHomeService: TargetType {
 
 }
 
-func requestData() -> () {
-    let provider = MoyaProvider<LCHomeService>()
-    provider.rx.request(.homeTitles(device_id : 6096495334, iid: 5034850950))
-        .mapJSON()
-        .subscribe { singleEvent in
-            switch singleEvent {
-            case let .success(response):
-                print(response)
-            case let .error(error):
-                print(error)
-            }
-    }
-}
+
 

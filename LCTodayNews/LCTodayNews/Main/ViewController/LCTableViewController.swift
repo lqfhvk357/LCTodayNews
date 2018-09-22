@@ -12,14 +12,10 @@ import Moya
 import PromiseKit
 import SwiftyJSON
 
-class tabledelegate{
-    var datas: [Any] = []
-}
-
-extension tabledelegate: LCDataSource{}
 
 class LCTableViewController: UITableViewController {
 
+    var titles = [LCNavTitle]()
     
     
     
@@ -30,7 +26,18 @@ class LCTableViewController: UITableViewController {
         self.tableView.backgroundColor = UIColor.tableViewBackgoundColor()
         tableView.registerCell(UITableViewCell.self)
         self.tableView.mj_header = LCRefreshHeader{ [weak self] in
-            self!.requestData()
+            LCServerTool.requestHomeTiltes(completion: { result in
+                self?.tableView.mj_header.endRefreshing()
+                switch result {
+                case .success(let response):
+                    let titles = LCNavTitle.modelArrayform(response)
+                    print(titles)
+                    
+                    self!.titles = titles
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            })
         }
         tableView.reloadData()
         
@@ -46,20 +53,7 @@ class LCTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    func requestData() -> () {
-        let provider = MoyaProvider<LCService>()
-        provider.rx.request(.homeTitles(device_id : 6096495334, iid: 5034850950))
-            .mapJSON()
-            .subscribe { singleEvent in
-                self.tableView.mj_header.endRefreshing()
-                switch singleEvent {
-                case let .success(response):
-                    print(response)
-                case let .error(error):
-                    print(error)
-                }
-            }
-    }
+
 
     // MARK: - Table view data source
 
