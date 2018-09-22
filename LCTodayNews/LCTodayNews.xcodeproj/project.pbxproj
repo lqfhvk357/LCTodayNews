@@ -10,17 +10,33 @@
 		3E55152AC0EADFA8E2E3EF15 /* Pods_LCTodayNews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D86AF4DAC1125117EF54439 /* Pods_LCTodayNews.framework */; };
 		4349FD5521533B5100DDB94F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4349FD5421533B5100DDB94F /* AppDelegate.swift */; };
 		4349FD5A21533B5100DDB94F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4349FD5821533B5100DDB94F /* Main.storyboard */; };
-		4349FD5C21533B5200DDB94F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4349FD5B21533B5200DDB94F /* Assets.xcassets */; };
 		4349FD5F21533B5200DDB94F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4349FD5D21533B5200DDB94F /* LaunchScreen.storyboard */; };
+		435B1F8321534DB600A2AB3B /* LCTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B1F8221534DB600A2AB3B /* LCTabBarController.swift */; };
+		435B1F8521535BBD00A2AB3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 435B1F8421535BBD00A2AB3B /* Assets.xcassets */; };
+		435B1F8B2153D0C700A2AB3B /* UIKit+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B1F8A2153D0C700A2AB3B /* UIKit+Extension.swift */; };
+		435B1F8D2154785300A2AB3B /* LCTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B1F8C2154785300A2AB3B /* LCTableViewController.swift */; };
+		435B1F8F215479BB00A2AB3B /* LCRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B1F8E215479BB00A2AB3B /* LCRefresh.swift */; };
+		435B1F9221548E3700A2AB3B /* LCDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B1F9121548E3700A2AB3B /* LCDataSource.swift */; };
+		435B1F96215502C900A2AB3B /* LCHomeNaVBarTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B1F95215502C900A2AB3B /* LCHomeNaVBarTitle.swift */; };
+		435B1F99215516F100A2AB3B /* LCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B1F98215516F100A2AB3B /* LCService.swift */; };
+		435B1F9B2155CC9000A2AB3B /* LCServerTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B1F9A2155CC9000A2AB3B /* LCServerTool.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4349FD5121533B5100DDB94F /* LCTodayNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LCTodayNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4349FD5421533B5100DDB94F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4349FD5921533B5100DDB94F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4349FD5B21533B5200DDB94F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4349FD5E21533B5200DDB94F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4349FD6021533B5200DDB94F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		435B1F8221534DB600A2AB3B /* LCTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCTabBarController.swift; sourceTree = "<group>"; };
+		435B1F8421535BBD00A2AB3B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		435B1F8A2153D0C700A2AB3B /* UIKit+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Extension.swift"; sourceTree = "<group>"; };
+		435B1F8C2154785300A2AB3B /* LCTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCTableViewController.swift; sourceTree = "<group>"; };
+		435B1F8E215479BB00A2AB3B /* LCRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCRefresh.swift; sourceTree = "<group>"; };
+		435B1F9121548E3700A2AB3B /* LCDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCDataSource.swift; sourceTree = "<group>"; };
+		435B1F95215502C900A2AB3B /* LCHomeNaVBarTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCHomeNaVBarTitle.swift; sourceTree = "<group>"; };
+		435B1F98215516F100A2AB3B /* LCService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LCService.swift; sourceTree = "<group>"; };
+		435B1F9A2155CC9000A2AB3B /* LCServerTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCServerTool.swift; sourceTree = "<group>"; };
 		6D86AF4DAC1125117EF54439 /* Pods_LCTodayNews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LCTodayNews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		846FF45BBFFED82FA92FFD30 /* Pods-LCTodayNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LCTodayNews.release.xcconfig"; path = "Pods/Target Support Files/Pods-LCTodayNews/Pods-LCTodayNews.release.xcconfig"; sourceTree = "<group>"; };
 		FF1528303C91EF61AD8F45B3 /* Pods-LCTodayNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LCTodayNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LCTodayNews/Pods-LCTodayNews.debug.xcconfig"; sourceTree = "<group>"; };
@@ -43,6 +59,7 @@
 			children = (
 				4349FD5321533B5100DDB94F /* LCTodayNews */,
 				4349FD5221533B5100DDB94F /* Products */,
+				435B1F8421535BBD00A2AB3B /* Assets.xcassets */,
 				FF72EF0EF889370382FFF50A /* Pods */,
 				4C624F27C1FD4F74BD88A1E4 /* Frameworks */,
 			);
@@ -63,7 +80,6 @@
 				435B1F7A2153495D00A2AB3B /* Main */,
 				4349FD5421533B5100DDB94F /* AppDelegate.swift */,
 				4349FD5821533B5100DDB94F /* Main.storyboard */,
-				4349FD5B21533B5200DDB94F /* Assets.xcassets */,
 				4349FD5D21533B5200DDB94F /* LaunchScreen.storyboard */,
 				4349FD6021533B5200DDB94F /* Info.plist */,
 			);
@@ -73,6 +89,9 @@
 		435B1F7A2153495D00A2AB3B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				435B1F97215516F100A2AB3B /* Tools */,
+				435B1F9021548E1300A2AB3B /* protocol */,
+				435B1F892153D0C700A2AB3B /* Extension */,
 				435B1F7B2153495D00A2AB3B /* Model */,
 				435B1F7C2153495D00A2AB3B /* View */,
 				435B1F7D2153495D00A2AB3B /* ViewController */,
@@ -90,6 +109,7 @@
 		435B1F7C2153495D00A2AB3B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				435B1F8E215479BB00A2AB3B /* LCRefresh.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -97,6 +117,8 @@
 		435B1F7D2153495D00A2AB3B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				435B1F8221534DB600A2AB3B /* LCTabBarController.swift */,
+				435B1F8C2154785300A2AB3B /* LCTableViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -114,6 +136,7 @@
 		435B1F7F2153495D00A2AB3B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				435B1F95215502C900A2AB3B /* LCHomeNaVBarTitle.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -130,6 +153,31 @@
 			children = (
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		435B1F892153D0C700A2AB3B /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				435B1F8A2153D0C700A2AB3B /* UIKit+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		435B1F9021548E1300A2AB3B /* protocol */ = {
+			isa = PBXGroup;
+			children = (
+				435B1F9121548E3700A2AB3B /* LCDataSource.swift */,
+			);
+			path = protocol;
+			sourceTree = "<group>";
+		};
+		435B1F97215516F100A2AB3B /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				435B1F98215516F100A2AB3B /* LCService.swift */,
+				435B1F9A2155CC9000A2AB3B /* LCServerTool.swift */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 		4C624F27C1FD4F74BD88A1E4 /* Frameworks */ = {
@@ -210,7 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4349FD5F21533B5200DDB94F /* LaunchScreen.storyboard in Resources */,
-				4349FD5C21533B5200DDB94F /* Assets.xcassets in Resources */,
+				435B1F8521535BBD00A2AB3B /* Assets.xcassets in Resources */,
 				4349FD5A21533B5100DDB94F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -244,6 +292,8 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LCTodayNews/Pods-LCTodayNews-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Nocilla/Nocilla.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
@@ -257,6 +307,8 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nocilla.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
@@ -279,7 +331,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				435B1F8D2154785300A2AB3B /* LCTableViewController.swift in Sources */,
+				435B1F9B2155CC9000A2AB3B /* LCServerTool.swift in Sources */,
+				435B1F8F215479BB00A2AB3B /* LCRefresh.swift in Sources */,
+				435B1F99215516F100A2AB3B /* LCService.swift in Sources */,
+				435B1F9221548E3700A2AB3B /* LCDataSource.swift in Sources */,
+				435B1F8321534DB600A2AB3B /* LCTabBarController.swift in Sources */,
+				435B1F8B2153D0C700A2AB3B /* UIKit+Extension.swift in Sources */,
 				4349FD5521533B5100DDB94F /* AppDelegate.swift in Sources */,
+				435B1F96215502C900A2AB3B /* LCHomeNaVBarTitle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
