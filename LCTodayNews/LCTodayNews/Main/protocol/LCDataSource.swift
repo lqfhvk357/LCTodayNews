@@ -45,6 +45,7 @@ extension ResponseToModel where Self: Decodable{
         let dcit = self.dictsFrom(response)
         if let json = try? dcit.rawData(){
             if let model = try? JSONDecoder().decode(Self.self, from: json){
+                print(model)
                 return model
             }
         }
