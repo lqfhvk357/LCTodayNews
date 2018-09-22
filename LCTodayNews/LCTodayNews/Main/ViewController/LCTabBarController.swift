@@ -26,7 +26,7 @@ class LCTabBarController: UITabBarController {
             
             switch imageName {
             case "home":
-                viewController = UIViewController()
+                viewController = LCTableViewController()
                 title = "首页"
             case "video":
                 viewController = UIViewController()

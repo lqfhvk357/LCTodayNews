@@ -14,6 +14,11 @@
 		435B1F8321534DB600A2AB3B /* LCTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B1F8221534DB600A2AB3B /* LCTabBarController.swift */; };
 		435B1F8521535BBD00A2AB3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 435B1F8421535BBD00A2AB3B /* Assets.xcassets */; };
 		435B1F8B2153D0C700A2AB3B /* UIKit+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B1F8A2153D0C700A2AB3B /* UIKit+Extension.swift */; };
+		435B1F8D2154785300A2AB3B /* LCTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B1F8C2154785300A2AB3B /* LCTableViewController.swift */; };
+		435B1F8F215479BB00A2AB3B /* LCRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B1F8E215479BB00A2AB3B /* LCRefresh.swift */; };
+		435B1F9221548E3700A2AB3B /* LCDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B1F9121548E3700A2AB3B /* LCDataSource.swift */; };
+		435B1F96215502C900A2AB3B /* LCTitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B1F95215502C900A2AB3B /* LCTitleModel.swift */; };
+		435B1F99215516F100A2AB3B /* LCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B1F98215516F100A2AB3B /* LCService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +30,11 @@
 		435B1F8221534DB600A2AB3B /* LCTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCTabBarController.swift; sourceTree = "<group>"; };
 		435B1F8421535BBD00A2AB3B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		435B1F8A2153D0C700A2AB3B /* UIKit+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Extension.swift"; sourceTree = "<group>"; };
+		435B1F8C2154785300A2AB3B /* LCTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCTableViewController.swift; sourceTree = "<group>"; };
+		435B1F8E215479BB00A2AB3B /* LCRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCRefresh.swift; sourceTree = "<group>"; };
+		435B1F9121548E3700A2AB3B /* LCDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCDataSource.swift; sourceTree = "<group>"; };
+		435B1F95215502C900A2AB3B /* LCTitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCTitleModel.swift; sourceTree = "<group>"; };
+		435B1F98215516F100A2AB3B /* LCService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LCService.swift; sourceTree = "<group>"; };
 		6D86AF4DAC1125117EF54439 /* Pods_LCTodayNews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LCTodayNews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		846FF45BBFFED82FA92FFD30 /* Pods-LCTodayNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LCTodayNews.release.xcconfig"; path = "Pods/Target Support Files/Pods-LCTodayNews/Pods-LCTodayNews.release.xcconfig"; sourceTree = "<group>"; };
 		FF1528303C91EF61AD8F45B3 /* Pods-LCTodayNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LCTodayNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LCTodayNews/Pods-LCTodayNews.debug.xcconfig"; sourceTree = "<group>"; };
@@ -77,6 +87,8 @@
 		435B1F7A2153495D00A2AB3B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				435B1F97215516F100A2AB3B /* Tools */,
+				435B1F9021548E1300A2AB3B /* protocol */,
 				435B1F892153D0C700A2AB3B /* Extension */,
 				435B1F7B2153495D00A2AB3B /* Model */,
 				435B1F7C2153495D00A2AB3B /* View */,
@@ -88,6 +100,7 @@
 		435B1F7B2153495D00A2AB3B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				435B1F95215502C900A2AB3B /* LCTitleModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -95,6 +108,7 @@
 		435B1F7C2153495D00A2AB3B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				435B1F8E215479BB00A2AB3B /* LCRefresh.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -103,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				435B1F8221534DB600A2AB3B /* LCTabBarController.swift */,
+				435B1F8C2154785300A2AB3B /* LCTableViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -144,6 +159,22 @@
 				435B1F8A2153D0C700A2AB3B /* UIKit+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		435B1F9021548E1300A2AB3B /* protocol */ = {
+			isa = PBXGroup;
+			children = (
+				435B1F9121548E3700A2AB3B /* LCDataSource.swift */,
+			);
+			path = protocol;
+			sourceTree = "<group>";
+		};
+		435B1F97215516F100A2AB3B /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				435B1F98215516F100A2AB3B /* LCService.swift */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 		4C624F27C1FD4F74BD88A1E4 /* Frameworks */ = {
@@ -258,6 +289,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LCTodayNews/Pods-LCTodayNews-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Nocilla/Nocilla.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
@@ -271,6 +303,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nocilla.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
@@ -293,9 +326,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				435B1F8D2154785300A2AB3B /* LCTableViewController.swift in Sources */,
+				435B1F8F215479BB00A2AB3B /* LCRefresh.swift in Sources */,
+				435B1F99215516F100A2AB3B /* LCService.swift in Sources */,
+				435B1F9221548E3700A2AB3B /* LCDataSource.swift in Sources */,
 				435B1F8321534DB600A2AB3B /* LCTabBarController.swift in Sources */,
 				435B1F8B2153D0C700A2AB3B /* UIKit+Extension.swift in Sources */,
 				4349FD5521533B5100DDB94F /* AppDelegate.swift in Sources */,
+				435B1F96215502C900A2AB3B /* LCTitleModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

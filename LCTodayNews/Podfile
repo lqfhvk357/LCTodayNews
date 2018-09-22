@@ -13,7 +13,8 @@ target 'LCTodayNews' do
   pod 'Nocilla',  :git => 'https://github.com/onevcat/Nocilla.git', :branch => 'swift4'
   pod 'Spring', :git => 'https://github.com/MengTo/Spring.git'
   pod 'Moya/RxSwift', '~> 11.0'
-  pod "PromiseKit", "~> 6.0"  
+  pod "PromiseKit", "~> 6.0"
+  pod 'MJRefresh'
 # Pods for LCTodayNews
 
 end

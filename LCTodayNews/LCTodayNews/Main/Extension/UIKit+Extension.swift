@@ -49,8 +49,53 @@ extension UIColor {
         self.init(red: (CGFloat)((rgb & 0xFF0000) >> 16)/255.0, green: (CGFloat)((rgb & 0x00FF00) >> 8)/255.0, blue: (CGFloat)((rgb & 0x0000FF) >> 0)/255.0, alpha: 1)
     }
     
-    /// 背景色 f8f9f7
+    
     class func globalBackgroundColor() -> UIColor {
-        return UIColor(0xf8f9f7);
+        return UIColor(0xf8f9f7)
+    }
+    
+    class func tableViewBackgoundColor() -> UIColor {
+        return UIColor(0xf6f6f6)
     }
 }
+
+
+// UITableView & UICollectionView
+protocol ReusableView {}
+extension ReusableView where Self: UIView {
+    static var reuseIdentifier: String {
+        return NSStringFromClass(self)
+    }
+}
+extension UITableViewCell: ReusableView { }
+extension UICollectionViewCell: ReusableView { }
+
+
+protocol NibLoadableView: class { }
+extension NibLoadableView where Self: UIView {
+    static var NibName: String {
+        return NSStringFromClass(self)
+    }
+}
+extension UITableViewCell: NibLoadableView { }
+extension UICollectionViewCell: NibLoadableView { }
+
+
+extension UITableView {
+    func registerCell<T: UITableViewCell>(_: T.Type) {
+        let Nib = UINib(nibName: T.NibName, bundle: nil)
+        register(Nib, forCellReuseIdentifier: T.reuseIdentifier)
+    }
+}
+
+extension UICollectionView{
+    func registerCell<T: UICollectionViewCell>(_: T.Type) {
+        let Nib = UINib(nibName: T.NibName, bundle: nil)
+        register(Nib, forCellWithReuseIdentifier: T.reuseIdentifier)
+    }
+}
+
+
+
+
+
