@@ -14,39 +14,24 @@ import SwiftyJSON
 import HandyJSON
 
 public protocol ResponseToModel {
-    static func dictsFrom(_ response: Response) -> JSON
-    static func modelArrayform(_ response: Response) -> [Self]
+    static func SwiftyJSONFrom(_ response: Response) -> JSON
     static func modelform(_ response: Response) -> Self?
 }
 
 extension ResponseToModel where Self: Decodable{
-    static func dictsFrom(_ response: Response) -> JSON {
+    static func SwiftyJSONFrom(_ response: Response) -> JSON {
         let json = JSON(response.data)
-        return json["data"]["data"]
-    }
-    
-    static func modelArrayform(_ response: Response) -> [Self] {
-        let array = self.dictsFrom(response)
-        var titles = [Self]()
-        if let jsonArray = try? array.rawData(){
-            if let modelArray = try? JSONDecoder().decode([Self].self, from: jsonArray){
-                titles = modelArray
-            }
-        }
-        
-        if titles.count > 0 {
-            return titles;
-        }else{
-            return [];
-        }
+        return json
     }
     
     static func modelform(_ response: Response) -> Self? {
-        let dcit = self.dictsFrom(response)
+        let dcit = self.SwiftyJSONFrom(response)
         if let json = try? dcit.rawData(){
-            if let model = try? JSONDecoder().decode(Self.self, from: json){
-                print(model)
+            do {
+                let model = try JSONDecoder().decode(Self.self, from: json)
                 return model
+            }catch{
+                print(error)
             }
         }
         return nil

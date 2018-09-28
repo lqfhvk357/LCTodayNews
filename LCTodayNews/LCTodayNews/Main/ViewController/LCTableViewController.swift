@@ -15,7 +15,7 @@ import SwiftyJSON
 
 class LCTableViewController: UITableViewController {
 
-    var titles = [LCNavTitle]()
+    var titles = [LCHomerTitleData]()
     
     
     
@@ -26,20 +26,65 @@ class LCTableViewController: UITableViewController {
         self.tableView.backgroundColor = UIColor.tableViewBackgoundColor()
         tableView.registerCell(UITableViewCell.self)
         self.tableView.mj_header = LCRefreshHeader{ [weak self] in
-            LCServerTool.requestHomeTiltes(completion: { result in
-                self?.tableView.mj_header.endRefreshing()
-                switch result {
-                case .success(let response):
-                    let titles = LCNavTitle.modelArrayform(response)
-                    print(titles)
-                    
-                    self!.titles = titles
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            })
+            
         }
-        tableView.reloadData()
+        
+//        LCServerTool.requestHomeTiltes(completion: { result in
+//            switch result {
+//            case .success(let response):
+//                print("requestHomeTiltes:\n\(JSON(response.data))");
+//
+//                if let titles = LCHomerTitleData.modelform(response){
+//                    print("requestHomeTiltes:\n\(titles)");
+//                }
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        })
+//
+//        LCServerTool.requestHomeMoreTitles { result in
+//            switch result {
+//            case .success(let response):
+//                let titles = LCHomerTitleData.modelArrayform(response)
+////                print("requestHomeMoreTitles:\n\(titles)");
+//
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
+        
+        
+//        LCServerTool.requsetHomeSearchBarInfo{ result in
+//            switch result {
+//            case .success(let response):
+//                if let titles = LCHomeSearchInfoData.modelform(response) {
+//                    print("requsetHomeSearchBarInfo:\n\(titles)");
+//                }
+//
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
+//
+        
+        LCServerTool.requestHomeNews(forCategory:.recommend){ result in
+            switch result {
+            case .success(let response):
+//                print("requestHomeNews:\n\(JSON(response.data))");
+//                if let titles = LCHomeNews.modelArrayform(response) {
+//                    print("requsetHomeSearchBarInfo:\n\(titles)");
+//                }
+
+                if let titles = LCHomeNewsData.modelform(response){
+                    print("requsetHomeSearchBarInfo:\n\(titles.data)");
+                }
+
+
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
         
 //        datas = ["1", "2"]
         

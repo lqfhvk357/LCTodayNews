@@ -40,7 +40,6 @@ extension UIView {
 }
 
 extension UIColor {
-    
     convenience init(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat) {
         self.init(red: r/255.0, green: g/255.0, blue: g/255.0, alpha: 1)
     }
