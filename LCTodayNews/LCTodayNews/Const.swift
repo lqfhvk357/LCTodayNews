@@ -7,6 +7,14 @@
 //
 
 import Foundation
+import UIKit
 
-let device_id: Int = 6096495334
-let iid: Int = 5034850950
+/// device
+let Device_id: Int = 6096495334
+let Iid: Int = 5034850950
+let ScreenWidth = UIScreen.main.bounds.width
+let ScreenHeight = UIScreen.main.bounds.height
+
+/// key of userDefaults
+let HomeTitlesKey = "HomeTitlesKey"
+

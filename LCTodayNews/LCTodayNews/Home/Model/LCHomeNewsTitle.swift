@@ -22,34 +22,44 @@ import Moya
 //    "web_url" = "";
 
 
-
-
-
-struct LCHomerTitleData: Decodable {
-    let message: String
+struct LCHomeNewsTitle : Decodable{
+    let category: String
+    var concern_id: String?
+    var default_add: Int?
+    var flags: Int?
+    var icon_url: String?
+    let name: String
+    var tip_new: Int?
+    var type: Int?
+    var web_url: String?
     
-    struct LCHomerTitleSubData: Decodable {
-        let version: String
-        
-        struct LCHomerTitle : Decodable{
-            let category: String
-            let concern_id: String
-            let default_add: Int
-            let flags: Int
-            let icon_url: String
-            let name: String
-            let tip_new: Int
-            let type: Int
-            let web_url: String?
-            
-            let select: Bool?
-        }
-        let data: [LCHomerTitle]
+    var select: Bool? = false
+    
+    init(category: String, name: String, select: Bool = false){
+        self.category = category
+        self.name = name
+        self.select = select
     }
-    let data: LCHomerTitleSubData
+    
+    var titleDict: [String : String]? {
+        get {
+            return ["category" : category, "name" : name]
+        }
+    }
+    
 }
 
-extension LCHomerTitleData: ResponseToModel{}
+struct LCHomeNewsTitleData: Decodable {
+    let message: String
+    
+    struct LCHomeNewsTitleSubData: Decodable {
+        let version: String
+        let data: [LCHomeNewsTitle]
+    }
+    let data: LCHomeNewsTitleSubData
+}
+
+extension LCHomeNewsTitleData: ResponseToModel{}
 
 ///新闻标题category
 enum LCTitleType: String {

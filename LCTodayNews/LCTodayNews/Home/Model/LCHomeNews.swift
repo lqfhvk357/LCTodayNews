@@ -128,16 +128,17 @@ struct LCHomeNewsDesc: Decodable {
         let follower_count: Int
         let name: String
 
-        struct User_info_auth: Decodable {
-            let auth_type: Int
+        struct user_info_auth: Decodable {
+            let auth_type: String
             let auth_info: String
         }
         let user_auth_info: String?
+        var user_auth_info_model: user_info_auth?
         let user_id: Int
         let user_verified: Bool
         let verified_content: String?
     }
-    let user_info: newUser_info?
+    var user_info: newUser_info?
     let user_repin: Int
     let user_verified: Int
     let verified_content: String
@@ -157,27 +158,30 @@ struct LCHomeNewsData: Decodable {
     var data: [LCHomeNews]
 }
 
+extension LCHomeNewsDesc: ResponseToModel{}
+extension LCHomeNewsDesc.newUser_info.user_info_auth: ResponseToModel{}
+
 extension LCHomeNewsData: ResponseToModel{
     static func modelform(_ response: Response) -> LCHomeNewsData? {
-        let json = JSON(response.data)
-        do {
-            var newsData = try JSONDecoder().decode(LCHomeNewsData.self, from: json.rawData())
-            let datas = newsData.data.map { homeNews -> LCHomeNewsData.LCHomeNews in
-//                print(homeNews.content)
-                do {
-                    let contentModel = try JSONDecoder().decode(LCHomeNewsDesc.self, from: homeNews.content.data(using: .utf8)!)
-                    return LCHomeNews.init(code: homeNews.code, content: "", contentModel: contentModel)
-                }catch{
-                    print(error)
+        let dict = swiftyJSONFrom(response)
+        if let json = try? dict.rawData(){
+            if let newsData = modelform(json){
+                var newsData_m = newsData
+                newsData_m.data = newsData.data.map { homeNews -> LCHomeNewsData.LCHomeNews in
+                    if let contentModel = LCHomeNewsDesc.modelform(homeNews.content){
+                        var contentModel_m = contentModel
+                        if let user_auth_info = contentModel.user_info?.user_auth_info{
+                            if let user_auth_info_model = LCHomeNewsDesc.newUser_info.user_info_auth.modelform(user_auth_info){
+                                contentModel_m.user_info?.user_auth_info_model = user_auth_info_model
+                                return LCHomeNews.init(code: homeNews.code, content: "", contentModel: contentModel_m)
+                            }
+                        }
+                    }
                     return homeNews
                 }
+                return newsData_m
             }
-            newsData.data = datas
-            return newsData
-        }catch{
-            print(error)
         }
-
         return nil
     }
 }

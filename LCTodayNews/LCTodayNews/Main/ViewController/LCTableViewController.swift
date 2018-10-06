@@ -15,7 +15,7 @@ import SwiftyJSON
 
 class LCTableViewController: UITableViewController {
 
-    var titles = [LCHomerTitleData]()
+    var titles = [LCHomeNewsTitle]()
     
     
     
@@ -23,8 +23,8 @@ class LCTableViewController: UITableViewController {
         super.viewDidLoad()
         
         
-        self.tableView.backgroundColor = UIColor.tableViewBackgoundColor()
-        tableView.registerCell(UITableViewCell.self)
+        self.tableView.backgroundColor = UIColor.tableViewBackgoundColor
+//        tableView.lc_registerCell(cellClass: UITableViewCell.self)
         self.tableView.mj_header = LCRefreshHeader{ [weak self] in
             
         }

@@ -18,20 +18,20 @@ class LCServerTool {
     
     ///首页新闻标题
     static func requestHomeTiltes(completion: @escaping Completion) -> () {
-        let target = LCHomeService.homeTitles(device_id: device_id, iid: iid)
+        let target = LCHomeService.homeTitles(device_id: Device_id, iid: Iid)
         requestData(target, completion: completion)
     }
     
     ///首页导航栏搜索接口
     static func requsetHomeSearchBarInfo(completion: @escaping Completion) -> (){
-        let target = LCHomeService.homeSearchBarInfo(device_id: device_id, iid: iid)
+        let target = LCHomeService.homeSearchBarInfo(device_id: Device_id, iid: Iid)
         requestData(target, completion: completion)
     }
     
     
     ///首页更多新闻标题
     static func requestHomeMoreTitles(completion: @escaping Completion) -> () {
-        let target = LCHomeService.homeMoreTitles(device_id: device_id, iid: iid)
+        let target = LCHomeService.homeMoreTitles(device_id: Device_id, iid: Iid)
         requestData(target, completion: completion)
     }
     
@@ -44,7 +44,7 @@ class LCServerTool {
                                  min_behot_time: Int = 0,
                                  max_behot_time: Int = 0,
                                 completion: @escaping Completion) -> () {
-        let target = LCHomeService.homeNews(device_id: device_id, category: category.rawValue, tt_from: tt_from, refresh_reason: refresh_reason, strict: strict, detail: detail, min_behot_time: min_behot_time, max_behot_time: max_behot_time)
+        let target = LCHomeService.homeNews(device_id: Device_id, category: category.rawValue, tt_from: tt_from, refresh_reason: refresh_reason, strict: strict, detail: detail, min_behot_time: min_behot_time, max_behot_time: max_behot_time)
         requestData(target, completion: completion)
     }
 }

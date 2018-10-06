@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="LCAllTitleView" customModule="LCTodayNews" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fAb-8Q-dkT">
+                    <rect key="frame" x="14" y="14" width="24" height="24"/>
+                    <state key="normal" backgroundImage="close_channel"/>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="D2E-Xz-2I6">
+                    <rect key="frame" x="16" y="58" width="343" height="609"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="D2E-Xz-2I6" secondAttribute="trailing" constant="16" id="8VX-3I-KgP"/>
+                <constraint firstItem="fAb-8Q-dkT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="14" id="ChI-I0-oq5"/>
+                <constraint firstItem="fAb-8Q-dkT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="14" id="Fnn-mH-LhQ"/>
+                <constraint firstAttribute="bottom" secondItem="D2E-Xz-2I6" secondAttribute="bottom" id="WfM-mn-u2K"/>
+                <constraint firstItem="D2E-Xz-2I6" firstAttribute="top" secondItem="fAb-8Q-dkT" secondAttribute="bottom" constant="20" id="cJU-wy-p4p"/>
+                <constraint firstItem="D2E-Xz-2I6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="oJI-kx-7Eb"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="close_channel" width="24" height="24"/>
+    </resources>
+</document>
