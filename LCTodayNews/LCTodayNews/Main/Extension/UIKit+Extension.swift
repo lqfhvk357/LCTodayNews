@@ -40,8 +40,7 @@ extension UIView {
 }
 
 extension UIColor {
-    
-    convenience init(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat) {
+    convenience init(r: CGFloat, g: CGFloat, b: CGFloat) {
         self.init(red: r/255.0, green: g/255.0, blue: g/255.0, alpha: 1)
     }
     
@@ -50,13 +49,30 @@ extension UIColor {
     }
     
     
-    class func globalBackgroundColor() -> UIColor {
-        return UIColor(0xf8f9f7)
+    class var globalBackgroundColor: UIColor {
+        get {
+            return UIColor(0xf8f9f7)
+        }
     }
     
-    class func tableViewBackgoundColor() -> UIColor {
-        return UIColor(0xf6f6f6)
+    class var tableViewBackgoundColor: UIColor {
+        get {
+             return UIColor(0xf6f6f6)
+        }
     }
+    
+    class var navbarBarTint: UIColor {
+        get {
+            return UIColor(0xD33E42)
+        }
+    }
+    
+    class var tarbarTint: UIColor {
+        get {
+            return UIColor(0xf55a5d)
+        }
+    }
+    
 }
 
 
@@ -64,7 +80,11 @@ extension UIColor {
 protocol ReusableView {}
 extension ReusableView where Self: UIView {
     static var reuseIdentifier: String {
-        return NSStringFromClass(self)
+        return "\(self)"
+    }
+    
+    static var nib: UINib {
+        return UINib(nibName: reuseIdentifier, bundle: nil)
     }
 }
 extension UITableViewCell: ReusableView { }
@@ -73,25 +93,29 @@ extension UICollectionViewCell: ReusableView { }
 
 protocol NibLoadableView: class { }
 extension NibLoadableView where Self: UIView {
-    static var NibName: String {
-        return NSStringFromClass(self)
+    static var nibName: String {
+        return "\(self)"
     }
-}
-extension UITableViewCell: NibLoadableView { }
-extension UICollectionViewCell: NibLoadableView { }
 
+}
 
 extension UITableView {
-    func registerCell<T: UITableViewCell>(_: T.Type) {
-        let Nib = UINib(nibName: T.NibName, bundle: nil)
-        register(Nib, forCellReuseIdentifier: T.reuseIdentifier)
+    func lc_registerNibCell<T: UITableViewCell>(cellClass: T.Type) {
+        register(T.nib, forCellReuseIdentifier: T.reuseIdentifier)
+    }
+    
+    func lc_dequeueReusableCell<T: UITableViewCell>(indexPath: IndexPath) -> T {
+        return dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath) as! T
     }
 }
 
 extension UICollectionView{
-    func registerCell<T: UICollectionViewCell>(_: T.Type) {
-        let Nib = UINib(nibName: T.NibName, bundle: nil)
-        register(Nib, forCellWithReuseIdentifier: T.reuseIdentifier)
+    func lc_registerNibCell<T: UICollectionViewCell>(cellClass: T.Type) {
+        register(T.nib, forCellWithReuseIdentifier: T.reuseIdentifier)
+    }
+    
+    func lc_dequeueReusableCell<T: UICollectionViewCell>(indexPath: IndexPath) -> T {
+        return dequeueReusableCell(withReuseIdentifier: T.reuseIdentifier, for: indexPath) as! T
     }
 }
 

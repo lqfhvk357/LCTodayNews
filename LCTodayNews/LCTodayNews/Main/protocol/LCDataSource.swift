@@ -14,41 +14,45 @@ import SwiftyJSON
 import HandyJSON
 
 public protocol ResponseToModel {
-    static func dictsFrom(_ response: Response) -> JSON
-    static func modelArrayform(_ response: Response) -> [Self]
+    static func swiftyJSONFrom(_ response: Response) -> JSON
     static func modelform(_ response: Response) -> Self?
+    static func modelform(_ data: Data) -> Self?
+    static func modelform(_ content: String) -> Self?
 }
 
 extension ResponseToModel where Self: Decodable{
-    static func dictsFrom(_ response: Response) -> JSON {
+    static func swiftyJSONFrom(_ response: Response) -> JSON {
         let json = JSON(response.data)
-        return json["data"]["data"]
-    }
-    
-    static func modelArrayform(_ response: Response) -> [Self] {
-        let array = self.dictsFrom(response)
-        var titles = [Self]()
-        if let jsonArray = try? array.rawData(){
-            if let modelArray = try? JSONDecoder().decode([Self].self, from: jsonArray){
-                titles = modelArray
-            }
-        }
-        
-        if titles.count > 0 {
-            return titles;
-        }else{
-            return [];
-        }
+        return json
     }
     
     static func modelform(_ response: Response) -> Self? {
-        let dcit = self.dictsFrom(response)
+        let dcit = swiftyJSONFrom(response)
         if let json = try? dcit.rawData(){
-            if let model = try? JSONDecoder().decode(Self.self, from: json){
-                print(model)
-                return model
+            if let model = modelform(json){
+                return model;
             }
         }
         return nil
+    }
+    
+    static func modelform(_ data: Data) -> Self?{
+        do {
+            let model = try JSONDecoder().decode(Self.self, from: data)
+            return model
+        }catch{
+            print(error)
+            return nil
+        }
+    }
+    
+    static func modelform(_ content: String) -> Self?{
+        do {
+            let contentModel = try JSONDecoder().decode(Self.self, from: content.data(using: .utf8)!)
+            return contentModel
+        }catch{
+            print(error)
+            return nil
+        }
     }
 }

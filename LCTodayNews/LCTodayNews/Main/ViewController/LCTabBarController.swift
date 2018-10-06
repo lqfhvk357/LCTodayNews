@@ -14,7 +14,7 @@ class LCTabBarController: UITabBarController {
         super.viewDidLoad()
 
         let appearance = UITabBar.appearance()
-        appearance.tintColor = UIColor(0xf55a5d)
+        appearance.tintColor = UIColor.tarbarTint
         appearance.barTintColor = UIColor.white
         
         var imageNames = ["home", "video", "weitoutiao", "huoshan", ]
@@ -26,7 +26,7 @@ class LCTabBarController: UITabBarController {
             
             switch imageName {
             case "home":
-                viewController = LCTableViewController()
+                viewController = LCHomeViewController()
                 title = "首页"
             case "video":
                 viewController = UIViewController()
@@ -54,7 +54,8 @@ class LCTabBarController: UITabBarController {
     
     func addChildViewController(_ viewController: UIViewController, withTabBarItem item: UITabBarItem) -> () {
         viewController.tabBarItem = item
-        self.addChildViewController(viewController)
+        let nav = LCNavigationController.init(rootViewController: viewController)
+        self.addChildViewController(nav)
     }
 }
 
