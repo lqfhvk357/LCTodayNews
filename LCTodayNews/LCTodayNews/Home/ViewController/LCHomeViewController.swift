@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class LCHomeViewController: UIViewController  {
     
@@ -23,13 +24,35 @@ class LCHomeViewController: UIViewController  {
     }
     
     var titles : [LCHomeNewsTitle] = []
+    var others : [LCHomeNewsTitle] = []
+    
     weak var collectionView: UICollectionView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.edgesForExtendedLayout = UIRectEdge()
+        self.getTitles()
+        self.getOtherTitles()
+        self.sutupNewsTitleView()
+    }
+    
+    
+    func sutupNewsTitleView() -> (){
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        let collectionView = UICollectionView.init(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 44), collectionViewLayout: flowLayout)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = UIColor.clear
+        collectionView.lc_registerNibCell(cellClass: LCHomeTitleCell.self)
+        collectionView.delegate = self
+        collectionView.dataSource  = self
         
+        self.view.addSubview(collectionView)
+        self.collectionView = collectionView
+    }
+    
+    func getTitles() -> () {
         if let titles = UserDefaults.standard.object(forKey: HomeTitlesKey) as? Array<Dictionary<String, String>> {
             self.titles = titles.map { dict -> LCHomeNewsTitle in
                 if let category = dict["category"], let name = dict["name"]{
@@ -40,7 +63,7 @@ class LCHomeViewController: UIViewController  {
             }
             let defaultTitle = LCHomeNewsTitle.init(category: "", name: "推荐", select: true)
             self.titles.insert(defaultTitle, at: 0)
-//            self.titles = titles as! [String :String]s
+            //            self.titles = titles as! [String :String]s
         }else{
             LCServerTool.requestHomeTiltes { result in
                 switch result {
@@ -62,24 +85,34 @@ class LCHomeViewController: UIViewController  {
                 }
             }
         }
-        
-        
-        
-        
-        
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        let collectionView = UICollectionView.init(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 44), collectionViewLayout: flowLayout)
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = UIColor.clear
-        collectionView.lc_registerNibCell(cellClass: LCHomeTitleCell.self)
-        collectionView.delegate = self
-        collectionView.dataSource  = self
-        
-        self.view.addSubview(collectionView)
-        self.collectionView = collectionView
-        
-        // Do any additional setup after loading the view.
+    }
+    
+    func getOtherTitles() -> () {
+        if let otherTitles = UserDefaults.standard.object(forKey: HomeOtherTitlesKey) as? Array<Dictionary<String, String>> {
+            self.others = otherTitles.map { dict -> LCHomeNewsTitle in
+                if let category = dict["category"], let name = dict["name"]{
+                    return LCHomeNewsTitle.init(category: category, name: name)
+                }else{
+                    return LCHomeNewsTitle.init(category: "", name: "")
+                }
+            }
+        }else{
+            LCServerTool.requestHomeMoreTitles { result in
+                switch result {
+                case .success(let response):
+                    if let titleDatas = LCHomeNewsTitleData.modelform(response){
+                        self.others = titleDatas.data.data
+                        print(self.others)
+                        let titleDicts = titleDatas.data.data.map{ newsTitle in
+                            return newsTitle.titleDict
+                        }
+                        UserDefaults.standard.set(titleDicts, forKey: HomeOtherTitlesKey)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
 
 }
@@ -96,7 +129,18 @@ extension LCHomeViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = LCAllNewsTitlesController.init(collectionViewLayout: UICollectionViewFlowLayout())
-        self.present(vc, animated: true, completion: nil)
+        let titleView = LCAllTitleView.lc_loadForBundle()
+        let keyWindow = UIApplication.shared.keyWindow!
+        titleView.titles = [self.titles, self.others]
+        keyWindow.addSubview(titleView)
+        titleView.snp.makeConstraints { (make) in
+            if #available(iOS 11.0, *) {
+                make.edges.equalTo(keyWindow.safeAreaLayoutGuide)
+            }else{
+                make.top.equalTo(keyWindow).offset(20)
+                make.left.right.bottom.equalTo(keyWindow)
+            }
+        }
+        
     }
 }

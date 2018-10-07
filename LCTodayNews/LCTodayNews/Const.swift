@@ -17,4 +17,5 @@ let ScreenHeight = UIScreen.main.bounds.height
 
 /// key of userDefaults
 let HomeTitlesKey = "HomeTitlesKey"
+let HomeOtherTitlesKey = "HomeOtherTitlesKey"
 

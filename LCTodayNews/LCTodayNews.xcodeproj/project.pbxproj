@@ -10,6 +10,8 @@
 		3E55152AC0EADFA8E2E3EF15 /* Pods_LCTodayNews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D86AF4DAC1125117EF54439 /* Pods_LCTodayNews.framework */; };
 		43015197215E05A200D3F5E6 /* LCHomeSearchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43015196215E05A200D3F5E6 /* LCHomeSearchInfo.swift */; };
 		43015199215E28BB00D3F5E6 /* LCHomeNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43015198215E28BB00D3F5E6 /* LCHomeNews.swift */; };
+		4337B2732169D02F004848F7 /* LCSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4337B2712169D02F004848F7 /* LCSectionHeader.swift */; };
+		4337B2742169D02F004848F7 /* LCSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4337B2722169D02F004848F7 /* LCSectionHeader.xib */; };
 		4349FD5521533B5100DDB94F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4349FD5421533B5100DDB94F /* AppDelegate.swift */; };
 		4349FD5A21533B5100DDB94F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4349FD5821533B5100DDB94F /* Main.storyboard */; };
 		4349FD5F21533B5200DDB94F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4349FD5D21533B5200DDB94F /* LaunchScreen.storyboard */; };
@@ -116,11 +118,15 @@
 		43A0E78D2168C57B0031BE6C /* LCAllTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A0E78C2168C57B0031BE6C /* LCAllTitleView.xib */; };
 		43A0E7902168CD3E0031BE6C /* LCTitleChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A0E78E2168CD3E0031BE6C /* LCTitleChannelCell.swift */; };
 		43A0E7912168CD3E0031BE6C /* LCTitleChannelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A0E78F2168CD3E0031BE6C /* LCTitleChannelCell.xib */; };
+		43A0E7942169AC350031BE6C /* LCTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A0E7922169AC350031BE6C /* LCTitleCell.swift */; };
+		43A0E7952169AC350031BE6C /* LCTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A0E7932169AC350031BE6C /* LCTitleCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		43015196215E05A200D3F5E6 /* LCHomeSearchInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCHomeSearchInfo.swift; sourceTree = "<group>"; };
 		43015198215E28BB00D3F5E6 /* LCHomeNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCHomeNews.swift; sourceTree = "<group>"; };
+		4337B2712169D02F004848F7 /* LCSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCSectionHeader.swift; sourceTree = "<group>"; };
+		4337B2722169D02F004848F7 /* LCSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LCSectionHeader.xib; sourceTree = "<group>"; };
 		4349FD5121533B5100DDB94F /* LCTodayNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LCTodayNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4349FD5421533B5100DDB94F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4349FD5921533B5100DDB94F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -229,6 +235,8 @@
 		43A0E78C2168C57B0031BE6C /* LCAllTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LCAllTitleView.xib; sourceTree = "<group>"; };
 		43A0E78E2168CD3E0031BE6C /* LCTitleChannelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCTitleChannelCell.swift; sourceTree = "<group>"; };
 		43A0E78F2168CD3E0031BE6C /* LCTitleChannelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LCTitleChannelCell.xib; sourceTree = "<group>"; };
+		43A0E7922169AC350031BE6C /* LCTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCTitleCell.swift; sourceTree = "<group>"; };
+		43A0E7932169AC350031BE6C /* LCTitleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LCTitleCell.xib; sourceTree = "<group>"; };
 		6D86AF4DAC1125117EF54439 /* Pods_LCTodayNews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LCTodayNews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		846FF45BBFFED82FA92FFD30 /* Pods-LCTodayNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LCTodayNews.release.xcconfig"; path = "Pods/Target Support Files/Pods-LCTodayNews/Pods-LCTodayNews.release.xcconfig"; sourceTree = "<group>"; };
 		FF1528303C91EF61AD8F45B3 /* Pods-LCTodayNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LCTodayNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LCTodayNews/Pods-LCTodayNews.debug.xcconfig"; sourceTree = "<group>"; };
@@ -345,6 +353,10 @@
 				43A0E78521661E8B0031BE6C /* LCHomeTitleCell.xib */,
 				43A0E78A2168C4C30031BE6C /* LCAllTitleView.swift */,
 				43A0E78C2168C57B0031BE6C /* LCAllTitleView.xib */,
+				43A0E7922169AC350031BE6C /* LCTitleCell.swift */,
+				43A0E7932169AC350031BE6C /* LCTitleCell.xib */,
+				4337B2712169D02F004848F7 /* LCSectionHeader.swift */,
+				4337B2722169D02F004848F7 /* LCSectionHeader.xib */,
 				43A0E78E2168CD3E0031BE6C /* LCTitleChannelCell.swift */,
 				43A0E78F2168CD3E0031BE6C /* LCTitleChannelCell.xib */,
 			);
@@ -707,10 +719,12 @@
 				435B20292156564100A2AB3B /* 首页-关注-视频-1小图.png in Resources */,
 				435B20492156564100A2AB3B /* weitoutiao_4.png in Resources */,
 				435B200D2156564100A2AB3B /* 首页-无图.png in Resources */,
+				4337B2742169D02F004848F7 /* LCSectionHeader.xib in Resources */,
 				435B20172156564100A2AB3B /* 首页-段子.png in Resources */,
 				435B20332156564100A2AB3B /* 视频-2.png in Resources */,
 				435B20022156564100A2AB3B /* home.md in Resources */,
 				435B20122156564100A2AB3B /* 首页-视频-1小图-1.png in Resources */,
+				43A0E7952169AC350031BE6C /* LCTitleCell.xib in Resources */,
 				435B1FFD2156564100A2AB3B /* mkdocs.yml in Resources */,
 				435B20052156564100A2AB3B /* user_detail_2.png in Resources */,
 				435B202D2156564100A2AB3B /* 首页-一般-1小图.png in Resources */,
@@ -796,6 +810,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				43924F63215F832500ACFD15 /* LCNavigationController.swift in Sources */,
+				4337B2732169D02F004848F7 /* LCSectionHeader.swift in Sources */,
+				43A0E7942169AC350031BE6C /* LCTitleCell.swift in Sources */,
 				435B1F8D2154785300A2AB3B /* LCTableViewController.swift in Sources */,
 				435B1F9B2155CC9000A2AB3B /* LCServerTool.swift in Sources */,
 				43924F61215F82E000ACFD15 /* LCHomeViewController.swift in Sources */,

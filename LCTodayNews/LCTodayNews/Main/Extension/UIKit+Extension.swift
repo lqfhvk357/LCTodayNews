@@ -88,16 +88,7 @@ extension ReusableView where Self: UIView {
     }
 }
 extension UITableViewCell: ReusableView { }
-extension UICollectionViewCell: ReusableView { }
-
-
-protocol NibLoadableView: class { }
-extension NibLoadableView where Self: UIView {
-    static var nibName: String {
-        return "\(self)"
-    }
-
-}
+extension UICollectionReusableView: ReusableView{ }
 
 extension UITableView {
     func lc_registerNibCell<T: UITableViewCell>(cellClass: T.Type) {
@@ -109,7 +100,7 @@ extension UITableView {
     }
 }
 
-extension UICollectionView{
+extension UICollectionView {
     func lc_registerNibCell<T: UICollectionViewCell>(cellClass: T.Type) {
         register(T.nib, forCellWithReuseIdentifier: T.reuseIdentifier)
     }
@@ -117,9 +108,34 @@ extension UICollectionView{
     func lc_dequeueReusableCell<T: UICollectionViewCell>(indexPath: IndexPath) -> T {
         return dequeueReusableCell(withReuseIdentifier: T.reuseIdentifier, for: indexPath) as! T
     }
+    
+    func lc_registerNibSectionHeader<T: UICollectionReusableView>(reusableViewClass: T.Type) {
+        print(T.reuseIdentifier)
+        register(T.nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: T.reuseIdentifier)
+    }
+    
+    
+//    func lc_dequeueReusableSectionHeader<T: UICollectionReusableView>(indexPath: IndexPath) -> T {
+//        print(T.reuseIdentifier)
+//        return dequeueReusableSupplementaryView(ofKind:UICollectionElementKindSectionHeader, withReuseIdentifier: T.reuseIdentifier, for: indexPath) as! T
+//    }
 }
 
 
 
+
+protocol bundleLoadableView: class { }
+extension bundleLoadableView where Self: UIView {
+    static var nibName: String {
+        return "\(self)"
+    }
+    
+    static func lc_loadForBundle() -> Self {
+        return Bundle.main.loadNibNamed(self.nibName, owner: nil, options: nil)?.last as! Self
+    }
+}
+
+
+extension UIView: bundleLoadableView{}
 
 
