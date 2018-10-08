@@ -27,6 +27,7 @@ class LCHomeViewController: UIViewController  {
     var others : [LCHomeNewsTitle] = []
     
     weak var collectionView: UICollectionView?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,44 +42,37 @@ class LCHomeViewController: UIViewController  {
     func sutupNewsTitleView() -> (){
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = 12
+        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        flowLayout.estimatedItemSize = CGSize.zero
         let collectionView = UICollectionView.init(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 44), collectionViewLayout: flowLayout)
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = UIColor.clear
+        collectionView.backgroundColor = UIColor.yellow
         collectionView.lc_registerNibCell(cellClass: LCHomeTitleCell.self)
         collectionView.delegate = self
         collectionView.dataSource  = self
+    
         
         self.view.addSubview(collectionView)
         self.collectionView = collectionView
     }
     
     func getTitles() -> () {
-        if let titles = UserDefaults.standard.object(forKey: HomeTitlesKey) as? Array<Dictionary<String, String>> {
-            self.titles = titles.map { dict -> LCHomeNewsTitle in
-                if let category = dict["category"], let name = dict["name"]{
-                    return LCHomeNewsTitle.init(category: category, name: name)
-                }else{
-                    return LCHomeNewsTitle.init(category: "", name: "")
-                }
-            }
+        if let titles = self.readNewsTitles(for: HomeTitlesKey) {
+            self.titles = titles
             let defaultTitle = LCHomeNewsTitle.init(category: "", name: "推荐", select: true)
             self.titles.insert(defaultTitle, at: 0)
-            //            self.titles = titles as! [String :String]s
         }else{
             LCServerTool.requestHomeTiltes { result in
                 switch result {
                 case .success(let response):
                     if let titleDatas = LCHomeNewsTitleData.modelform(response){
                         self.titles = titleDatas.data.data
-                        let defaultTitle = LCHomeNewsTitle.init(category: "", name: "name", select: true)
+                        let defaultTitle = LCHomeNewsTitle.init(category: "", name: "推荐", select: true)
                         self.titles.insert(defaultTitle, at: 0)
-                        print(self.titles)
                         self.collectionView?.reloadData()
                         
-                        let titleDicts = titleDatas.data.data.map{ newsTitle in
-                            return newsTitle.titleDict
-                        }
-                        UserDefaults.standard.set(titleDicts, forKey: HomeTitlesKey)
+                        self.save(newsTitles: titleDatas.data.data, for: HomeTitlesKey)
                     }
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -87,31 +81,55 @@ class LCHomeViewController: UIViewController  {
         }
     }
     
-    func getOtherTitles() -> () {
-        if let otherTitles = UserDefaults.standard.object(forKey: HomeOtherTitlesKey) as? Array<Dictionary<String, String>> {
-            self.others = otherTitles.map { dict -> LCHomeNewsTitle in
-                if let category = dict["category"], let name = dict["name"]{
-                    return LCHomeNewsTitle.init(category: category, name: name)
-                }else{
-                    return LCHomeNewsTitle.init(category: "", name: "")
-                }
-            }
+    func getOtherTitles() -> Void {
+        if let otherTitles = self.readNewsTitles(for: HomeOtherTitlesKey) {
+            self.others = otherTitles
         }else{
             LCServerTool.requestHomeMoreTitles { result in
                 switch result {
                 case .success(let response):
                     if let titleDatas = LCHomeNewsTitleData.modelform(response){
                         self.others = titleDatas.data.data
-                        print(self.others)
-                        let titleDicts = titleDatas.data.data.map{ newsTitle in
-                            return newsTitle.titleDict
-                        }
-                        UserDefaults.standard.set(titleDicts, forKey: HomeOtherTitlesKey)
+                        self.save(newsTitles: titleDatas.data.data, for: HomeOtherTitlesKey)
                     }
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
             }
+        }
+    }
+    
+    func save(newsTitles: [LCHomeNewsTitle], for key: String) -> Void {
+        UserDefaults.standard.set(newsTitles.map { $0.titleDict }, forKey: key)
+    }
+    
+    func readNewsTitles(for key: String) -> [LCHomeNewsTitle]? {
+        if let titleDicts = UserDefaults.standard.object(forKey: HomeOtherTitlesKey) as? Array<Dictionary<String, String>> {
+            let newsTitles = titleDicts.map { dict -> LCHomeNewsTitle? in
+                if let category = dict["category"], let name = dict["name"]{
+                    return LCHomeNewsTitle.init(category: category, name: name)
+                }else{
+                    return nil
+                }
+            }
+            
+            func textNil() -> Void{
+                let nilString:String? = nil
+                let nilStrings:[String?]? = [nilString]
+                if let test = nilStrings {
+                    print("Is test nil?  ---  \(test)")
+                }
+            }
+            textNil()
+            
+            if (newsTitles.first != nil) {
+                return newsTitles as? [LCHomeNewsTitle]
+            }else{
+                return nil
+            }
+            
+        }else{
+            return nil
         }
     }
 
@@ -141,6 +159,24 @@ extension LCHomeViewController: UICollectionViewDataSource, UICollectionViewDele
                 make.left.right.bottom.equalTo(keyWindow)
             }
         }
+        titleView.completion = { completionTitles in
+            print("i am here")
+            self.titles = completionTitles[0]
+            self.others = completionTitles[1]
+            
+            self.collectionView?.reloadData()
+        }
         
     }
+}
+
+extension LCHomeViewController: UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = NSString.init(string: self.titles[indexPath.row].name).size(withAttributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 17)]).width
+        let height:CGFloat = 28
+        
+        return CGSize(width: width, height: height)
+
+    }
+    
 }

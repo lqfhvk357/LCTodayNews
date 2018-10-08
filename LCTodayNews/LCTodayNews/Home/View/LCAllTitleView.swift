@@ -14,12 +14,14 @@ class LCAllTitleView: UIView {
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var finishButton: UIButton!
     
+    public typealias Completion = (_ completionTitles: Array< Array<LCHomeNewsTitle> >) -> Void
+    
     var titles: Array< Array<LCHomeNewsTitle> > = [[]]
     var enChange = false
     lazy var panGR = UIPanGestureRecognizer.init(target: self, action: #selector(pan))
     lazy var longPressGR = UILongPressGestureRecognizer.init(target: self, action: #selector(longPress))
     var sysPan: UIPanGestureRecognizer?
-    
+    var completion: Completion?
     
     
     
@@ -32,7 +34,7 @@ class LCAllTitleView: UIView {
         flowLayout.minimumInteritemSpacing = 6
         flowLayout.minimumLineSpacing = 6
         flowLayout.headerReferenceSize = CGSize(width: ScreenWidth, height: 44)
-        flowLayout.sectionInset = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+        flowLayout.sectionInset = UIEdgeInsets.init(top: 0, left: 10, bottom: 60, right: 10)
         
         collectionView.showsVerticalScrollIndicator = false
         collectionView.lc_registerNibCell(cellClass: LCTitleCell.self)
@@ -92,6 +94,9 @@ class LCAllTitleView: UIView {
     }
     @IBAction func removeSelf() {
         self.removeFromSuperview()
+        if let completion = completion {
+            completion(titles)
+        }
     }
 }
 
