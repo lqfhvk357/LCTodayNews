@@ -67,13 +67,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LCTodayNews/Home/View/LCAllTitleView.swift"
-            timestampString = "560615586.5456229"
+            filePath = "LCTodayNews/Home/ViewController/LCHomeViewController.swift"
+            timestampString = "560679382.629073"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "removeSelf()"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "getTitles()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -83,13 +83,93 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LCTodayNews/Home/View/LCAllTitleView.swift"
-            timestampString = "560615586.545699"
+            filePath = "LCTodayNews/Home/ViewController/LCHomeViewController.swift"
+            timestampString = "560679382.629158"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "pan(panPressGR:)"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "getTitles()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LCTodayNews.LCHomeViewController.getTitles() -&gt; ()"
+                  moduleName = "LCTodayNews"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/luochao/Desktop/LCTodayNews/LCTodayNews/LCTodayNews/Home/ViewController/LCHomeViewController.swift"
+                  timestampString = "560676793.675438"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "162">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Result.Result&lt;Moya.Response, Moya.MoyaError&gt;) -&gt; () in LCTodayNews.LCHomeViewController.getTitles() -&gt; ()"
+                  moduleName = "LCTodayNews"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/luochao/Desktop/LCTodayNews/LCTodayNews/LCTodayNews/Home/ViewController/LCHomeViewController.swift"
+                  timestampString = "560676793.678676"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "65"
+                  endingLineNumber = "65"
+                  offsetFromSymbolStart = "109">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LCTodayNews/Home/ViewController/LCHomeViewController.swift"
+            timestampString = "560679382.629222"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LCTodayNews/Home/ViewController/LCHomeViewController.swift"
+            timestampString = "560679382.629283"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "getTitles()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LCTodayNews/Home/ViewController/LCHomeViewController.swift"
+            timestampString = "560679382.6293401"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

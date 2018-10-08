@@ -60,8 +60,6 @@ class LCHomeViewController: UIViewController  {
     func getTitles() -> () {
         if let titles = self.readNewsTitles(for: HomeTitlesKey) {
             self.titles = titles
-            let defaultTitle = LCHomeNewsTitle.init(category: "", name: "推荐", select: true)
-            self.titles.insert(defaultTitle, at: 0)
         }else{
             LCServerTool.requestHomeTiltes { result in
                 switch result {
@@ -72,7 +70,7 @@ class LCHomeViewController: UIViewController  {
                         self.titles.insert(defaultTitle, at: 0)
                         self.collectionView?.reloadData()
                         
-                        self.save(newsTitles: titleDatas.data.data, for: HomeTitlesKey)
+                        self.save(newsTitles: self.titles, for: HomeTitlesKey)
                     }
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -101,10 +99,11 @@ class LCHomeViewController: UIViewController  {
     
     func save(newsTitles: [LCHomeNewsTitle], for key: String) -> Void {
         UserDefaults.standard.set(newsTitles.map { $0.titleDict }, forKey: key)
+        UserDefaults.standard.synchronize()
     }
     
     func readNewsTitles(for key: String) -> [LCHomeNewsTitle]? {
-        if let titleDicts = UserDefaults.standard.object(forKey: HomeOtherTitlesKey) as? Array<Dictionary<String, String>> {
+        if let titleDicts = UserDefaults.standard.object(forKey: key) as? Array<Dictionary<String, String>> {
             let newsTitles = titleDicts.map { dict -> LCHomeNewsTitle? in
                 if let category = dict["category"], let name = dict["name"]{
                     return LCHomeNewsTitle.init(category: category, name: name)
@@ -159,12 +158,15 @@ extension LCHomeViewController: UICollectionViewDataSource, UICollectionViewDele
                 make.left.right.bottom.equalTo(keyWindow)
             }
         }
-        titleView.completion = { completionTitles in
+        titleView.completion = { [weak self] completionTitles in
             print("i am here")
-            self.titles = completionTitles[0]
-            self.others = completionTitles[1]
+            self!.titles = completionTitles[0]
+            self!.others = completionTitles[1]
             
-            self.collectionView?.reloadData()
+            self!.save(newsTitles: self!.titles, for: HomeTitlesKey)
+            self!.save(newsTitles: self!.others, for: HomeOtherTitlesKey)
+            
+            self!.collectionView?.reloadData()
         }
         
     }

@@ -75,7 +75,7 @@ class LCAllTitleView: UIView {
     @objc func pan(panPressGR: UIPanGestureRecognizer) -> () {
         switch panPressGR.state {
         case .began:
-            if enChange, let selectIndexPath = collectionView.indexPathForItem(at: panPressGR.location(in: collectionView)) {
+            if let selectIndexPath = collectionView.indexPathForItem(at: panPressGR.location(in: collectionView)) {
                 collectionView.beginInteractiveMovementForItem(at: selectIndexPath)
             }
         case .changed:
@@ -107,12 +107,28 @@ extension LCAllTitleView: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer == panGR, otherGestureRecognizer == sysPan {
-            return true
+            if let selectIndexPath = collectionView.indexPathForItem(at: gestureRecognizer.location(in: collectionView)), selectIndexPath.section == 0 {
+                return true
+            }else{
+                return false
+            }
         }else{
             return false
         }
     }
     
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+//        if gestureRecognizer == panGR, otherGestureRecognizer == sysPan {
+//            if enChange, let selectIndexPath = collectionView.indexPathForItem(at: gestureRecognizer.location(in: collectionView)), selectIndexPath.section == 0 {
+//                return true
+//            }else{
+//                return false
+//            }
+//        }else{
+//            return false
+//        }
+//    }
+//    
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
@@ -143,15 +159,13 @@ extension LCAllTitleView: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if enChange, indexPath.section == 0, indexPath.row != 0 {
-            let model = self.titles[0][indexPath.row]
-            self.titles[0].remove(at: indexPath.row)
+            let model = self.titles[0].remove(at: indexPath.row)
             collectionView.deleteItems(at: [indexPath])
             
             self.titles[1].insert(model, at: 0)
             collectionView.insertItems(at: [IndexPath(row: 0, section: 1)])
         }else if indexPath.section == 1 {
-            let model = self.titles[1][indexPath.row]
-            self.titles[1].remove(at: indexPath.row)
+            let model = self.titles[1].remove(at: indexPath.row)
             collectionView.deleteItems(at: [indexPath])
             
             self.titles[0].append(model)
@@ -160,10 +174,16 @@ extension LCAllTitleView: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
-        return indexPath.section == 0
+        if indexPath.section == 0, indexPath.row != 0{
+            return true
+        }else{
+            return false
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let model = self.titles[0].remove(at: sourceIndexPath.row)
+        self.titles[destinationIndexPath.section].insert(model, at: destinationIndexPath.row)
         
     }
     
