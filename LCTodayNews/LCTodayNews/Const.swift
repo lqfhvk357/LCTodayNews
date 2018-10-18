@@ -9,13 +9,23 @@
 import Foundation
 import UIKit
 
+
 /// device
-let Device_id: Int = 6096495334
-let Iid: Int = 5034850950
+let Device_id: Int = 21482297196
+let Iid: Int = 45275915249
 let ScreenWidth = UIScreen.main.bounds.width
 let ScreenHeight = UIScreen.main.bounds.height
+let NavBarHeight = CGFloat(ScreenHeight<810 ? 64 : 88)
+let TabBarHeight = CGFloat(ScreenHeight<810 ? 49 : 83)
 
-/// key of userDefaults
-let HomeTitlesKey = "HomeTitlesKey"
-let HomeOtherTitlesKey = "HomeOtherTitlesKey"
+/// keys of userDefaults
+let KHomeTitlesKey = "KHomeTitlesKey"
+let KHomeOtherTitlesKey = "KHomeOtherTitlesKey"
+
+/// keys of cell or header
+let KMainTitle = "KMainTitle"
+let KSubTitle = "KSubTitle"
+let KActive = "KActive"
+
+
 

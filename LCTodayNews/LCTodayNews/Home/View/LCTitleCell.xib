@@ -28,6 +28,9 @@
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close_discover_press_night" translatesAutoresizingMaskIntoConstraints="NO" id="Et6-Za-u13">
                         <rect key="frame" x="34" y="0.0" width="16" height="16"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                        </accessibility>
                     </imageView>
                 </subviews>
             </view>

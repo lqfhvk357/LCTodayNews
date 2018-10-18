@@ -21,6 +21,6 @@ class LCRefreshHeader: MJRefreshStateHeader {
 
 }
 
-class LCRefreshFooter: MJRefreshAutoFooter {
+class LCRefreshFooter: MJRefreshAutoNormalFooter {
     
 }

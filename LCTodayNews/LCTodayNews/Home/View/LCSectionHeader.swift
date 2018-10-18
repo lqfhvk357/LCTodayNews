@@ -7,12 +7,27 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class LCSectionHeader: UICollectionReusableView {
 
+    @IBOutlet weak var mainTitleLabel: UILabel!
+    @IBOutlet weak var subTitleLabel: UILabel!
+    
+    var dataDict = Dictionary<String, String>() {
+        didSet {
+            mainTitleLabel.text = dataDict[KMainTitle]
+            subTitleLabel.text = dataDict[KSubTitle]
+        }
+    }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        
     }
+    
+    
     
 }

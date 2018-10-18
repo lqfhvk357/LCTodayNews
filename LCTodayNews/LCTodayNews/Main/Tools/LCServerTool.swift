@@ -36,15 +36,15 @@ class LCServerTool {
     }
     
     ///首页新闻
-    static func requestHomeNews(forCategory category: LCTitleType = .recommend,
-                                 tt_from: String = "",
+    static func requestHomeNews(forCategory category: String = LCTitleType.recommend.rawValue,
+                                 tt_from: String = "pull",
                                  refresh_reason: Int = 0,
-                                 strict: Int = 0,
-                                 detail: Int = 0,
+                                 strict: Int = 1,
+                                 detail: Int = 1,
                                  min_behot_time: Int = 0,
                                  max_behot_time: Int = 0,
                                 completion: @escaping Completion) -> () {
-        let target = LCHomeService.homeNews(device_id: Device_id, category: category.rawValue, tt_from: tt_from, refresh_reason: refresh_reason, strict: strict, detail: detail, min_behot_time: min_behot_time, max_behot_time: max_behot_time)
+        let target = LCHomeService.homeNews(device_id: Device_id, category: category, tt_from: tt_from, refresh_reason: refresh_reason, strict: strict, detail: detail, min_behot_time: min_behot_time, max_behot_time: max_behot_time)
         requestData(target, completion: completion)
     }
 }

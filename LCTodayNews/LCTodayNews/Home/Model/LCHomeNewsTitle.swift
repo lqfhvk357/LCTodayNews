@@ -47,6 +47,25 @@ struct LCHomeNewsTitle : Decodable{
         }
     }
     
+    static func save(newsTitles: [LCHomeNewsTitle], for key: String) -> Void {
+        UserDefaults.standard.set(newsTitles.map { $0.titleDict }, forKey: key)
+        UserDefaults.standard.synchronize()
+    }
+    
+    static func readNewsTitles(for key: String) -> [LCHomeNewsTitle]? {
+        if let titleDicts = UserDefaults.standard.object(forKey: key) as? Array<Dictionary<String, String>>, titleDicts.count>0 {
+            return titleDicts.compactMap { dict -> LCHomeNewsTitle? in
+                if let category = dict["category"], let name = dict["name"]{
+                    return LCHomeNewsTitle.init(category: category, name: name)
+                }else{
+                    return nil
+                }
+            }
+        }else{
+            return nil
+        }
+    }
+    
 }
 
 struct LCHomeNewsTitleData: Decodable {
@@ -60,6 +79,8 @@ struct LCHomeNewsTitleData: Decodable {
 }
 
 extension LCHomeNewsTitleData: ResponseToModel{}
+
+
 
 ///新闻标题category
 enum LCTitleType: String {

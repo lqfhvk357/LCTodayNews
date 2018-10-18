@@ -10,6 +10,7 @@
 		3E55152AC0EADFA8E2E3EF15 /* Pods_LCTodayNews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D86AF4DAC1125117EF54439 /* Pods_LCTodayNews.framework */; };
 		43015197215E05A200D3F5E6 /* LCHomeSearchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43015196215E05A200D3F5E6 /* LCHomeSearchInfo.swift */; };
 		43015199215E28BB00D3F5E6 /* LCHomeNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43015198215E28BB00D3F5E6 /* LCHomeNews.swift */; };
+		432C2CEC217048EC0097A642 /* LCTodayNewsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432C2CEB217048EC0097A642 /* LCTodayNewsTests.swift */; };
 		4337B2732169D02F004848F7 /* LCSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4337B2712169D02F004848F7 /* LCSectionHeader.swift */; };
 		4337B2742169D02F004848F7 /* LCSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4337B2722169D02F004848F7 /* LCSectionHeader.xib */; };
 		4349FD5521533B5100DDB94F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4349FD5421533B5100DDB94F /* AppDelegate.swift */; };
@@ -109,11 +110,16 @@
 		435B204E2156564100A2AB3B /* user_detail.md in Resources */ = {isa = PBXBuildFile; fileRef = 435B1FF92156564100A2AB3B /* user_detail.md */; };
 		435B204F2156564100A2AB3B /* dongtai.md in Resources */ = {isa = PBXBuildFile; fileRef = 435B1FFA2156564100A2AB3B /* dongtai.md */; };
 		435B20502156564100A2AB3B /* settings.json in Resources */ = {isa = PBXBuildFile; fileRef = 435B1FFC2156564100A2AB3B /* settings.json */; };
+		436C764F216B4E510008D444 /* LCHomePageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436C764E216B4E510008D444 /* LCHomePageScrollView.swift */; };
+		436C7651216B51E40008D444 /* FuckCrash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436C7650216B51E40008D444 /* FuckCrash.swift */; };
+		436C7653216B6A020008D444 /* LCTableViewRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436C7652216B6A020008D444 /* LCTableViewRefresh.swift */; };
+		436C7656216B8C6B0008D444 /* LCNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436C7654216B8C6B0008D444 /* LCNewsCell.swift */; };
+		436C7657216B8C6B0008D444 /* LCNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436C7655216B8C6B0008D444 /* LCNewsCell.xib */; };
+		436C7659216B9F4D0008D444 /* LCHomeNewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436C7658216B9F4D0008D444 /* LCHomeNewsController.swift */; };
 		43924F61215F82E000ACFD15 /* LCHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43924F60215F82E000ACFD15 /* LCHomeViewController.swift */; };
 		43924F63215F832500ACFD15 /* LCNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43924F62215F832500ACFD15 /* LCNavigationController.swift */; };
 		43A0E78621661E8B0031BE6C /* LCHomeTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A0E78421661E8B0031BE6C /* LCHomeTitleCell.swift */; };
 		43A0E78721661E8B0031BE6C /* LCHomeTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A0E78521661E8B0031BE6C /* LCHomeTitleCell.xib */; };
-		43A0E7892168B1EC0031BE6C /* LCAllNewsTitlesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A0E7882168B1EC0031BE6C /* LCAllNewsTitlesController.swift */; };
 		43A0E78B2168C4C30031BE6C /* LCAllTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A0E78A2168C4C30031BE6C /* LCAllTitleView.swift */; };
 		43A0E78D2168C57B0031BE6C /* LCAllTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A0E78C2168C57B0031BE6C /* LCAllTitleView.xib */; };
 		43A0E7902168CD3E0031BE6C /* LCTitleChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A0E78E2168CD3E0031BE6C /* LCTitleChannelCell.swift */; };
@@ -122,9 +128,22 @@
 		43A0E7952169AC350031BE6C /* LCTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A0E7932169AC350031BE6C /* LCTitleCell.xib */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		432C2CEE217048EC0097A642 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4349FD4921533B5100DDB94F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4349FD5021533B5100DDB94F;
+			remoteInfo = LCTodayNews;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		43015196215E05A200D3F5E6 /* LCHomeSearchInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCHomeSearchInfo.swift; sourceTree = "<group>"; };
 		43015198215E28BB00D3F5E6 /* LCHomeNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCHomeNews.swift; sourceTree = "<group>"; };
+		432C2CE9217048EC0097A642 /* LCTodayNewsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LCTodayNewsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		432C2CEB217048EC0097A642 /* LCTodayNewsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCTodayNewsTests.swift; sourceTree = "<group>"; };
+		432C2CED217048EC0097A642 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4337B2712169D02F004848F7 /* LCSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCSectionHeader.swift; sourceTree = "<group>"; };
 		4337B2722169D02F004848F7 /* LCSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LCSectionHeader.xib; sourceTree = "<group>"; };
 		4349FD5121533B5100DDB94F /* LCTodayNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LCTodayNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -226,11 +245,16 @@
 		435B1FF92156564100A2AB3B /* user_detail.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = user_detail.md; sourceTree = "<group>"; };
 		435B1FFA2156564100A2AB3B /* dongtai.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = dongtai.md; sourceTree = "<group>"; };
 		435B1FFC2156564100A2AB3B /* settings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = settings.json; sourceTree = "<group>"; };
+		436C764E216B4E510008D444 /* LCHomePageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCHomePageScrollView.swift; sourceTree = "<group>"; };
+		436C7650216B51E40008D444 /* FuckCrash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuckCrash.swift; sourceTree = "<group>"; };
+		436C7652216B6A020008D444 /* LCTableViewRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCTableViewRefresh.swift; sourceTree = "<group>"; };
+		436C7654216B8C6B0008D444 /* LCNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCNewsCell.swift; sourceTree = "<group>"; };
+		436C7655216B8C6B0008D444 /* LCNewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LCNewsCell.xib; sourceTree = "<group>"; };
+		436C7658216B9F4D0008D444 /* LCHomeNewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCHomeNewsController.swift; sourceTree = "<group>"; };
 		43924F60215F82E000ACFD15 /* LCHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCHomeViewController.swift; sourceTree = "<group>"; };
 		43924F62215F832500ACFD15 /* LCNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCNavigationController.swift; sourceTree = "<group>"; };
 		43A0E78421661E8B0031BE6C /* LCHomeTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCHomeTitleCell.swift; sourceTree = "<group>"; };
 		43A0E78521661E8B0031BE6C /* LCHomeTitleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LCHomeTitleCell.xib; sourceTree = "<group>"; };
-		43A0E7882168B1EC0031BE6C /* LCAllNewsTitlesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCAllNewsTitlesController.swift; sourceTree = "<group>"; };
 		43A0E78A2168C4C30031BE6C /* LCAllTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCAllTitleView.swift; sourceTree = "<group>"; };
 		43A0E78C2168C57B0031BE6C /* LCAllTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LCAllTitleView.xib; sourceTree = "<group>"; };
 		43A0E78E2168CD3E0031BE6C /* LCTitleChannelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCTitleChannelCell.swift; sourceTree = "<group>"; };
@@ -243,6 +267,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		432C2CE6217048EC0097A642 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4349FD4E21533B5100DDB94F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -254,10 +285,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		432C2CEA217048EC0097A642 /* LCTodayNewsTests */ = {
+			isa = PBXGroup;
+			children = (
+				432C2CEB217048EC0097A642 /* LCTodayNewsTests.swift */,
+				432C2CED217048EC0097A642 /* Info.plist */,
+			);
+			path = LCTodayNewsTests;
+			sourceTree = "<group>";
+		};
 		4349FD4821533B5100DDB94F = {
 			isa = PBXGroup;
 			children = (
 				4349FD5321533B5100DDB94F /* LCTodayNews */,
+				432C2CEA217048EC0097A642 /* LCTodayNewsTests */,
 				4349FD5221533B5100DDB94F /* Products */,
 				435B1F9E2156564000A2AB3B /* news-docs */,
 				435B1F8421535BBD00A2AB3B /* Assets.xcassets */,
@@ -270,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				4349FD5121533B5100DDB94F /* LCTodayNews.app */,
+				432C2CE9217048EC0097A642 /* LCTodayNewsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -320,7 +362,6 @@
 			isa = PBXGroup;
 			children = (
 				435B1F8221534DB600A2AB3B /* LCTabBarController.swift */,
-				435B1F8C2154785300A2AB3B /* LCTableViewController.swift */,
 				43924F62215F832500ACFD15 /* LCNavigationController.swift */,
 			);
 			path = ViewController;
@@ -359,6 +400,9 @@
 				4337B2722169D02F004848F7 /* LCSectionHeader.xib */,
 				43A0E78E2168CD3E0031BE6C /* LCTitleChannelCell.swift */,
 				43A0E78F2168CD3E0031BE6C /* LCTitleChannelCell.xib */,
+				436C764E216B4E510008D444 /* LCHomePageScrollView.swift */,
+				436C7654216B8C6B0008D444 /* LCNewsCell.swift */,
+				436C7655216B8C6B0008D444 /* LCNewsCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -366,8 +410,9 @@
 		435B1F812153495D00A2AB3B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				435B1F8C2154785300A2AB3B /* LCTableViewController.swift */,
+				436C7658216B9F4D0008D444 /* LCHomeNewsController.swift */,
 				43924F60215F82E000ACFD15 /* LCHomeViewController.swift */,
-				43A0E7882168B1EC0031BE6C /* LCAllNewsTitlesController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -384,6 +429,8 @@
 			isa = PBXGroup;
 			children = (
 				435B1F9121548E3700A2AB3B /* LCDataSource.swift */,
+				436C7652216B6A020008D444 /* LCTableViewRefresh.swift */,
+				436C7650216B51E40008D444 /* FuckCrash.swift */,
 			);
 			path = protocol;
 			sourceTree = "<group>";
@@ -588,6 +635,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		432C2CE8217048EC0097A642 /* LCTodayNewsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 432C2CF2217048EC0097A642 /* Build configuration list for PBXNativeTarget "LCTodayNewsTests" */;
+			buildPhases = (
+				432C2CE5217048EC0097A642 /* Sources */,
+				432C2CE6217048EC0097A642 /* Frameworks */,
+				432C2CE7217048EC0097A642 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				432C2CEF217048EC0097A642 /* PBXTargetDependency */,
+			);
+			name = LCTodayNewsTests;
+			productName = LCTodayNewsTests;
+			productReference = 432C2CE9217048EC0097A642 /* LCTodayNewsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		4349FD5021533B5100DDB94F /* LCTodayNews */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4349FD6321533B5200DDB94F /* Build configuration list for PBXNativeTarget "LCTodayNews" */;
@@ -614,10 +679,14 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = LC;
-				LastSwiftUpdateCheck = 0940;
+				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "罗超";
 				TargetAttributes = {
+					432C2CE8217048EC0097A642 = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = 4349FD5021533B5100DDB94F;
+					};
 					4349FD5021533B5100DDB94F = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
@@ -637,11 +706,19 @@
 			projectRoot = "";
 			targets = (
 				4349FD5021533B5100DDB94F /* LCTodayNews */,
+				432C2CE8217048EC0097A642 /* LCTodayNewsTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		432C2CE7217048EC0097A642 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4349FD4F21533B5100DDB94F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -676,6 +753,7 @@
 				435B201E2156564100A2AB3B /* 广告-首页-3.png in Resources */,
 				435B20192156564100A2AB3B /* home-news-title.png in Resources */,
 				435B20002156564100A2AB3B /* video.md in Resources */,
+				436C7657216B8C6B0008D444 /* LCNewsCell.xib in Resources */,
 				435B200C2156564100A2AB3B /* 问答-一般-3小图.png in Resources */,
 				435B20072156564100A2AB3B /* user_detail_1.png in Resources */,
 				435B204E2156564100A2AB3B /* user_detail.md in Resources */,
@@ -805,10 +883,19 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		432C2CE5217048EC0097A642 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				432C2CEC217048EC0097A642 /* LCTodayNewsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4349FD4D21533B5100DDB94F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				436C7656216B8C6B0008D444 /* LCNewsCell.swift in Sources */,
 				43924F63215F832500ACFD15 /* LCNavigationController.swift in Sources */,
 				4337B2732169D02F004848F7 /* LCSectionHeader.swift in Sources */,
 				43A0E7942169AC350031BE6C /* LCTitleCell.swift in Sources */,
@@ -818,21 +905,32 @@
 				435B1F8F215479BB00A2AB3B /* LCRefresh.swift in Sources */,
 				43015197215E05A200D3F5E6 /* LCHomeSearchInfo.swift in Sources */,
 				43015199215E28BB00D3F5E6 /* LCHomeNews.swift in Sources */,
+				436C7653216B6A020008D444 /* LCTableViewRefresh.swift in Sources */,
 				435B1F99215516F100A2AB3B /* LCService.swift in Sources */,
-				43A0E7892168B1EC0031BE6C /* LCAllNewsTitlesController.swift in Sources */,
+				436C7651216B51E40008D444 /* FuckCrash.swift in Sources */,
 				435B1F9221548E3700A2AB3B /* LCDataSource.swift in Sources */,
 				435B1F8321534DB600A2AB3B /* LCTabBarController.swift in Sources */,
+				436C764F216B4E510008D444 /* LCHomePageScrollView.swift in Sources */,
 				43A0E78621661E8B0031BE6C /* LCHomeTitleCell.swift in Sources */,
 				435B1F8B2153D0C700A2AB3B /* UIKit+Extension.swift in Sources */,
 				4349FD5521533B5100DDB94F /* AppDelegate.swift in Sources */,
 				435B1F96215502C900A2AB3B /* LCHomeNewsTitle.swift in Sources */,
 				43A0E78B2168C4C30031BE6C /* LCAllTitleView.swift in Sources */,
 				435B1F9D215646E300A2AB3B /* Const.swift in Sources */,
+				436C7659216B9F4D0008D444 /* LCHomeNewsController.swift in Sources */,
 				43A0E7902168CD3E0031BE6C /* LCTitleChannelCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		432C2CEF217048EC0097A642 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4349FD5021533B5100DDB94F /* LCTodayNews */;
+			targetProxy = 432C2CEE217048EC0097A642 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4349FD5821533B5100DDB94F /* Main.storyboard */ = {
@@ -854,6 +952,49 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		432C2CF0217048EC0097A642 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LCTodayNewsTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = lc.LCTodayNewsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LCTodayNews.app/LCTodayNews";
+			};
+			name = Debug;
+		};
+		432C2CF1217048EC0097A642 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = LCTodayNewsTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = lc.LCTodayNewsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LCTodayNews.app/LCTodayNews";
+			};
+			name = Release;
+		};
 		4349FD6121533B5200DDB94F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1011,6 +1152,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		432C2CF2217048EC0097A642 /* Build configuration list for PBXNativeTarget "LCTodayNewsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				432C2CF0217048EC0097A642 /* Debug */,
+				432C2CF1217048EC0097A642 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4349FD4C21533B5100DDB94F /* Build configuration list for PBXProject "LCTodayNews" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

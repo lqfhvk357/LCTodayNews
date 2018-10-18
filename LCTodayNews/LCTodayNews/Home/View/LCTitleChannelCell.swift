@@ -29,6 +29,7 @@ class LCTitleChannelCell: UITableViewCell {
         self.titlesCollectionLayout.minimumLineSpacing = 6
         self.titlesCollectionLayout.sectionInset = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
         // Initialization code
+    
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
