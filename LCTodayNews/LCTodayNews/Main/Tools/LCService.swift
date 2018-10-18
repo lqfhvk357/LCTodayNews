@@ -49,10 +49,12 @@ extension LCHomeService: TargetType {
         case .homeSearchBarInfo(_, _):
             return "/search/suggest/homepage_suggest/"
         case .homeNews(_, _, _, _, _, _, _, _):
-            return "/api/news/feed/v58/"
+            return "/api/news/feed/v88/"
         }
         
     }
+    
+    
 
     var task: Task {
         switch self {

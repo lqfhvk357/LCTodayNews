@@ -10,6 +10,7 @@ import Foundation
 import Moya
 import Result
 import SwiftyJSON
+import PromiseKit
 
 //{"abstract":"今天，习近平总书记在辽宁忠旺集团考察时强调指出，“我们毫不动摇地发展公有制经济，也毫不动摇地支持、保护、扶持民营经济发展、非公有制经济发展”。",
 //    "action_extra":"{\"channel_id\": 0}",
@@ -51,7 +52,7 @@ struct LCHomeNewsDesc: Decodable {
     let cell_flag: Int
     let cell_layout_style: Int
     let cell_type: Int
-    let comment_count: Int
+    let comment_count: Int //
     let cursor: Int
     let digg_count: Int
     let display_url: String
@@ -60,17 +61,28 @@ struct LCHomeNewsDesc: Decodable {
         let forward_count: Int
     }
     let forward_info: newForward_info
-    let group_id: Int
-    let has_m3u8_video: Bool
-    let has_mp4_video: Int
-    let has_video: Bool
+    let gallary_flag: Int?
+    let gallary_image_count: Int?
+    let group_flags: Int?
+    let group_id: Int?
+    let has_image: Bool?            // 有图片？
+    let has_m3u8_video: Bool?
+    let has_mp4_video: Int?
+    let has_video: Bool?            // 有视频？
     let hot: Int
     let ignore_web_transform: Int
+    
+    struct newsImage_list: Decodable{
+        let height: Int
+        let width: Int
+        let url: String
+    }
+    let image_list: [newsImage_list]?
     let is_stick: Bool?
     let is_subject: Bool
     let item_id: Int
     let item_version: Int
-    let keywords: String?
+    let keywords: String?           //关键词
     let label: String?
     let label_style: Int?
     let level: Int
@@ -98,7 +110,7 @@ struct LCHomeNewsDesc: Decodable {
     let preload_web: Int?
     let publish_time: Int
     let read_count: Int
-    let repin_count: Int
+    let repin_count: Int?
     let rid: String
     let share_count: Int
     let share_url: String
@@ -107,12 +119,12 @@ struct LCHomeNewsDesc: Decodable {
     let source: String
     let source_icon_style: Int
     let source_open_url: String
-    let stick_label: String?
+    let stick_label: String?        // 置顶
     let stick_style: Int?
-    let tag: String
-    let tag_id: Int
+    let tag: String?
+    let tag_id: Int?
     let tip: Int
-    let title: String
+    let title: String               // 大标题
 
     struct newUgc_recommend: Decodable {
         let activity: String
@@ -163,19 +175,16 @@ extension LCHomeNewsDesc.newUser_info.user_info_auth: ResponseToModel{}
 
 extension LCHomeNewsData: ResponseToModel{
     static func modelform(_ response: Response) -> LCHomeNewsData? {
-        let dict = swiftyJSONFrom(response)
+        
+        let dict = swiftyJSONFrom(response: response)
         if let json = try? dict.rawData(){
-            if let newsData = modelform(json){
+            if let newsData = modelform(data: json){
                 var newsData_m = newsData
                 newsData_m.data = newsData.data.map { homeNews -> LCHomeNewsData.LCHomeNews in
-                    if let contentModel = LCHomeNewsDesc.modelform(homeNews.content){
+                    if let contentModel = LCHomeNewsDesc.modelform(content: homeNews.content){
                         var contentModel_m = contentModel
-                        if let user_auth_info = contentModel.user_info?.user_auth_info{
-                            if let user_auth_info_model = LCHomeNewsDesc.newUser_info.user_info_auth.modelform(user_auth_info){
-                                contentModel_m.user_info?.user_auth_info_model = user_auth_info_model
-                                return LCHomeNews.init(code: homeNews.code, content: "", contentModel: contentModel_m)
-                            }
-                        }
+                        contentModel_m.user_info?.user_auth_info_model = contentModel.user_info?.user_auth_info.flatMap{ LCHomeNewsDesc.newUser_info.user_info_auth.modelform(content: $0) }
+                        return LCHomeNews.init(code: homeNews.code, content: "", contentModel: contentModel_m)
                     }
                     return homeNews
                 }
