@@ -13,6 +13,7 @@ import Alamofire
 import CoreLocation
 import RxCocoa
 import RxSwift
+import SwiftyJSON
 
 class LCHomeViewController: UIViewController  {
     
@@ -55,8 +56,7 @@ class LCHomeViewController: UIViewController  {
     }
     
     //MARK: - Datas
-    fileprivate func getTitles() -> () {
-        
+    fileprivate func getTitles() {
         
         if let titles = LCHomeNewsTitle.readNewsTitles(for: KHomeTitlesKey) {
             self.titles = titles
@@ -65,6 +65,9 @@ class LCHomeViewController: UIViewController  {
             LCServerTool.requestHomeTiltes { result in
                 switch result {
                 case .success(let response):
+//                    let json = JSON(response.data)
+//                    print(json)
+                    
                     if let titleDatas = LCHomeNewsTitleData.modelform(response: response){
                         self.titles = titleDatas.data.data
                         let defaultTitle = LCHomeNewsTitle.init(category: "", name: "推荐", select: true)
@@ -80,7 +83,7 @@ class LCHomeViewController: UIViewController  {
         }
     }
     
-    fileprivate func getOtherTitles() -> Void {
+    fileprivate func getOtherTitles() {
         
         if let otherTitles = LCHomeNewsTitle.readNewsTitles(for: KHomeOtherTitlesKey) {
             self.others = otherTitles
@@ -101,7 +104,7 @@ class LCHomeViewController: UIViewController  {
     
     
     //MARK: - Views
-    fileprivate func sutupViews() -> Void{
+    fileprivate func sutupViews() {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 12
@@ -165,6 +168,12 @@ extension LCHomeViewController: UICollectionViewDelegate {
                 make.top.equalTo(keyWindow).offset(20)
                 make.left.right.bottom.equalTo(keyWindow)
             }
+        }
+        
+        
+        titleView.transform = CGAffineTransform(translationX: 0, y: ScreenHeight)
+        UIView.animate(withDuration: 0.3) {
+            self.titleView.transform = CGAffineTransform.identity
         }
         
     }

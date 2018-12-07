@@ -27,6 +27,9 @@ PODS:
   - SnapKit (4.0.1)
   - Spring (1.0.5)
   - SwiftyJSON (4.1.0)
+  - Yoga (1.9.0)
+  - YogaKit (1.9.0):
+    - Yoga (~> 1.9)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
@@ -40,6 +43,7 @@ DEPENDENCIES:
   - SnapKit (~> 4.0.0)
   - Spring (from `https://github.com/MengTo/Spring.git`)
   - SwiftyJSON (~> 4.0)
+  - YogaKit (~> 1.9.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -53,6 +57,8 @@ SPEC REPOS:
     - RxSwift
     - SnapKit
     - SwiftyJSON
+    - Yoga
+    - YogaKit
 
 EXTERNAL SOURCES:
   Nocilla:
@@ -82,7 +88,9 @@ SPEC CHECKSUMS:
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   Spring: 3c7666eccefdeb87140008dc81043f89f8dbb787
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
+  Yoga: aaae8abea68951f60bee05f6277d3eed90bb91bb
+  YogaKit: d447a9bb808718e6f58e52a2255a8050081a3ead
 
-PODFILE CHECKSUM: 029fae6a35d1b1ce5b8264177e960ad503eaf089
+PODFILE CHECKSUM: ff83e36b22508d4b011a467e0915ebe3b07fa234
 
 COCOAPODS: 1.5.3

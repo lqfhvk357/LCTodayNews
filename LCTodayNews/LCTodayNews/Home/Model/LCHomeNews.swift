@@ -75,7 +75,13 @@ struct LCHomeNewsDesc: Decodable {
     struct newsImage_list: Decodable{
         let height: Int
         let width: Int
+        let uri: String
         let url: String
+        
+        struct imageUrl: Decodable {
+            let url: String
+        }
+        let url_list: [imageUrl]
     }
     let image_list: [newsImage_list]?
     let is_stick: Bool?
@@ -83,6 +89,9 @@ struct LCHomeNewsDesc: Decodable {
     let item_id: Int
     let item_version: Int
     let keywords: String?           //关键词
+    
+    let large_image_list: [newsImage_list]?
+    
     let label: String?
     let label_style: Int?
     let level: Int
@@ -107,6 +116,7 @@ struct LCHomeNewsDesc: Decodable {
     }
     let media_info: newMedia_info?
     let media_name: String?
+    let middle_image: newsImage_list?
     let preload_web: Int?
     let publish_time: Int
     let read_count: Int

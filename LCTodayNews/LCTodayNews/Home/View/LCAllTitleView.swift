@@ -81,7 +81,12 @@ class LCAllTitleView: UIView {
     
     //MARK: - Events
     fileprivate func setupViewEvents() -> Void {
-        finishButton.addTarget(self, action: #selector(click), for: .touchUpInside)
+        _ = finishButton.rx.controlEvent(UIControlEvents.touchUpInside).subscribe { [weak self] _ in
+            self!.finishButton.isSelected = !self!.finishButton.isSelected
+            self!.enChange = self!.finishButton.isSelected
+            print("ssadasdad")
+        }
+//        finishButton.addTarget(self, action: #selector(click), for: .touchUpInside)
         
         collectionView.addGestureRecognizer(longPressGR)
         collectionView.addGestureRecognizer(panGR)
@@ -96,10 +101,10 @@ class LCAllTitleView: UIView {
         }
     }
     
-    @objc func click(button: UIButton) -> Void {
-        button.isSelected = !button.isSelected
-        enChange = button.isSelected
-    }
+//    @objc func click(button: UIButton) -> Void {
+//        button.isSelected = !button.isSelected
+//        enChange = button.isSelected
+//    }
     
     @objc func longPress(longPressGR: UILongPressGestureRecognizer) -> () {
         finishButton.isSelected = true

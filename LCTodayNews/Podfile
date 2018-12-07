@@ -17,6 +17,7 @@ target 'LCTodayNews' do
   pod "PromiseKit/CoreLocation"
   pod 'MJRefresh'
   pod 'HandyJSON'
+  pod 'YogaKit', '~> 1.9.0'
 # Pods for LCTodayNews
 
 end

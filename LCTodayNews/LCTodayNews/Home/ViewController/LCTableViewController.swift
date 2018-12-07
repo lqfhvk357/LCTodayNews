@@ -44,7 +44,8 @@ class LCTableViewController: UITableViewController {
     fileprivate func setupTableView() -> Void {
         self.tableView.backgroundColor = UIColor.tableViewBackgoundColor
         self.tableView.estimatedRowHeight = 0
-        self.tableView.rowHeight = 66
+        self.tableView.rowHeight = 150
+        self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
         
         self.addRefreshHeader()
         self.addRefreshFooter()
@@ -55,6 +56,7 @@ class LCTableViewController: UITableViewController {
     override public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("datas.count --- \(news.count)")
         return self.news.count
+//        return 10
     }
 }
 
@@ -72,12 +74,17 @@ extension LCTableViewController: TableViewRefreshHeader, TableViewRefreshFooter{
             switch result {
             case .success(let response):
                 if let datas = LCHomeNewsData.modelform(response){
-//                    print("requsetHomeSearchBarInfo:\n\(datas)")
-                    self.news = datas.data
-            
-                    self.news.map{ new in
-                            print(new)
+                    print("requsetHomeNews:\n\(JSON(response.data))")
+                    
+                    self.news = datas.data.filter{ newsData -> Bool in
+                        newsData.contentModel != nil
                     }
+                    
+                    print("models:\n\(datas)")
+                    if self.news.count != datas.data.count {
+                        print("errer!!!!!!!!!!!!!!!! self.news.count : \(self.news.count)  --- datas.data.count : \(datas.data.count)")
+                    }
+                    
                     self.tableView.reloadData()
                     self.shouldHiddenFooter(with: self.news)
                 }

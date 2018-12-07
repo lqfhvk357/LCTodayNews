@@ -14,7 +14,7 @@ class LCHomeNewsController: LCTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.lc_registerNibCell(cellClass: LCNewsCell.self)
+        self.tableView.lc_registerClassCell(cellClass: LCNewsCell.self)
         print("__\(#file)__\(#function)__\(#line)__")
         
 //        let arr = [1, 2, 3]
@@ -35,6 +35,7 @@ class LCHomeNewsController: LCTableViewController {
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.lc_dequeueReusableCell(indexPath: indexPath) as LCNewsCell
+        cell.news = self.news[indexPath.row].contentModel
         cell.selectionStyle = .none
         return cell
     }

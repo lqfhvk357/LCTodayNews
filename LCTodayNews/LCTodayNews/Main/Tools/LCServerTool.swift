@@ -9,6 +9,8 @@
 import Foundation
 import Moya
 
+
+
 class LCServerTool {
     /// 首页baseRequest
     static func requestData(_ target: LCHomeService, completion: @escaping Completion) -> () {
@@ -35,16 +37,37 @@ class LCServerTool {
         requestData(target, completion: completion)
     }
     
+    enum TTFrom: String {
+        case pull = "pull"
+        case loadMore = "load_more"
+        case auto = "auto"
+        case enterAuto = "enter_auto"
+        case preLoadMoreDraw = "pre_load_more_draw"
+    }
     ///首页新闻
     static func requestHomeNews(forCategory category: String = LCTitleType.recommend.rawValue,
-                                 tt_from: String = "pull",
-                                 refresh_reason: Int = 0,
-                                 strict: Int = 1,
-                                 detail: Int = 1,
-                                 min_behot_time: Int = 0,
-                                 max_behot_time: Int = 0,
+                                count: Int = 20,
+                                tt_from: String = TTFrom.pull.rawValue,
+                                refresh_reason: Int = 1,
+                                strict: Int = 0,
+                                detail: Int = 1,
+                                min_behot_time: Double = Date().timeIntervalSince1970,
+                                max_behot_time: Double = 0,
                                 completion: @escaping Completion) -> () {
-        let target = LCHomeService.homeNews(device_id: Device_id, category: category, tt_from: tt_from, refresh_reason: refresh_reason, strict: strict, detail: detail, min_behot_time: min_behot_time, max_behot_time: max_behot_time)
+        let target = LCHomeService.homeNews(device_id: Device_id,
+                                            category: category,
+                                            count: count,
+                                            tt_from: tt_from,
+                                            refresh_reason: refresh_reason,
+                                            strict: strict,
+                                            detail: detail,
+                                            min_behot_time: min_behot_time,
+                                            max_behot_time: max_behot_time)
         requestData(target, completion: completion)
+    }
+    
+    static func requestMoreHomeNews(forCategory category: String = LCTitleType.recommend.rawValue,
+                                completion: @escaping Completion) -> () {
+        requestHomeNews(forCategory: category, count: 10, tt_from: TTFrom.loadMore.rawValue, completion: completion)
     }
 }

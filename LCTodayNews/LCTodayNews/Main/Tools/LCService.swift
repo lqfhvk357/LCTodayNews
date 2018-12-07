@@ -36,7 +36,7 @@ enum LCHomeService {
     case homeTitles(device_id : Int, iid: Int)
     case homeMoreTitles(device_id : Int, iid: Int)
     case homeSearchBarInfo(device_id : Int, iid: Int)
-    case homeNews(device_id : Int, category: String, tt_from: String, refresh_reason: Int, strict: Int, detail: Int, min_behot_time: Int, max_behot_time: Int)
+    case homeNews(device_id : Int, category: String, count: Int, tt_from: String, refresh_reason: Int, strict: Int, detail: Int, min_behot_time: Double, max_behot_time: Double)
 }
 
 extension LCHomeService: TargetType {
@@ -48,7 +48,7 @@ extension LCHomeService: TargetType {
             return "/article/category/get_extra/v1/"
         case .homeSearchBarInfo(_, _):
             return "/search/suggest/homepage_suggest/"
-        case .homeNews(_, _, _, _, _, _, _, _):
+        case .homeNews(_, _, _, _, _, _, _, _, _):
             return "/api/news/feed/v88/"
         }
         
@@ -65,15 +65,18 @@ extension LCHomeService: TargetType {
                                                    "iid": iid],
                                       encoding: JSONEncoding.default)
             
-        case let .homeNews(device_id, category, tt_from, refresh_reason, strict, detail, min_behot_time, max_behot_time):
-            return .requestParameters(parameters: ["device_id": device_id,
-                                                   "category": category,
-                                                   "tt_from": tt_from,
-                                                   "refresh_reason": refresh_reason,
-                                                   "strict": strict,
-                                                   "detail": detail,
-                                                   "min_behot_time": min_behot_time,
-                                                   "max_behot_time": max_behot_time],
+        case let .homeNews(device_id, category, count, tt_from, refresh_reason, strict, detail, min_behot_time, max_behot_time):
+            let params = ["device_id": device_id,
+                          "category": category,
+//                          "count": count,
+//                          "tt_from": tt_from,
+//                          "refresh_reason": refresh_reason,
+//                          "strict": strict,
+//                          "detail": detail,
+//                          "min_behot_time": min_behot_time,
+//                          "max_behot_time": max_behot_time,
+                ] as [String: Any]
+            return .requestParameters(parameters: params,
                                       encoding: JSONEncoding.default)
         }
         
