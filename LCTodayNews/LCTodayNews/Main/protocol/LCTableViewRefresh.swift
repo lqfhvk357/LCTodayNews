@@ -46,7 +46,7 @@ extension TableViewRefreshFooter where Self:UITableViewController {
     }
     
     func shouldHiddenFooter(with datas: Array<Any>) -> Void {
-        tableView.mj_footer.isHidden = datas.count < 10
+        tableView.mj_footer.isHidden = datas.count < 5
     }
     
     func footerEndRefresh() -> Void {

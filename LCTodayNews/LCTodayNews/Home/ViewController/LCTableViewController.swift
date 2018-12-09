@@ -19,7 +19,7 @@ class LCTableViewController: UITableViewController {
 
     var newsTitle: LCHomeNewsTitle?
     var news = [LCHomeNewsData.LCHomeNews]()
-    
+    var pullTime: TimeInterval = 0.0
     //MARK: - life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,8 +43,8 @@ class LCTableViewController: UITableViewController {
     //Views
     fileprivate func setupTableView() -> Void {
         self.tableView.backgroundColor = UIColor.tableViewBackgoundColor
-        self.tableView.estimatedRowHeight = 0
-        self.tableView.rowHeight = 150
+//        self.tableView.estimatedRowHeight = 0
+//        self.tableView.rowHeight = 150
         self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
         
         self.addRefreshHeader()
@@ -69,20 +69,24 @@ extension LCTableViewController: TableViewRefreshHeader, TableViewRefreshFooter{
         guard let title = newsTitle else {
             return
         }
-        LCServerTool.requestHomeNews(forCategory: title.category){ result in
+        pullTime = Date().timeIntervalSince1970
+        
+        
+        LCServerTool.requestHomeNews(forCategory: title.category, min_behot_time: pullTime){ result in
             self.headerEndRefresh()
             switch result {
             case .success(let response):
                 if let datas = LCHomeNewsData.modelform(response){
-                    print("requsetHomeNews:\n\(JSON(response.data))")
+                    print("\(title.category) --- requsetHomeNews:\n\(JSON(response.data))")
                     
-                    self.news = datas.data.filter{ newsData -> Bool in
+                    let noNULLDatas = datas.data.filter{ newsData -> Bool in
                         newsData.contentModel != nil
                     }
+                    self.news = noNULLDatas
                     
                     print("models:\n\(datas)")
-                    if self.news.count != datas.data.count {
-                        print("errer!!!!!!!!!!!!!!!! self.news.count : \(self.news.count)  --- datas.data.count : \(datas.data.count)")
+                    if noNULLDatas.count != datas.data.count {
+                        print("errer!!!!!!!!!!!!!!!! noNULLDatas.count : \(noNULLDatas.count)  --- datas.data.count : \(datas.data.count)")
                     }
                     
                     self.tableView.reloadData()
@@ -96,9 +100,37 @@ extension LCTableViewController: TableViewRefreshHeader, TableViewRefreshFooter{
     }
     
     func footerDidRefresh() {
-        self.footerEndRefresh()
+        guard let title = newsTitle else {
+            return
+        }
+        LCServerTool.requestMoreHomeNews(forCategory: title.category, list_count: self.news.count, max_behot_time: pullTime){ result in
+            self.footerEndRefresh()
+            switch result {
+            case .success(let response):
+                if let datas = LCHomeNewsData.modelform(response){
+                    print("requsetHomeNews:\n\(JSON(response.data))")
+                    
+                    let noNULLDatas = datas.data.filter{ newsData -> Bool in
+                        newsData.contentModel != nil && newsData.contentModel?.stick_style != 1
+                    }
+                    self.news.append(contentsOf: noNULLDatas)
+                    
+                    print("models:\n\(datas)")
+                    if noNULLDatas.count != datas.data.count {
+                        print("errer!!!!!!!!!!!!!!!! noNULLDatas.count : \(noNULLDatas.count)  --- datas.data.count : \(datas.data.count)")
+                    }
+                    
+                    self.tableView.reloadData()
+                    self.shouldHiddenFooter(with: self.news)
+                }
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 
+    
 }
 
 

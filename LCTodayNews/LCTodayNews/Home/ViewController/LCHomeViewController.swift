@@ -19,11 +19,11 @@ class LCHomeViewController: UIViewController  {
     
     fileprivate var titles : [LCHomeNewsTitle] = []
     fileprivate var others : [LCHomeNewsTitle] = []
-    fileprivate var childViewControllerDict: Dictionary<String, UIViewController> = [:]
+    fileprivate var childViewControllerDict: Dictionary<String, LCTableViewController> = [:]
     fileprivate var selectIndex = 0
     
+    let pageScrollView = LCHomePageScrollView()
     fileprivate weak var collectionView: UICollectionView?
-    fileprivate weak var pageScrollView: LCHomePageScrollView?
     lazy var titleView: LCAllTitleView = {
         let titleV = LCAllTitleView.lc_loadForBundle()
         titleV.completion = { [weak self] completionTitles, titleShouldScroll, selectIndex in
@@ -52,7 +52,6 @@ class LCHomeViewController: UIViewController  {
         self.sutupViews()
         
         
-        
     }
     
     //MARK: - Datas
@@ -62,6 +61,8 @@ class LCHomeViewController: UIViewController  {
             self.titles = titles
             self.updateSelectTitle(in: 0)
         }else{
+            let defaultTitle = LCHomeNewsTitle.init(category: "", name: "推荐", select: true)
+            self.titles.append(defaultTitle)
             LCServerTool.requestHomeTiltes { result in
                 switch result {
                 case .success(let response):
@@ -70,7 +71,6 @@ class LCHomeViewController: UIViewController  {
                     
                     if let titleDatas = LCHomeNewsTitleData.modelform(response: response){
                         self.titles = titleDatas.data.data
-                        let defaultTitle = LCHomeNewsTitle.init(category: "", name: "推荐", select: true)
                         self.titles.insert(defaultTitle, at: 0)
                         self.collectionView?.reloadData()
                         
@@ -120,21 +120,22 @@ class LCHomeViewController: UIViewController  {
         self.collectionView = collectionView
         
         
-        let pageScrollView = LCHomePageScrollView()
         pageScrollView.contentSize = CGSize(width: ScreenWidth*CGFloat(self.titles.count), height: 0)
         pageScrollView.backgroundColor = UIColor.green
         pageScrollView.isPagingEnabled = true
+        pageScrollView.delegate = self
         self.view.addSubview(pageScrollView)
         let height = ScreenHeight - NavBarHeight - TabBarHeight - collectionView.height
         pageScrollView.frame = CGRect(x: 0, y: collectionView.height, width: ScreenWidth, height: height)
-        self.pageScrollView = pageScrollView
         
         
         let fristVC = LCHomeNewsController()
-        fristVC.newsTitle = self.titles.first
+        let defaultTitle = self.titles.first!
+        fristVC.newsTitle = defaultTitle
         self.addChildViewController(fristVC)
         pageScrollView.addSubview(fristVC.view)
         fristVC.view.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: height)
+        childViewControllerDict[defaultTitle.category] = fristVC
     }
 }
 
@@ -182,12 +183,32 @@ extension LCHomeViewController: UICollectionViewDelegate {
 //MARK: - UICollectionViewDelegateFlowLayout Extension
 extension LCHomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = NSString.init(string: self.titles[indexPath.row].name).size(withAttributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 17)]).width
+        let width = self.titles[indexPath.row].name.textSize(systemFontSize: 17, width: ScreenWidth).width
         let height:CGFloat = 28
         return CGSize(width: width, height: height)
     }
 }
 
+//MARK: - UIScrollViewDelegate Extension
+extension LCHomeViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let index = Int(scrollView.contentOffset.x / ScreenWidth)
+        let newsTitle = self.titles[index]
+        print(newsTitle)
+        guard childViewControllerDict[newsTitle.category] == nil else{
+            return
+        }
+        
+        let selectVC = LCHomeNewsController()
+        selectVC.newsTitle = newsTitle
+        self.addChildViewController(selectVC)
+        pageScrollView.addSubview(selectVC.view)
+        let height = ScreenHeight - NavBarHeight - TabBarHeight - collectionView!.height
+        selectVC.view.frame = CGRect(x: ScreenWidth*CGFloat(index), y: 0, width: ScreenWidth, height: height)
+        childViewControllerDict[newsTitle.category] = selectVC
+        
+    }
+}
 
 //MARK: Private
 extension LCHomeViewController{

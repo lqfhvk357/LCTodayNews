@@ -18,6 +18,7 @@ target 'LCTodayNews' do
   pod 'MJRefresh'
   pod 'HandyJSON'
   pod 'YogaKit', '~> 1.9.0'
+  pod 'Kingfisher', '~> 4.10.0'
 # Pods for LCTodayNews
 
 end

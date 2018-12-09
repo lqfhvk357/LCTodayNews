@@ -8,6 +8,8 @@
 
 import Foundation
 import Moya
+import Alamofire
+import SwiftyJSON
 
 public extension TargetType {
     var baseURL: URL { return URL(string: "https://is.snssdk.com")! }
@@ -17,7 +19,7 @@ public extension TargetType {
     }
     
     var sampleData: Data {
-        return Data()
+        return "{}".data(using: String.Encoding.utf8)!
     }
     
     var headers: [String: String]? {
@@ -36,10 +38,12 @@ enum LCHomeService {
     case homeTitles(device_id : Int, iid: Int)
     case homeMoreTitles(device_id : Int, iid: Int)
     case homeSearchBarInfo(device_id : Int, iid: Int)
-    case homeNews(device_id : Int, category: String, count: Int, tt_from: String, refresh_reason: Int, strict: Int, detail: Int, min_behot_time: Double, max_behot_time: Double)
+    case homeNews(device_id : Int, category: String, list_count: Int, count: Int, tt_from: String, refresh_reason: Int, strict: Int, detail: Int, min_behot_time: Double, max_behot_time: Double)
 }
 
 extension LCHomeService: TargetType {
+    public static var partUrlString = "v88"
+    
     var path: String {
         switch self {
         case .homeTitles(_, _):
@@ -48,8 +52,8 @@ extension LCHomeService: TargetType {
             return "/article/category/get_extra/v1/"
         case .homeSearchBarInfo(_, _):
             return "/search/suggest/homepage_suggest/"
-        case .homeNews(_, _, _, _, _, _, _, _, _):
-            return "/api/news/feed/v88/"
+        case .homeNews(_, _, _, _, _, _, _, _, _, _):
+            return "/api/news/feed/\(LCHomeService.partUrlString)/"
         }
         
     }
@@ -65,17 +69,32 @@ extension LCHomeService: TargetType {
                                                    "iid": iid],
                                       encoding: JSONEncoding.default)
             
-        case let .homeNews(device_id, category, count, tt_from, refresh_reason, strict, detail, min_behot_time, max_behot_time):
-            let params = ["device_id": device_id,
-                          "category": category,
-//                          "count": count,
-//                          "tt_from": tt_from,
-//                          "refresh_reason": refresh_reason,
-//                          "strict": strict,
-//                          "detail": detail,
-//                          "min_behot_time": min_behot_time,
-//                          "max_behot_time": max_behot_time,
-                ] as [String: Any]
+        case let .homeNews(device_id, category, list_count, count, tt_from, refresh_reason, strict, detail, min_behot_time, max_behot_time):
+            let params = [  "device_id": device_id,
+                            "category": category,
+                            "list_count": list_count,
+                            "count": count,
+                            "tt_from": tt_from,
+                            "refresh_reason": refresh_reason,
+                            "strict": strict,
+                            "detail": detail,
+                            "min_behot_time": min_behot_time,
+                            "max_behot_time": max_behot_time,
+                            "iid": Iid,
+                            ] as [String : Any]
+            
+//            let url = baseURL.absoluteString + "/api/news/feed/v88/?"
+//            Alamofire.request(url, parameters: params).responseJSON { (response) in
+//                // 网络错误的提示信息
+//                guard response.result.isSuccess else { return }
+//                if let value = response.result.value {
+//                    let json = JSON(value)
+//                    guard json["message"] == "success" else { return }
+//                    guard let datas = json["data"].array else { return }
+//                    print("datas -- \(json["data"])" )
+//                    print("count -- \(datas.count)")
+//                }
+//            }
             return .requestParameters(parameters: params,
                                       encoding: JSONEncoding.default)
         }

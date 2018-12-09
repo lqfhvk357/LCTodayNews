@@ -46,16 +46,22 @@ class LCServerTool {
     }
     ///首页新闻
     static func requestHomeNews(forCategory category: String = LCTitleType.recommend.rawValue,
+                                list_count: Int = 0,
                                 count: Int = 20,
                                 tt_from: String = TTFrom.pull.rawValue,
                                 refresh_reason: Int = 1,
                                 strict: Int = 0,
                                 detail: Int = 1,
-                                min_behot_time: Double = Date().timeIntervalSince1970,
+                                min_behot_time: Double = 0,
                                 max_behot_time: Double = 0,
+                                partUrlString: String = "v88",
                                 completion: @escaping Completion) -> () {
+//        LCHomeService.partUrlString = partUrlString
+        
+        print(category)
         let target = LCHomeService.homeNews(device_id: Device_id,
                                             category: category,
+                                            list_count: list_count,
                                             count: count,
                                             tt_from: tt_from,
                                             refresh_reason: refresh_reason,
@@ -67,7 +73,15 @@ class LCServerTool {
     }
     
     static func requestMoreHomeNews(forCategory category: String = LCTitleType.recommend.rawValue,
+                                    list_count : Int,
+                                    max_behot_time: Double,
                                 completion: @escaping Completion) -> () {
-        requestHomeNews(forCategory: category, count: 10, tt_from: TTFrom.loadMore.rawValue, completion: completion)
+        requestHomeNews(forCategory: category,
+                        list_count: list_count,
+                        count: 20,
+                        tt_from: TTFrom.loadMore.rawValue,
+                        max_behot_time: max_behot_time,
+                        partUrlString : "v75",
+                        completion: completion)
     }
 }

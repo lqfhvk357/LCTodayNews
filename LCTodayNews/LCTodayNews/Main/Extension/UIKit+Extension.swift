@@ -173,16 +173,16 @@ extension TimeInterval {
         // 日期格式
         let formatter = DateFormatter()
         // 判断当前日期是否为今年
-        guard createDate.isThisYear() else {
+        guard createDate.isTheYear() else {
             formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
             return formatter.string(from: createDate)
         }
-        // 是否是前天
-        if createDate.isBeforeYesterday() {
-            formatter.dateFormat = "前天 HH:mm"
+        // 是否是昨天
+        if createDate.isYesterday() {
+            formatter.dateFormat = "昨天 HH:mm"
             return formatter.string(from: createDate)
-        } else if createDate.isToday() || createDate.isYesterday() {
-            // 判断是否是今天或者昨天
+        } else if createDate.isToday(){
+            // 判断是否是今天
             if comps.hour! >= 1 {
                 return String(format: "%d小时前", comps.hour!)
             } else if comps.minute! >= 1 {
@@ -199,74 +199,45 @@ extension TimeInterval {
 
 
 //extension Int {
-
+//
 //    func convertString() -> String {
 //        guard self >= 10000 else {
 //            return String(describing: self)
 //        }
 //        return String(format: "%.1f万", Float(self) / 10000.0)
 //    }
-    
-    /// 将秒数转成字符串
-//    func convertVideoDuration() -> String {
-//        // 格式化时间
-//        if self == 0 { return "00:00" }
-//        let hour = self / 3600
-//        let minute = (self / 60) % 60
-//        let second = self % 60
-//        if hour > 0 { return String(format: "%02d:%02d:%02d", hour, minute, second) }
-//        return String(format: "%02d:%02d", minute, second)
-//    }
-    
 //}
+
 
 extension Date {
     
     /// 判断当前日期是否为今年
-    func isThisYear() -> Bool {
-        // 获取当前日历
-        let calender = Calendar.current
-        // 获取日期的年份
-        let yearComps = calender.component(.year, from: self)
-        // 获取现在的年份
-        let nowComps = calender.component(.year, from: Date())
+    func isTheYear() -> Bool {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy"
+        let date = Date()
         
-        return yearComps == nowComps
+        return formatter.string(from: date) == formatter.string(from: self)
     }
+    
     
     /// 是否是昨天
     func isYesterday() -> Bool {
-        // 获取当前日历
-        let calender = Calendar.current
-        // 获取日期的年份
-        let comps = calender.dateComponents([.year, .month, .day], from: self, to: Date())
-        // 根据头条显示时间 ，我觉得可能有问题 如果comps.day == 0 显示相同，如果是 comps.day == 1 显示时间不同
-        // 但是 comps.day == 1 才是昨天 comps.day == 2 是前天
-        //        return comps.year == 0 && comps.month == 0 && comps.day == 1
-        return comps.year == 0 && comps.month == 0 && comps.day == 0
+        let date = Date()
+        let since = date.timeIntervalSince(self)
+        
+//        print(since)
+        return since > 60*60*24 && since < 60*60*24*2
     }
     
-    /// 是否是前天
-    func isBeforeYesterday() -> Bool {
-        // 获取当前日历
-        let calender = Calendar.current
-        // 获取日期的年份
-        let comps = calender.dateComponents([.year, .month, .day], from: self, to: Date())
-        //
-        //        return comps.year == 0 && comps.month == 0 && comps.day == 2
-        return comps.year == 0 && comps.month == 0 && comps.day == 1
-    }
-    
+
     /// 判断是否是今天
     func isToday() -> Bool {
-        // 日期格式化
-        let formatter = DateFormatter()
-        // 设置日期格式
-        formatter.dateFormat = "yyyy-MM-dd"
+        let date = Date()
+        let since = date.timeIntervalSince(self)
         
-        let dateStr = formatter.string(from: self)
-        let nowStr = formatter.string(from: Date())
-        return dateStr == nowStr
+//        print(since)
+        return since < 60*60*24
     }
     
 }

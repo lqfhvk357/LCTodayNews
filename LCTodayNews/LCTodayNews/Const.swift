@@ -11,8 +11,8 @@ import UIKit
 
 
 /// device
-let Device_id: Int = 6096495334
-let Iid: Int = 5034850950
+let Device_id: Int = 21482297196
+let Iid: Int = 45275915249
 let ScreenWidth = UIScreen.main.bounds.width
 let ScreenHeight = UIScreen.main.bounds.height
 let NavBarHeight = CGFloat(ScreenHeight<810 ? 64 : 88)
@@ -26,6 +26,10 @@ let KHomeOtherTitlesKey = "KHomeOtherTitlesKey"
 let KMainTitle = "KMainTitle"
 let KSubTitle = "KSubTitle"
 let KActive = "KActive"
+
+//
+//var partUrlString = "v88"
+
 
 
 

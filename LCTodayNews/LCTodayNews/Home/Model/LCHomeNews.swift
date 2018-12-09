@@ -77,9 +77,16 @@ struct LCHomeNewsDesc: Decodable {
         let width: Int
         let uri: String
         let url: String
-        
+        var urlString: String {
+            guard url.contains(".webp") else { return url}
+            return url.replacingOccurrences(of: ".webp", with: ".png")
+        }
         struct imageUrl: Decodable {
             let url: String
+            var urlString: String {
+                guard url.contains(".webp") else { return url}
+                return url.replacingOccurrences(of: ".webp", with: ".png")
+            }
         }
         let url_list: [imageUrl]
     }
