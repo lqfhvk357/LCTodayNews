@@ -14,36 +14,25 @@ import SwiftyJSON
 import HandyJSON
 
 public protocol ResponseToModel {
-    static func swiftyJSONFrom(response: Response) -> JSON
-    static func modelform(response: Response) -> Self?
     static func modelform(data: Data) -> Self?
     static func modelform(content: String) -> Self?
 }
 
 extension ResponseToModel where Self: Decodable{
-    static func swiftyJSONFrom(response: Response) -> JSON {
-        let json = JSON(response.data)
-        return json
-    }
-    
-    static func modelform(response: Response) -> Self? {
-        let dcit = swiftyJSONFrom(response: response)
-        if let json = try? dcit.rawData(){
-            if let model = modelform(data: json){
-                return model;
+
+    static func modelform(data: Data) -> Self?{
+        let json = JSON(data)
+        if let jsonData = try? json.rawData(){
+            do {
+                let model = try JSONDecoder().decode(Self.self, from: jsonData)
+                return model
+            }catch{
+                print(error)
+                return nil
             }
         }
         return nil
-    }
-    
-    static func modelform(data: Data) -> Self?{
-        do {
-            let model = try JSONDecoder().decode(Self.self, from: data)
-            return model
-        }catch{
-            print(error)
-            return nil
-        }
+        
     }
     
     static func modelform(content: String) -> Self?{

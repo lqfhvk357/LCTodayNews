@@ -63,13 +63,13 @@ class LCHomeViewController: UIViewController  {
         }else{
             let defaultTitle = LCHomeNewsTitle.init(category: "", name: "推荐", select: true)
             self.titles.append(defaultTitle)
-            LCServerTool.requestHomeTiltes { result in
-                switch result {
-                case .success(let response):
+            LCServerTool.requestHomeTiltes { data in
+                switch data.result {
+                case .success(let responseData):
 //                    let json = JSON(response.data)
 //                    print(json)
                     
-                    if let titleDatas = LCHomeNewsTitleData.modelform(response: response){
+                    if let titleDatas = LCHomeNewsTitleData.modelform(data: responseData){
                         self.titles = titleDatas.data.data
                         self.titles.insert(defaultTitle, at: 0)
                         self.collectionView?.reloadData()
@@ -88,10 +88,10 @@ class LCHomeViewController: UIViewController  {
         if let otherTitles = LCHomeNewsTitle.readNewsTitles(for: KHomeOtherTitlesKey) {
             self.others = otherTitles
         }else{
-            LCServerTool.requestHomeMoreTitles { result in
-                switch result {
-                case .success(let response):
-                    if let titleDatas = LCHomeNewsTitleData.modelform(response: response){
+            LCServerTool.requestHomeMoreTitles { data in
+                switch data.result {
+                case .success(let responseData):
+                    if let titleDatas = LCHomeNewsTitleData.modelform(data: responseData){
                         self.others = titleDatas.data.data
                         LCHomeNewsTitle.save(newsTitles: titleDatas.data.data, for: KHomeOtherTitlesKey)
                     }

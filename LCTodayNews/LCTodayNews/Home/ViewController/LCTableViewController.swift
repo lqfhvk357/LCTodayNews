@@ -8,7 +8,6 @@
 
 import UIKit
 import MJRefresh
-import Moya
 import PromiseKit
 import SwiftyJSON
 
@@ -72,29 +71,29 @@ extension LCTableViewController: TableViewRefreshHeader, TableViewRefreshFooter{
         pullTime = Date().timeIntervalSince1970
         
         
-        LCServerTool.requestHomeNews(forCategory: title.category, min_behot_time: pullTime){ result in
+        LCServerTool.requestHomeNews(forCategory: title.category, min_behot_time: pullTime){ data in
             self.headerEndRefresh()
-            switch result {
-            case .success(let response):
-                if let datas = LCHomeNewsData.modelform(response){
-                    print("\(title.category) --- requsetHomeNews:\n\(JSON(response.data))")
-                    
+            switch data.result {
+            case .success(let responseData):
+                print("\(title.category) --- requsetHomeNews:\n\(JSON(responseData))")
+                if let datas = LCHomeNewsData.modelformNewsData(responseData){
                     let noNULLDatas = datas.data.filter{ newsData -> Bool in
                         newsData.contentModel != nil
                     }
                     self.news = noNULLDatas
-                    
+
                     print("models:\n\(datas)")
                     if noNULLDatas.count != datas.data.count {
                         print("errer!!!!!!!!!!!!!!!! noNULLDatas.count : \(noNULLDatas.count)  --- datas.data.count : \(datas.data.count)")
                     }
-                    
+
                     self.tableView.reloadData()
                     self.shouldHiddenFooter(with: self.news)
                 }
                 
             case .failure(let error):
                 print(error.localizedDescription)
+                
             }
         }
     }
@@ -103,12 +102,12 @@ extension LCTableViewController: TableViewRefreshHeader, TableViewRefreshFooter{
         guard let title = newsTitle else {
             return
         }
-        LCServerTool.requestMoreHomeNews(forCategory: title.category, list_count: self.news.count, max_behot_time: pullTime){ result in
+        LCServerTool.requestMoreHomeNews(forCategory: title.category, list_count: self.news.count, max_behot_time: pullTime){ data in
             self.footerEndRefresh()
-            switch result {
-            case .success(let response):
-                if let datas = LCHomeNewsData.modelform(response){
-                    print("requsetHomeNews:\n\(JSON(response.data))")
+            switch data.result {
+            case .success(let responseData):
+                if let datas = LCHomeNewsData.modelformNewsData(responseData){
+                    print("requsetHomeNews:\n\(JSON(responseData))")
                     
                     let noNULLDatas = datas.data.filter{ newsData -> Bool in
                         newsData.contentModel != nil && newsData.contentModel?.stick_style != 1

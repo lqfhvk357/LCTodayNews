@@ -191,11 +191,10 @@ extension LCHomeNewsDesc: ResponseToModel{}
 extension LCHomeNewsDesc.newUser_info.user_info_auth: ResponseToModel{}
 
 extension LCHomeNewsData: ResponseToModel{
-    static func modelform(_ response: Response) -> LCHomeNewsData? {
-        
-        let dict = swiftyJSONFrom(response: response)
-        if let json = try? dict.rawData(){
-            if let newsData = modelform(data: json){
+    static func modelformNewsData(_ data: Data) -> LCHomeNewsData? {
+//        let dict = swiftyJSONFrom(response: response)
+//        if let json = try? dict.rawData(){
+            if let newsData = modelform(data: data){
                 var newsData_m = newsData
                 newsData_m.data = newsData.data.map { homeNews -> LCHomeNewsData.LCHomeNews in
                     if let contentModel = LCHomeNewsDesc.modelform(content: homeNews.content){
@@ -207,7 +206,7 @@ extension LCHomeNewsData: ResponseToModel{
                 }
                 return newsData_m
             }
-        }
+//        }
         return nil
     }
 }

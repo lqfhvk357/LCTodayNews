@@ -20,27 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LCTodayNews/Main/protocol/LCDataSource.swift"
-            timestampString = "565871382.8405"
+            timestampString = "566031278.831381"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "modelform(data:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LCTodayNews/Main/protocol/LCDataSource.swift"
-            timestampString = "565871382.8405499"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "modelform(content:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -51,44 +35,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LCTodayNews/Home/ViewController/LCTableViewController.swift"
-            timestampString = "566024870.282235"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
-            landmarkName = "headerDidRefresh()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LCTodayNews/Home/ViewController/LCTableViewController.swift"
-            timestampString = "566024870.2823319"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "headerDidRefresh()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "LCTodayNews/Main/Tools/LCServerTool.swift"
-            timestampString = "566024870.282409"
+            timestampString = "566031278.8314641"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "requestHomeNews(forCategory:list_count:count:tt_from:refresh_reason:strict:detail:min_behot_time:max_behot_time:partUrlString:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -100,13 +52,125 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LCTodayNews/Main/Tools/LCService.swift"
-            timestampString = "566024870.282461"
+            timestampString = "566031278.831951"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "73"
             endingLineNumber = "73"
             landmarkName = "task"
             landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LCTodayNews/Home/ViewController/LCHomeViewController.swift"
+            timestampString = "566031278.832036"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "getTitles()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LCTodayNews/Home/ViewController/LCTableViewController.swift"
+            timestampString = "566031278.832096"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "headerDidRefresh()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LCTodayNews/Main/Tools/LCServerTool.swift"
+            timestampString = "566031278.832158"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "requestData(_:params:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static LCTodayNews.LCServerTool.requestData(_: Swift.String, params: Swift.Dictionary&lt;Swift.String, Any&gt;, completion: (Alamofire.DataResponse&lt;Foundation.Data&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "LCTodayNews"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/luochao/Documents/usering%20namespace%20ns%3B/LCTodayNews/LCTodayNews/LCTodayNews/Main/Tools/LCServerTool.swift"
+                  timestampString = "566030751.63368"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "144">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Foundation.Data&gt;) -&gt; () in static LCTodayNews.LCServerTool.requestData(_: Swift.String, params: Swift.Dictionary&lt;Swift.String, Any&gt;, completion: (Alamofire.DataResponse&lt;Foundation.Data&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "LCTodayNews"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/luochao/Documents/usering%20namespace%20ns%3B/LCTodayNews/LCTodayNews/LCTodayNews/Main/Tools/LCServerTool.swift"
+                  timestampString = "566030751.63537"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LCTodayNews/Home/ViewController/LCTableViewController.swift"
+            timestampString = "566031278.832395"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "headerDidRefresh()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LCTodayNews/Home/ViewController/LCTableViewController.swift"
+            timestampString = "566031278.832446"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "headerDidRefresh()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

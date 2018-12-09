@@ -7,34 +7,43 @@
 //
 
 import Foundation
+import Alamofire
 import Moya
+import SwiftyJSON
 
-
+public typealias Completion = (_ result: DataResponse<Data>) -> Void
+let baseURL = "https://is.snssdk.com"
+enum SubPath: String {
+    case homeTitles = "/article/category/get_subscribed/v1/"
+    case homeMoreTitles = "/article/category/get_extra/v1/"
+    case homeSearchBarInfo = "/search/suggest/homepage_suggest/"
+    case homeNews = "/api/news/feed/v88/"
+}
 
 class LCServerTool {
     /// 首页baseRequest
-    static func requestData(_ target: LCHomeService, completion: @escaping Completion) -> () {
-        let provider = MoyaProvider<LCHomeService>()
-        provider.request(target, completion: completion)
+    static func requestData(_ partUrl: String, params: Dictionary<String, Any>, completion: @escaping Completion) -> () {
+        let url = baseURL + partUrl
+        Alamofire.request(url, method: .get, parameters: params).responseData { completion($0) }
     }
     
     ///首页新闻标题
     static func requestHomeTiltes(completion: @escaping Completion) -> () {
-        let target = LCHomeService.homeTitles(device_id: Device_id, iid: Iid)
-        requestData(target, completion: completion)
+        let params = ["device_id": Device_id, "iid": Iid]
+        requestData(SubPath.homeTitles.rawValue, params: params, completion: completion)
     }
     
     ///首页导航栏搜索接口
     static func requsetHomeSearchBarInfo(completion: @escaping Completion) -> (){
-        let target = LCHomeService.homeSearchBarInfo(device_id: Device_id, iid: Iid)
-        requestData(target, completion: completion)
+        let params = ["device_id": Device_id, "iid": Iid]
+        requestData(SubPath.homeSearchBarInfo.rawValue, params: params, completion: completion)
     }
     
     
     ///首页更多新闻标题
     static func requestHomeMoreTitles(completion: @escaping Completion) -> () {
-        let target = LCHomeService.homeMoreTitles(device_id: Device_id, iid: Iid)
-        requestData(target, completion: completion)
+        let params = ["device_id": Device_id, "iid": Iid]
+        requestData(SubPath.homeMoreTitles.rawValue, params: params, completion: completion)
     }
     
     enum TTFrom: String {
@@ -56,20 +65,34 @@ class LCServerTool {
                                 max_behot_time: Double = 0,
                                 partUrlString: String = "v88",
                                 completion: @escaping Completion) -> () {
-//        LCHomeService.partUrlString = partUrlString
         
-        print(category)
-        let target = LCHomeService.homeNews(device_id: Device_id,
-                                            category: category,
-                                            list_count: list_count,
-                                            count: count,
-                                            tt_from: tt_from,
-                                            refresh_reason: refresh_reason,
-                                            strict: strict,
-                                            detail: detail,
-                                            min_behot_time: min_behot_time,
-                                            max_behot_time: max_behot_time)
-        requestData(target, completion: completion)
+        let params = [  "device_id": Device_id,
+                        "category": "news_car",
+                        "list_count": list_count,
+                        "count": count,
+                        "tt_from": tt_from,
+                        "refresh_reason": refresh_reason,
+                        "strict": strict,
+                        "detail": detail,
+                        "min_behot_time": min_behot_time,
+                        "max_behot_time": max_behot_time,
+                        "iid": Iid,
+                        ] as [String : Any]
+  
+        let url = baseURL + SubPath.homeNews.rawValue
+        Alamofire.request(url, parameters: params).responseJSON { (response) in
+            // 网络错误的提示信息
+            guard response.result.isSuccess else { return }
+            if let value = response.result.value {
+                let json = JSON(value)
+                guard json["message"] == "success" else { return }
+                guard let datas = json["data"].array else { return }
+                print("datas -- \(json["data"])" )
+                print("count -- \(datas.count)")
+//                completionHandler(pullTime, datas.compactMap({ NewsModel.deserialize(from: $0["content"].string) }))
+            }
+        }
+        requestData(SubPath.homeNews.rawValue, params: params, completion: completion)
     }
     
     static func requestMoreHomeNews(forCategory category: String = LCTitleType.recommend.rawValue,
