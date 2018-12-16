@@ -9,9 +9,14 @@
 import UIKit
 import MJRefresh
 import PromiseKit
-import SwiftyJSON
 
-class LCTableViewController: UITableViewController {
+
+protocol NewsTitleProtocol where Self: UIViewController  {
+    var newsTitle: LCHomeNewsTitle? { set get }
+    var pullTime: TimeInterval { set get }
+}
+
+class LCTableViewController: UITableViewController, NewsTitleProtocol, ScrollViewRefreshHeader, ScrollViewRefreshFooter {
     
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { return .slide }
@@ -42,10 +47,8 @@ class LCTableViewController: UITableViewController {
     //Views
     fileprivate func setupTableView() -> Void {
         self.tableView.backgroundColor = UIColor.tableViewBackgoundColor
-//        self.tableView.estimatedRowHeight = 0
-//        self.tableView.rowHeight = 150
         self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-        
+        self.tableView.rowHeight = UITableViewAutomaticDimension
         self.addRefreshHeader()
         self.addRefreshFooter()
         self.shouldHiddenFooter(with: news)
@@ -57,79 +60,15 @@ class LCTableViewController: UITableViewController {
         return self.news.count
 //        return 10
     }
+    
+    
+    func headerDidRefresh() {}
+    func footerDidRefresh() {}
 }
 
-
-
-// MARK: - RefreshControl Extension
-extension LCTableViewController: TableViewRefreshHeader, TableViewRefreshFooter{
     
-    func headerDidRefresh() {
-        guard let title = newsTitle else {
-            return
-        }
-        pullTime = Date().timeIntervalSince1970
-        
-        
-        LCServerTool.requestHomeNews(forCategory: title.category, min_behot_time: pullTime){ data in
-            self.headerEndRefresh()
-            switch data.result {
-            case .success(let responseData):
-                print("\(title.category) --- requsetHomeNews:\n\(JSON(responseData))")
-                if let datas = LCHomeNewsData.modelformNewsData(responseData){
-                    let noNULLDatas = datas.data.filter{ newsData -> Bool in
-                        newsData.contentModel != nil
-                    }
-                    self.news = noNULLDatas
-
-                    print("models:\n\(datas)")
-                    if noNULLDatas.count != datas.data.count {
-                        print("errer!!!!!!!!!!!!!!!! noNULLDatas.count : \(noNULLDatas.count)  --- datas.data.count : \(datas.data.count)")
-                    }
-
-                    self.tableView.reloadData()
-                    self.shouldHiddenFooter(with: self.news)
-                }
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-                
-            }
-        }
-    }
     
-    func footerDidRefresh() {
-        guard let title = newsTitle else {
-            return
-        }
-        LCServerTool.requestMoreHomeNews(forCategory: title.category, list_count: self.news.count, max_behot_time: pullTime){ data in
-            self.footerEndRefresh()
-            switch data.result {
-            case .success(let responseData):
-                if let datas = LCHomeNewsData.modelformNewsData(responseData){
-                    print("requsetHomeNews:\n\(JSON(responseData))")
-                    
-                    let noNULLDatas = datas.data.filter{ newsData -> Bool in
-                        newsData.contentModel != nil && newsData.contentModel?.stick_style != 1
-                    }
-                    self.news.append(contentsOf: noNULLDatas)
-                    
-                    print("models:\n\(datas)")
-                    if noNULLDatas.count != datas.data.count {
-                        print("errer!!!!!!!!!!!!!!!! noNULLDatas.count : \(noNULLDatas.count)  --- datas.data.count : \(datas.data.count)")
-                    }
-                    
-                    self.tableView.reloadData()
-                    self.shouldHiddenFooter(with: self.news)
-                }
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
 
-    
-}
+
 
 

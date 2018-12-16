@@ -31,7 +31,6 @@ class LCNewsCell: UITableViewCell {
     let closeBtn = UIButton()
     let moreV = UIView()
     
-    
 
     
     var news: LCHomeNewsDesc? {
@@ -77,7 +76,11 @@ class LCNewsCell: UITableViewCell {
                 if let has_image = news.has_image, has_image, news.video_style == 0 { //右侧小图
                     showRightImage()
                 }else if news.video_style == 2 {
-                    showBigImage()
+                    if let large_image = news.video_detail_info?.detail_video_large_image {
+                        showBigImage(with: large_image.urlString)
+                    }else {
+                        hiddenAllImage()
+                    }
                 }else if news.middle_image != nil { //右侧小图
                     showRightImage()
                 }else {
@@ -89,8 +92,8 @@ class LCNewsCell: UITableViewCell {
                         showRightImage()
                     }else if let image_list = news.image_list, image_list.count > 1 { //三张小图
                         showGroupImage()
-                    }else if news.large_image_list?.first != nil{ //大图
-                        showBigImage()
+                    }else if let large_image = news.large_image_list?.first{ //大图
+                        showBigImage(with: large_image.urlString)
                     }else if news.middle_image != nil { //右侧小图
                         showRightImage()
                     } else {
@@ -104,7 +107,7 @@ class LCNewsCell: UITableViewCell {
     }
     
     
-    
+    //MARK: - override super
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupCell()
@@ -133,7 +136,6 @@ class LCNewsCell: UITableViewCell {
         setupBigImageView()
         setupSourceView()
         setupMoreView()
-        
 //        clearSubViewsColors(with: contentView)
     }
     
@@ -322,7 +324,7 @@ class LCNewsCell: UITableViewCell {
         moreV.yoga.display = .none
     }
     
-    //Mark: - Private
+    //MARK: - Private
     func setupRightImage() {
         if let urlString = news?.image_list?.first?.urlString {
             titleImageV.kf.setImage(with: URL(string: urlString))
@@ -367,14 +369,12 @@ class LCNewsCell: UITableViewCell {
         groupImageView.yoga.display = .none
     }
     
-    func showBigImage() {
+    func showBigImage(with urlString: String) {
         bigTitleL.numberOfLines = 2
         titleImageV.yoga.display = .none
         bigImageView.yoga.display = .flex
         groupImageView.yoga.display = .none
-        if let urlString = news?.large_image_list?.first?.urlString {
-            bigImageView.kf.setImage(with: URL(string: urlString))
-        }
+        bigImageView.kf.setImage(with: URL(string: urlString))
     }
     
     func clearSubViewsColors(with contentView: UIView) {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = UIColor.white
         window?.rootViewController = LCTabBarController()
         window?.makeKeyAndVisible()
+        
+//        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback, policy: .default, options: .mixWithOthers)
+        
+        try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, mode: AVAudioSessionModeMoviePlayback, options: .mixWithOthers)
         
         return true
     }

@@ -18,7 +18,7 @@ class LCTabBarController: UITabBarController {
         appearance.tintColor = UIColor.tarbarTint
         appearance.barTintColor = UIColor.white
         
-        var imageNames = ["home", "video", "weitoutiao", "huoshan", ]
+        var imageNames = ["home", "video", "huoshan", ]
         UserDefaults.standard.bool(forKey: "login") ? imageNames.append("mine") : imageNames.append("no_login")
         
         for imageName in imageNames {
@@ -30,13 +30,10 @@ class LCTabBarController: UITabBarController {
                 viewController = LCHomeViewController()
                 title = "首页"
             case "video":
-                viewController = UIViewController()
+                viewController = LCVideoViewController()
                 title = "西瓜视频"
-            case "weitoutiao":
-                viewController = UIViewController()
-                title = "微头条"
             case "huoshan":
-                viewController = UIViewController()
+                viewController = LCSmallVideoViewController()
                 title = "小视频"
             case "no_login":
                 viewController = UIViewController()

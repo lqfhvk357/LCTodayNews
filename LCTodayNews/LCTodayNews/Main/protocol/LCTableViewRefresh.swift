@@ -14,11 +14,11 @@ import UIKit
 //
 //}
 
-protocol TableViewRefreshHeader {
+protocol ScrollViewRefreshHeader {
     func headerDidRefresh() -> Void
 }
 
-extension TableViewRefreshHeader where Self: UITableViewController {
+extension ScrollViewRefreshHeader where Self: UITableViewController {
     func addRefreshHeader() -> Void {
         tableView.mj_header = LCRefreshHeader{ [weak self] in
             self!.headerDidRefresh()
@@ -34,11 +34,28 @@ extension TableViewRefreshHeader where Self: UITableViewController {
     }
 }
 
-protocol TableViewRefreshFooter {
+extension ScrollViewRefreshHeader where Self: UICollectionViewController {
+    func addRefreshHeader() -> Void {
+        collectionView?.mj_header = LCRefreshHeader{ [weak self] in
+            self!.headerDidRefresh()
+        }
+    }
+    
+    func headerBeginRefresh() -> Void {
+        collectionView?.mj_header.beginRefreshing()
+    }
+    
+    func headerEndRefresh() -> Void {
+        collectionView?.mj_header.endRefreshing()
+    }
+}
+
+
+protocol ScrollViewRefreshFooter {
     func footerDidRefresh() -> Void
 }
 
-extension TableViewRefreshFooter where Self:UITableViewController {
+extension ScrollViewRefreshFooter where Self: UITableViewController {
     func addRefreshFooter() -> Void {
         tableView.mj_footer = LCRefreshFooter{ [weak self] in
             self!.footerDidRefresh()
@@ -51,6 +68,22 @@ extension TableViewRefreshFooter where Self:UITableViewController {
     
     func footerEndRefresh() -> Void {
         tableView.mj_footer.endRefreshing()
+    }
+}
+
+extension ScrollViewRefreshFooter where Self: UICollectionViewController {
+    func addRefreshFooter() -> Void {
+        collectionView?.mj_footer = LCRefreshFooter{ [weak self] in
+            self!.footerDidRefresh()
+        }
+    }
+    
+    func shouldHiddenFooter(with datas: Array<Any>) -> Void {
+        collectionView?.mj_footer.isHidden = datas.count < 5
+    }
+    
+    func footerEndRefresh() -> Void {
+        collectionView?.mj_footer.endRefreshing()
     }
     
 }

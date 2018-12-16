@@ -143,9 +143,7 @@ class LCAllTitleView: UIView {
             }
         }
         
-        if let completion = completion {
-            completion(titles, titleShouldScroll, index)
-        }
+        completion?(titles, titleShouldScroll, index)
     }
 }
 

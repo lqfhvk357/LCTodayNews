@@ -48,4 +48,6 @@ struct LCHomeSearchInfoData: Decodable {
     let data: LCHomeSearchInfo
 }
 
-extension LCHomeSearchInfoData:ResponseToModel{}
+extension LCHomeSearchInfoData:ResponseToModel{
+    
+}

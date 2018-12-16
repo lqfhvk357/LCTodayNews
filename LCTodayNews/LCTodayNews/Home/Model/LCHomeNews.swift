@@ -39,7 +39,7 @@ struct LCHomeNewsDesc: Decodable {
         }
         let extra: actionExtra
     }
-    let action_list: [newsAction]
+    let action_list: [newsAction]?
     let aggr_type: Int
     let allow_download: Bool
     let article_alt_url: String?
@@ -171,7 +171,22 @@ struct LCHomeNewsDesc: Decodable {
     let user_repin: Int
     let user_verified: Int
     let verified_content: String
+
+    struct newVideo_detail_info: Decodable {
+        let detail_video_large_image: newsImage_list
+        let direct_play: Int
+        let group_flags: Int
+        let show_pgc_subscribe: Int
+        let video_id: String
+        let video_preloading_flag: Int
+        let video_type: Int
+        let video_watch_count: Int
+        let video_watching_count: Int
+    }
+    let video_detail_info: newVideo_detail_info?
     let video_style: Int
+    var video_main_url: String?
+    
 }
 
 

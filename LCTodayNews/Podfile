@@ -19,6 +19,7 @@ target 'LCTodayNews' do
   pod 'HandyJSON'
   pod 'YogaKit', '~> 1.9.0'
   pod 'Kingfisher', '~> 4.10.0'
+  pod 'CryptoSwift'
 # Pods for LCTodayNews
 
 end

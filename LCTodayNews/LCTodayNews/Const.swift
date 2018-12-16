@@ -21,6 +21,7 @@ let TabBarHeight = CGFloat(ScreenHeight<810 ? 49 : 83)
 /// keys of userDefaults
 let KHomeTitlesKey = "KHomeTitlesKey"
 let KHomeOtherTitlesKey = "KHomeOtherTitlesKey"
+let KVideoTitlesKey = "KVideoTitlesKey"
 
 /// keys of cell or header
 let KMainTitle = "KMainTitle"
