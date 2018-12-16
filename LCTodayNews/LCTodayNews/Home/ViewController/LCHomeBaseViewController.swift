@@ -61,48 +61,7 @@ class LCHomeBaseViewController: UIViewController, SelectChildVCProtocol {
         
         return collectionView
     }()
-    lazy var titleView: LCAllTitleView = {
-        let titleV = LCAllTitleView.lc_loadForBundle()
-        titleV.completion = { [weak self] completionTitles, titleShouldScroll, selectIndex in
 
-            self?.selectIndex = selectIndex
-            self?.titles = completionTitles[0]
-            self?.others = completionTitles[1]
-            
-            LCHomeNewsTitle.save(newsTitles: self!.titles, for: KHomeTitlesKey)
-            LCHomeNewsTitle.save(newsTitles: self!.others, for: KHomeOtherTitlesKey)
-            
-            self!.titleHeader.reloadData()
-            self!.pageScrollView.contentSize = CGSize(width: ScreenWidth*CGFloat(self!.titles.count), height: 0)
-            
-            for newsTitle in self!.others {
-                if let vc = self!.childViewControllerDict[newsTitle.category] as? UIViewController {
-                    vc.view.removeFromSuperview()
-                    vc.willMove(toParentViewController: nil)
-                    vc.removeFromParentViewController()
-                }
-                self!.childViewControllerDict.removeValue(forKey: newsTitle.category)
-            }
-            
-            for index in 0...self!.titles.count-1 {
-                let newsTitle = self!.titles[index]
-                if let vc = self!.childViewControllerDict[newsTitle.category] as? UIViewController {
-                    let height = ScreenHeight - NavBarHeight - TabBarHeight - self!.titleHeader.height
-                    vc.view.frame = CGRect(x: ScreenWidth*CGFloat(index), y: 0, width: ScreenWidth, height: height)
-                }
-                
-                if let select = newsTitle.select, select {
-                    self!.selectIndex = index
-                    self!.pageScrollView.setContentOffset(CGPoint(x: ScreenWidth*CGFloat(index), y: 0), animated: false)
-                    self!.titleHeader.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
-                }
-            }
-            
-            self!.selectVC(selectIndex)
-        }
-        
-        return titleV
-    }()
 
     
     //MARK: - life cycle
@@ -111,7 +70,6 @@ class LCHomeBaseViewController: UIViewController, SelectChildVCProtocol {
         
         self.edgesForExtendedLayout = UIRectEdge()
         getTitles()
-        getOtherTitles()
         setupTitleHeader()
         setupPageScrollView()
         selectVC(0)
@@ -121,10 +79,7 @@ class LCHomeBaseViewController: UIViewController, SelectChildVCProtocol {
     func getTitles() {
         fatalError("getTitles() has not been override implemented")
     }
-    
-    func getOtherTitles() {
 
-    }
     func selectVC(_ index: Int) {
         fatalError("selectVC(_ index: Int) has not been override implemented")
     }
@@ -152,27 +107,6 @@ class LCHomeBaseViewController: UIViewController, SelectChildVCProtocol {
         titleHeader.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
     }
     
-    func showTitlesView() {
-        titleView.enChange = false
-        titleView.titles = [self.titles, self.others]
-        
-        let keyWindow = UIApplication.shared.keyWindow!
-        keyWindow.addSubview(titleView)
-        titleView.snp.makeConstraints { (make) in
-            if #available(iOS 11.0, *) {
-                make.edges.equalTo(keyWindow.safeAreaLayoutGuide)
-            }else{
-                make.top.equalTo(keyWindow).offset(20)
-                make.left.right.bottom.equalTo(keyWindow)
-            }
-        }
-        
-        
-        titleView.transform = CGAffineTransform(translationX: 0, y: ScreenHeight)
-        UIView.animate(withDuration: 0.3) {
-            self.titleView.transform = CGAffineTransform.identity
-        }
-    }
 }
 
 //MARK: - UICollectionViewDataSource Extension
