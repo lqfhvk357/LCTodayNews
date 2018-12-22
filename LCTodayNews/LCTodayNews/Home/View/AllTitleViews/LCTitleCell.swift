@@ -33,10 +33,14 @@ class LCTitleCell: UICollectionViewCell {
         
         
         
-        if let select = title.select {
-            newsTitleLabel.textColor = select ? UIColor.red : UIColor.black
+        if let select = title.pageSelect, select {
+            newsTitleLabel.textColor = UIColor.red
         }else{
-            newsTitleLabel.textColor = UIColor.black
+            if indexPath.row == 0, indexPath.section == 0 {
+                newsTitleLabel.textColor = UIColor.lightGray
+            }else{
+                newsTitleLabel.textColor = UIColor.black
+            }
         }
         
     }

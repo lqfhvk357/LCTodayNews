@@ -22,7 +22,11 @@ import Moya
 //    "web_url" = "";
 
 
-struct LCHomeNewsTitle : Decodable{
+struct LCHomeNewsTitle : Decodable, LCPageHeaderTitle{
+    var pageTitleID: String {return category}
+    var pageTitle: String {return name}
+    var pageSelect: Bool?
+    
     let category: String
     var concern_id: String?
     var default_add: Int?
@@ -33,12 +37,10 @@ struct LCHomeNewsTitle : Decodable{
     var type: Int?
     var web_url: String?
     
-    var select: Bool? = false
-    
     init(category: String, name: String, select: Bool = false){
         self.category = category
         self.name = name
-        self.select = select
+        self.pageSelect = select
     }
     
     var titleDict: [String : String]? {

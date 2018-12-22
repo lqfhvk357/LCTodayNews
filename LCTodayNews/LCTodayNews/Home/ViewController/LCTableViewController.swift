@@ -16,12 +16,14 @@ protocol NewsTitleProtocol where Self: UIViewController  {
     var pullTime: TimeInterval { set get }
 }
 
-class LCTableViewController: UITableViewController, NewsTitleProtocol, ScrollViewRefreshHeader, ScrollViewRefreshFooter {
+class LCTableViewController: UITableViewController, LCPageTitleProtocol, ScrollViewRefreshHeader, ScrollViewRefreshFooter {
+    
     
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { return .slide }
 
-    var newsTitle: LCHomeNewsTitle?
+    var newsTitle: LCPageHeaderTitle?
+//    var newsTitle: LCHomeNewsTitle?
     var news = [LCHomeNewsData.LCHomeNews]()
     var pullTime: TimeInterval = 0.0
     //MARK: - life cycle

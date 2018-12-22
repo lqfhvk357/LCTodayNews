@@ -13,7 +13,7 @@ import RxCocoa
 class LCAllTitleView: UIView {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var flowLayout: LCTitleFlowLayout!
     lazy var finishButton = UIButton()
     
     var disposeBag = DisposeBag()
@@ -29,7 +29,11 @@ class LCAllTitleView: UIView {
     }
     var titleShouldScroll = false
     
-    
+    let fristCell: LCTitleCell = {
+        let cell = UINib(nibName: "LCTitleCell", bundle: nil).instantiate(withOwner: nil, options: nil).first as! LCTitleCell
+        cell.frame = CGRect(x: 10, y: 44, width: 70, height: 44)
+        return cell
+    }()
     
     lazy var panGR = UIPanGestureRecognizer.init(target: self, action: #selector(pan))
     lazy var longPressGR = UILongPressGestureRecognizer.init(target: self, action: #selector(longPress))
@@ -60,6 +64,9 @@ class LCAllTitleView: UIView {
         self.collectionView.lc_registerNibSectionHeader(reusableViewClass: LCSectionHeader.self)
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+    
+        collectionView.addSubview(fristCell)
         
         
         finishButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
@@ -119,9 +126,6 @@ class LCAllTitleView: UIView {
                 collectionView.beginInteractiveMovementForItem(at: selectIndexPath)
             }
         case .changed:
-//            if let movetoPath = collectionView.indexPathForItem(at: panPressGR.location(in: collectionView)), movetoPath.item == 0 {
-//                collectionView.endInteractiveMovement()
-//            }
             collectionView.updateInteractiveMovementTargetPosition(panPressGR.location(in: panPressGR.view))
         case .ended:
             collectionView.endInteractiveMovement()
@@ -137,7 +141,7 @@ class LCAllTitleView: UIView {
         var index = 0
         for i in 0...self.titles[0].count-1 {
             let model = self.titles[0][i]
-            if let select = model.select, select {
+            if let select = model.pageSelect, select {
                 index = i
                 break
             }
@@ -182,6 +186,7 @@ extension LCAllTitleView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        fristCell.setupCell(with: titles[0][0], enChange: false, in: IndexPath(row: 0, section: 0))
         let cell = collectionView.lc_dequeueReusableCell(indexPath: indexPath) as LCTitleCell
         cell.setupCell(with: titles[indexPath.section][indexPath.row], enChange: enChange, in: indexPath)
         return cell
@@ -204,10 +209,10 @@ extension LCAllTitleView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         var model = self.titles[0].remove(at: sourceIndexPath.row)
-        if let select = model.select, select{
+        if let select = model.pageSelect, select, destinationIndexPath.section == 1{
             titleShouldScroll = true
-            model.select = false
-            self.titles[0][0].select = true
+            model.pageSelect = false
+            self.titles[0][0].pageSelect = true
         }
         self.titles[destinationIndexPath.section].insert(model, at: destinationIndexPath.row)
     }
@@ -218,10 +223,10 @@ extension LCAllTitleView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if enChange, indexPath.section == 0, indexPath.row != 0 {
             var model = self.titles[0].remove(at: indexPath.row)
-            if let select = model.select, select {
+            if let select = model.pageSelect, select {
                 titleShouldScroll = true
-                model.select = false
-                self.titles[0][0].select = true
+                model.pageSelect = false
+                self.titles[0][0].pageSelect = true
             }
             collectionView.deleteItems(at: [indexPath])
             self.titles[1].insert(model, at: 0)
@@ -235,7 +240,7 @@ extension LCAllTitleView: UICollectionViewDelegate {
             
         }else if !enChange, indexPath.section == 0 {
             self.titles[0] = self.titles[0].map{ LCHomeNewsTitle(category: $0.category, name: $0.name) }
-            self.titles[0][indexPath.row].select = true
+            self.titles[0][indexPath.row].pageSelect = true
             self.removeSelf()
         }
     }

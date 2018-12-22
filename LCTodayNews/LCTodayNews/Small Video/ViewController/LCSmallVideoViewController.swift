@@ -9,10 +9,14 @@
 import UIKit
 import SnapKit
 
-class LCSmallVideoViewController: LCHomeBaseViewController {
+class LCSmallVideoViewController: LCPageViewController {
     
     let animView = UIImageView()
     var beginFrame: CGRect?
+    
+    
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { return .slide }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -22,8 +26,6 @@ class LCSmallVideoViewController: LCHomeBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     
 
@@ -62,7 +64,7 @@ class LCSmallVideoViewController: LCHomeBaseViewController {
     override func selectVC(_ index: Int) {
         let newsTitle = self.titles[index]
         print(newsTitle)
-        guard childViewControllerDict[newsTitle.category] == nil else{
+        guard childViewControllerDict[newsTitle.pageTitleID] == nil else{
             return
         }
         
@@ -72,35 +74,20 @@ class LCSmallVideoViewController: LCHomeBaseViewController {
         pageScrollView.addSubview(selectVC.view)
         let height = ScreenHeight - TabBarHeight - NavBarHeight
         selectVC.view.frame = CGRect(x: ScreenWidth*CGFloat(index), y: 0, width: ScreenWidth, height: height)
-        childViewControllerDict[newsTitle.category] = selectVC
+        childViewControllerDict[newsTitle.pageTitleID] = selectVC
         
         selectVC.didSelectItemCell = { [weak self] cell in
             let vc = LCSmallVideoPlayViewController()
             vc.news = cell.news
-            
-            self?.animView.image = cell.backImageView.image
             let origin = cell.convert(CGPoint.zero, to: UIApplication.shared.keyWindow)
-            self?.beginFrame = CGRect.init(origin: origin, size: cell.frame.size)
-            self?.tabBarController?.tabBar.isHidden = true
-            self?.navigationController?.delegate = self
+            vc.beginFrame = CGRect.init(origin: origin, size: cell.frame.size)
+            vc.animView.image = cell.backImageView.image
+            vc.fakeTaBar = self?.tabBarController?.tabBar.snapshotView(afterScreenUpdates: false)
+            vc.fakeWindow = UIApplication.shared.keyWindow?.snapshotView(afterScreenUpdates: false)
             self?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
 
 
-extension LCSmallVideoViewController: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if operation == .push, toVC.isKind(of: LCSmallVideoPlayViewController.self), fromVC.isKind(of: LCSmallVideoViewController.self) {
-            return AnimationController(with: .push)
-        }
 
-        if operation == .pop, fromVC.isKind(of: LCSmallVideoPlayViewController.self) {
-            return AnimationController(with: .pop)
-        }
-
-        return nil
-    }
-}
-
-extension LCSmallVideoViewController: UIGestureRecognizerDelegate{}

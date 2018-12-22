@@ -13,13 +13,15 @@ class LCHomeTitleCell: UICollectionViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     
-    var homeTitle: LCHomeNewsTitle? {
+    var homeTitle: LCPageHeaderTitle? {
         didSet {
-            titleLabel.text = homeTitle?.name
-            if let select = homeTitle?.select {
-                titleLabel.textColor = select ? UIColor.red : UIColor.black
+            titleLabel.text = homeTitle?.pageTitle
+            if let select = homeTitle?.pageSelect, select {
+                titleLabel.textColor = UIColor.red
+                titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
             }else{
                 titleLabel.textColor = UIColor.black
+                titleLabel.font = UIFont.systemFont(ofSize: 16)
             }
         }
     }

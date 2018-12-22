@@ -18,6 +18,7 @@ class LCSmallVideoPlayViewController: UIViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { return .slide }
+    override var prefersStatusBarHidden: Bool {return true}
     
     let bag = DisposeBag()
 
@@ -30,6 +31,10 @@ class LCSmallVideoPlayViewController: UIViewController {
     
     let playView = LCPlayView()
     let animView = UIImageView()
+    var beginFrame: CGRect?
+    var fakeTaBar: UIView?
+    var fakeWindow: UIView?
+    
     let closeBtn = UIButton()
     
     deinit {
@@ -43,7 +48,6 @@ class LCSmallVideoPlayViewController: UIViewController {
     override func loadView() {
         super.loadView()
         self.view.backgroundColor = UIColor.black
-//        playView.frame = self.view.bounds
         self.view.addSubview(playView)
         playView.snp.makeConstraints { make in
             make.edges.equalTo(self.view)
@@ -73,6 +77,9 @@ class LCSmallVideoPlayViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        
         closeBtn.rx.controlEvent(.touchUpInside).subscribe {[weak self] _ in
             self?.navigationController?.popViewController(animated: true)
         }.disposed(by: bag)
@@ -106,3 +113,6 @@ class LCSmallVideoPlayViewController: UIViewController {
     }
 }
 
+extension LCSmallVideoPlayViewController: UIGestureRecognizerDelegate {
+    
+}

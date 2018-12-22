@@ -23,58 +23,52 @@ class AnimationController: NSObject,  UIViewControllerAnimatedTransitioning{
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         if operation == .push {
-            let fromVC = transitionContext.viewController(forKey: .from) as! LCSmallVideoViewController
+            let fromVC = transitionContext.viewController(forKey: .from) 
             let toVC = transitionContext.viewController(forKey: .to) as! LCSmallVideoPlayViewController
             
             let containerView = transitionContext.containerView
+            let fromView = fromVC?.view
+            containerView.addSubview(fromView!)
             let toView = toVC.view
             containerView.addSubview(toView!)
+            toVC.animView.frame = toVC.beginFrame!
             
-            let animView = UIImageView(image: fromVC.animView.image)
-            animView.backgroundColor = .black
-            animView.contentMode = .scaleAspectFit
-            containerView.addSubview(animView)
-            animView.frame = fromVC.beginFrame!
             
             UIView.animate(withDuration: 0.2, animations: {
                 let width = UIScreen.main.bounds.width
-//                if #available(iOS 11.0, *) {
-//                    let height = toView!.safeAreaLayoutGuide.layoutFrame.height
-//                    animView!.frame = CGRect.init(x: 0, y: toView!.safeAreaLayoutGuide.layoutFrame.minY, width: width, height: height)
-//                } else {
-                    let height = UIScreen.main.bounds.height
-                animView.frame = CGRect.init(x: 0, y: 0, width: width, height: height)
-//                }
+                let height = UIScreen.main.bounds.height
+                toVC.animView.frame = CGRect.init(x: 0, y: 0, width: width, height: height)
             }) {
                 transitionContext.completeTransition($0)
-                if $0 {
-                    toVC.animView.image = animView.image
-                    animView.removeFromSuperview()
-                }
             }
         }else if operation == .pop{
             let fromVC = transitionContext.viewController(forKey: .from) as! LCSmallVideoPlayViewController
-            let toVC = transitionContext.viewController(forKey: .to) as! LCSmallVideoViewController
+            let toVC = transitionContext.viewController(forKey: .to)
             
             let containerView = transitionContext.containerView
-            let toView = toVC.view
+            let toView = toVC?.view
             containerView.addSubview(toView!)
-
+            containerView.addSubview(fromVC.fakeWindow!)
+            fromVC.fakeTaBar!.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight)
+            
             let animView = UIImageView(image: fromVC.animView.image)
             animView.backgroundColor = .black
             animView.contentMode = .scaleAspectFit
             animView.frame = fromVC.view.frame
             containerView.addSubview(animView)
-            
-            toVC.tabBarController?.tabBar.isHidden = true
+            containerView.addSubview(fromVC.fakeTaBar!)
+            fromVC.fakeTaBar!.frame = CGRect(x: 0, y: ScreenHeight-TabBarHeight, width: ScreenWidth, height: TabBarHeight)
             
             UIView.animate(withDuration: 0.2, animations: {
-                animView.frame = toVC.beginFrame!
+                animView.frame = fromVC.beginFrame!
             }) {
                 transitionContext.completeTransition($0)
                 if $0 {
                     animView.removeFromSuperview()
-                    toVC.tabBarController?.tabBar.isHidden = false
+                    
+//                    toVC.tabBarController?.tabBar.isHidden = false
+                    fromVC.fakeTaBar?.removeFromSuperview()
+                    fromVC.fakeWindow?.removeFromSuperview()
                 }
             }
             

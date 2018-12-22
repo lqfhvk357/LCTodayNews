@@ -195,7 +195,8 @@ class LCNewsCell: UITableViewCell {
         stateL.layer.cornerRadius = 3
         stateL.layer.masksToBounds = true
         
-        let textSize = stateL.text?.textSize(systemFontSize: 12, width: contentView.width-30)
+        let sysFont12 = UIFont.systemFont(ofSize: 12)
+        let textSize = stateL.text?.textSize(font: sysFont12, width: contentView.width-30)
         sourceV.addSubview(stateL)
         stateL.configureLayout { layout in
             layout.isEnabled = true
@@ -212,7 +213,7 @@ class LCNewsCell: UITableViewCell {
         hotL.layer.cornerRadius = 3
         hotL.layer.masksToBounds = true
         
-        let hotTextSize = hotL.text?.textSize(systemFontSize: 12, width: contentView.width-30)
+        let hotTextSize = hotL.text?.textSize(font: sysFont12, width: contentView.width-30)
         sourceV.addSubview(hotL)
         hotL.configureLayout { layout in
             layout.isEnabled = true

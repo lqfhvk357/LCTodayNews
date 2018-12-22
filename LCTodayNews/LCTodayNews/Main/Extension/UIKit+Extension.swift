@@ -64,12 +64,14 @@ extension UIView: bundleLoadableView{}
 
 //MARK: - UIColor
 extension UIColor {
-    convenience init(r: CGFloat, g: CGFloat, b: CGFloat) {
-        self.init(red: r/255.0, green: g/255.0, blue: g/255.0, alpha: 1)
+    convenience init(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat = 1) {
+        self.init(red: r/255.0, green: g/255.0, blue: g/255.0, alpha: a)
     }
     
-    convenience init(_ rgb: Int) {
-        self.init(red: (CGFloat)((rgb & 0xFF0000) >> 16)/255.0, green: (CGFloat)((rgb & 0x00FF00) >> 8)/255.0, blue: (CGFloat)((rgb & 0x0000FF) >> 0)/255.0, alpha: 1)
+    
+    
+    convenience init(_ rgb: Int, a: CGFloat = 1) {
+        self.init(red: (CGFloat)((rgb & 0xFF0000) >> 16)/255.0, green: (CGFloat)((rgb & 0x00FF00) >> 8)/255.0, blue: (CGFloat)((rgb & 0x0000FF) >> 0)/255.0, alpha: a)
     }
     
     
@@ -133,6 +135,10 @@ extension UICollectionView {
         register(T.nib, forCellWithReuseIdentifier: T.reuseIdentifier)
     }
     
+    func lc_registerClassCell<T: UICollectionViewCell>(cellClass: T.Type) {
+        register(cellClass, forCellWithReuseIdentifier: T.reuseIdentifier)
+    }
+    
     func lc_dequeueReusableCell<T: UICollectionViewCell>(indexPath: IndexPath) -> T {
         return dequeueReusableCell(withReuseIdentifier: T.reuseIdentifier, for: indexPath) as! T
     }
@@ -151,11 +157,11 @@ extension UICollectionView {
 
 //MARK: - String
 extension String {
-    func textSize(systemFontSize: CGFloat, width: CGFloat) -> CGSize {
+    func textSize(font: UIFont, width: CGFloat) -> CGSize {
         
         return self.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)),
                                  options: .usesLineFragmentOrigin,
-                                 attributes: [.font: UIFont.systemFont(ofSize: systemFontSize)],
+                                 attributes: [.font: font],
                                  context: nil).size
     }
     

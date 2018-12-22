@@ -8,15 +8,24 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
 
 typealias DidSelectItemCell = (LCSmallVideoCell) -> ()
 
-class LCCollectionViewController: UICollectionViewController, NewsTitleProtocol, ScrollViewRefreshHeader, ScrollViewRefreshFooter {
+class LCCollectionViewController: UICollectionViewController, LCPageTitleProtocol, ScrollViewRefreshHeader, ScrollViewRefreshFooter {
     
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { return .slide }
-
-    var newsTitle: LCHomeNewsTitle?
+    
+    var request: DataRequest?
+    
+    lazy var loadingView: LCLoadingView = {
+        let height = ScreenHeight - NavBarHeight - TabBarHeight
+        let loadV = LCLoadingView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: height))
+        return loadV
+    }()
+    
+    var newsTitle: LCPageHeaderTitle?
     var news = [LCSmallVideos.LCVideoNews]()
     var pullTime: TimeInterval = 0.0
     var animView: UIView?
@@ -31,7 +40,7 @@ class LCCollectionViewController: UICollectionViewController, NewsTitleProtocol,
         super.viewDidLoad()
         
         setupViews()
-        self.headerBeginRefresh()
+        self.headerDidRefresh()
     }
     
     //Views
@@ -75,15 +84,20 @@ class LCCollectionViewController: UICollectionViewController, NewsTitleProtocol,
     //MARK: headerRefresh & footerRefresh
     func headerDidRefresh() {
 
-        guard let title = newsTitle else {
+        guard let title = newsTitle as? LCHomeNewsTitle else {
             self.headerEndRefresh()
             return
         }
         pullTime = Date().timeIntervalSince1970
-        
-        
-        LCServerTool.requestHomeNews(forCategory: title.category, min_behot_time: pullTime, newsKind: .smallVideo){ data in
+        if news.count == 0 {
             self.headerEndRefresh()
+            self.view.addSubview(loadingView)
+            loadingView.anim()
+        }
+        
+        request = LCServerTool.requestHomeNews(forCategory: title.category, min_behot_time: pullTime, newsKind: .smallVideo){ data in
+            self.headerEndRefresh()
+            self.loadingView.removeFromSuperview()
             switch data.result {
             case .success(let responseData):
                 print("\(title.category) --- requsetHomeNews:\n\(JSON(responseData))")
@@ -110,11 +124,11 @@ class LCCollectionViewController: UICollectionViewController, NewsTitleProtocol,
     }
     
     func footerDidRefresh() {
-        guard let title = newsTitle else {
+        guard let title = newsTitle as? LCHomeNewsTitle else {
             return
         }
         pullTime = Date().timeIntervalSince1970
-        LCServerTool.requestMoreHomeNews(forCategory: title.category, list_count: self.news.count, max_behot_time: pullTime, newsKind: .smallVideo){ data in
+        request = LCServerTool.requestMoreHomeNews(forCategory: title.category, list_count: self.news.count, max_behot_time: pullTime, newsKind: .smallVideo){ data in
             self.footerEndRefresh()
             switch data.result {
             case .success(let responseData):

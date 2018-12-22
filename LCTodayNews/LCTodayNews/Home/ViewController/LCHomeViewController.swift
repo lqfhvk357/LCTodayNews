@@ -11,49 +11,32 @@ import AVKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import Alamofire
 
-class LCHomeViewController: LCHomeBaseViewController {
+class LCHomeViewController: LCPageViewController {
     
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { return .slide }
+    
+    var titlesRequest: DataRequest?
+    var otherTitlesRequest: DataRequest?
     let bag = DisposeBag()
+    
+    lazy var navBar: LCFakeNavBar = {
+        let navBar = Bundle.main.loadNibNamed("LCFakeNavBar", owner: nil, options: nil)?.last as! LCFakeNavBar
+        navBar.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: NavBarHeight)
+        navBar.tapHandle = { [weak self] in
+            let vc = LCSearchResultsViewController()
+//            self?.tabBarController?.tabBar.isHidden = true
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+        return navBar
+    }()
     
     lazy var titleView: LCAllTitleView = {
         let titleV = LCAllTitleView.lc_loadForBundle()
         titleV.completion = { [weak self] completionTitles, titleShouldScroll, selectIndex in
-            
-            self?.selectIndex = selectIndex
-            self?.titles = completionTitles[0]
-            self?.others = completionTitles[1]
-            
-            LCHomeNewsTitle.save(newsTitles: self!.titles, for: KHomeTitlesKey)
-            LCHomeNewsTitle.save(newsTitles: self!.others, for: KHomeOtherTitlesKey)
-            
-            self!.titleHeader.reloadData()
-            self!.pageScrollView.contentSize = CGSize(width: ScreenWidth*CGFloat(self!.titles.count), height: 0)
-            
-            for newsTitle in self!.others {
-                if let vc = self!.childViewControllerDict[newsTitle.category] as? UIViewController {
-                    vc.view.removeFromSuperview()
-                    vc.willMove(toParentViewController: nil)
-                    vc.removeFromParentViewController()
-                }
-                self!.childViewControllerDict.removeValue(forKey: newsTitle.category)
-            }
-            
-            for index in 0...self!.titles.count-1 {
-                let newsTitle = self!.titles[index]
-                if let vc = self!.childViewControllerDict[newsTitle.category] as? UIViewController {
-                    let height = ScreenHeight - NavBarHeight - TabBarHeight - self!.titleHeader.height
-                    vc.view.frame = CGRect(x: ScreenWidth*CGFloat(index), y: 0, width: ScreenWidth, height: height)
-                }
-                
-                if let select = newsTitle.select, select {
-                    self!.selectIndex = index
-                    self!.pageScrollView.setContentOffset(CGPoint(x: ScreenWidth*CGFloat(index), y: 0), animated: false)
-                    self!.titleHeader.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
-                }
-            }
-            
-            self!.selectVC(selectIndex)
+            self?.reloadAllViews(titles: completionTitles[0], others: completionTitles[1], selectIndex: selectIndex)
         }
         
         return titleV
@@ -74,13 +57,34 @@ class LCHomeViewController: LCHomeBaseViewController {
         let endColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
         gradLayer.colors = [startColor, endColor]
         gradLayer.startPoint = CGPoint(x: 0, y: 0)
-        gradLayer.endPoint = CGPoint(x: 0.618, y: 0)
+        gradLayer.endPoint = CGPoint(x: 0.3, y: 0)
         return gradLayer
     }()
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        let searchButton = UIButton()
+//        searchButton.frame = CGRect(x: 0, y: 0, width: 120, height: 30)
+//        searchButton.backgroundColor = UIColor.yellow
+//        searchButton.rx.controlEvent(.touchUpInside).subscribe {[weak self] _ in
+//            let vc = LCSearchResultsViewController()
+//            vc.view.backgroundColor = UIColor.white
+//            let search = LCSearchViewController.init(searchResultsController: vc)
+//            search.searchBar.text = "shou"
+//            search.searchBar.tintColor = UIColor.white
+//            search.searchBar.barTintColor = UIColor.black
+//            search.searchBar.barStyle = .black
+//            search.searchBar.setValue("取消", forKey: "_cancelButtonText")
+//            self?.present(search, animated: true, completion: nil)
+//        }.disposed(by: bag)
+//
+//        self.navigationItem.titleView = searchButton
     }
     
     //MARK: - Datas
@@ -92,7 +96,7 @@ class LCHomeViewController: LCHomeBaseViewController {
         }else{
             let defaultTitle = LCHomeNewsTitle.init(category: "", name: "推荐", select: true)
             self.titles.append(defaultTitle)
-            LCServerTool.requestHomeTiltes { data in
+            titlesRequest = LCServerTool.requestHomeTiltes { data in
                 switch data.result {
                 case .success(let responseData):
                     //                    let json = JSON(response.data)
@@ -103,7 +107,7 @@ class LCHomeViewController: LCHomeBaseViewController {
                         self.titles.insert(defaultTitle, at: 0)
                         self.titleHeader.reloadData()
                         
-                        LCHomeNewsTitle.save(newsTitles: self.titles, for: KHomeTitlesKey)
+                        LCHomeNewsTitle.save(newsTitles: self.titles as! [LCHomeNewsTitle], for: KHomeTitlesKey)
                     }
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -119,7 +123,7 @@ class LCHomeViewController: LCHomeBaseViewController {
         if let otherTitles = LCHomeNewsTitle.readNewsTitles(for: KHomeOtherTitlesKey) {
             self.others = otherTitles
         }else{
-            LCServerTool.requestHomeMoreTitles { data in
+            otherTitlesRequest = LCServerTool.requestHomeMoreTitles { data in
                 switch data.result {
                 case .success(let responseData):
                     if let titleDatas = LCHomeNewsTitleData.modelform(data: responseData){
@@ -136,24 +140,44 @@ class LCHomeViewController: LCHomeBaseViewController {
     
     
     override func selectVC(_ index: Int) {
+        if self.titles[selectIndex].pageTitleID == "video" {
+            NotificationCenter.default.post(name: AVPlayerShouldStop, object: nil)
+        }
+        
         let newsTitle = self.titles[index]
         print(newsTitle)
-        guard childViewControllerDict[newsTitle.category] == nil else{
+        guard childViewControllerDict[newsTitle.pageTitleID] == nil else{
             return
         }
         
-        let selectVC = LCHomeNewsController()
+        var selectVC: UIViewController & LCPageTitleProtocol
+        
+        switch newsTitle.pageTitleID {
+        case "video":
+            selectVC = LCVideoTableViewController()
+        case "hotsoon_video":
+            selectVC = LCCollectionViewController()
+        default:
+            selectVC = LCHomeNewsController()
+        }
+        
         selectVC.newsTitle = newsTitle
         self.addChildViewController(selectVC)
         pageScrollView.addSubview(selectVC.view)
         let height = ScreenHeight - NavBarHeight - TabBarHeight - titleHeader.height
         selectVC.view.frame = CGRect(x: ScreenWidth*CGFloat(index), y: 0, width: ScreenWidth, height: height)
-        childViewControllerDict[newsTitle.category] = selectVC
+        childViewControllerDict[newsTitle.pageTitleID] = selectVC
     }
     
     //MARK: - Views
     override func setupTitleHeader() {
         super.setupTitleHeader()
+        
+        self.view.addSubview(navBar)
+        navBar.snp.makeConstraints { make in
+            make.top.left.right.equalTo(self.view)
+            make.height.equalTo(NavBarHeight)
+        }
         
         let btnBackV = UIView()
         self.view.addSubview(btnBackV)
@@ -170,9 +194,14 @@ class LCHomeViewController: LCHomeBaseViewController {
         moreTitleButton.snp.makeConstraints{ $0.edges.equalTo(btnBackV) }
     }
     
+    override func setupPageScrollView() {
+        super.setupPageScrollView()
+        self.pageScrollView.frame = CGRect(x: 0, y: NavBarHeight+titleHeight, width: ScreenWidth, height: ScreenHeight)
+    }
+    
     func showTitlesView() {
         titleView.enChange = false
-        titleView.titles = [self.titles, self.others]
+        titleView.titles = [self.titles as! [LCHomeNewsTitle], self.others as! [LCHomeNewsTitle]]
         
         let keyWindow = UIApplication.shared.keyWindow!
         keyWindow.addSubview(titleView)
@@ -196,6 +225,8 @@ class LCHomeViewController: LCHomeBaseViewController {
         super.viewDidLayoutSubviews()
         gradientLayer.frame = moreTitleButton.bounds
     }
+    
+    
 
 }
 

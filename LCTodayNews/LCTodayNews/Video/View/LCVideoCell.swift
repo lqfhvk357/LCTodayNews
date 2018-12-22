@@ -27,35 +27,51 @@ class LCVideoCell: UITableViewCell {
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var moreButton: UIButton!
+    @IBOutlet weak var loadImageV: UIImageView!
+    @IBOutlet weak var failView: UIView!
+    @IBOutlet weak var replayButton: UIButton!
+    
+    let loadImageAnimKey = "loadImageAnim"
     
     var tagPalyViewHandle: TagHandle?
     var player: AVPlayer?
+    var tap: UITapGestureRecognizer?
+    
+    var active = false
     
     
     var videoUrl: String? {
         didSet {
-            guard let videoUrl = videoUrl else { return }
+            guard active else { return }
 
-            let decodeData = Data(base64Encoded: videoUrl, options: Data.Base64DecodingOptions(rawValue: 0))
-            let url = String(data: decodeData!, encoding: .utf8)!
-            let playerItem = AVPlayerItem.init(url: URL(string: url)!)
-            
-            let player = AVPlayer.init(playerItem: playerItem)
-            let playerLayer = playView.layer as! AVPlayerLayer
-            playerLayer.player = player
-            self.player = player
-            
-            play()
-        }
-    }
-    var news: LCHomeNewsDesc? {
-        didSet {
-            guard let news = news else {
-                return
+            if let videoUrl = videoUrl{
+                let decodeData = Data(base64Encoded: videoUrl, options: Data.Base64DecodingOptions(rawValue: 0))
+                let url = String(data: decodeData!, encoding: .utf8)!
+                let playerItem = AVPlayerItem.init(url: URL(string: url)!)
+                
+                let player = AVPlayer.init(playerItem: playerItem)
+                let playerLayer = playView.layer as! AVPlayerLayer
+                playerLayer.player = player
+                self.player = player
+                
+                play()
+            }else {
+                showFailView()
             }
             
-            videoUrl = nil
+        }
+    }
+    
+    var news: LCHomeNewsDesc? {
+        didSet {
             stopPlay()
+            videoUrl = nil
+            
+            guard let news = news else {
+                tap?.isEnabled = false
+                return
+            }
+            tap?.isEnabled = true
             
             videoTltleL.text = news.title
             commentButton.setTitle("\(news.comment_count)", for: .normal)
@@ -88,9 +104,9 @@ class LCVideoCell: UITableViewCell {
         uploaderImageV.layer.borderColor = UIColor.lightGray.cgColor
         uploaderImageV.layer.borderWidth = 0.5
         
-        let tap = UITapGestureRecognizer.init(target: self, action: #selector(tapShadeView))
-        shadeView.addGestureRecognizer(tap)
-        playView.backgroundColor = UIColor.black
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(tapPlayView))
+        playView.addGestureRecognizer(tap)
+        self.tap = tap
         
         NotificationCenter.default.addObserver(forName: AVPlayerShouldStop, object: nil, queue: nil) { (notification) in
             self.stopPlay()
@@ -99,57 +115,69 @@ class LCVideoCell: UITableViewCell {
         NotificationCenter.default.addObserver(forName: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { (notification) in
             self.stopPlay()
         }
-        
-//        NotificationCenter.default.addObserver(forName: AVPlayerItemd, object: nil, queue: nil) { ss in
-//
-//        }
-//        NotificationCenter.default.addObserver(forName: AVPlayerItemDidPlayToEndTimeNotification, object: nil, queue: nil) { (notification) in
-//            self.stopPlay()
-//        }
-        // Initialization code
+    
     }
 
     func play() {
+        stopLoadingAnim()
+        tap?.isEnabled = true
         videoImage.isHidden = true
         shadeView.isHidden = true
         player?.play()
     }
     
     func stopPlay() {
+        active = false
+        stopLoadingAnim()
+        failView.isHidden = true
         videoImage.isHidden = false
         shadeView.isHidden = false
         player?.pause()
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func startLoadingAnim() {
+        let baseAnim = CABasicAnimation(keyPath: "transform.rotation.z")
+        baseAnim.fromValue = 0
+        baseAnim.toValue = CGFloat(Double.pi*2)
+        baseAnim.repeatCount = 10000
+        baseAnim.duration = 1
+        
+        loadImageV.layer.add(baseAnim, forKey: loadImageAnimKey)
+        loadImageV.isHidden = false
     }
     
+    func stopLoadingAnim() {
+        loadImageV.isHidden = true
+        loadImageV.layer.removeAnimation(forKey: loadImageAnimKey)
+    }
     
+    func showFailView() {
+        stopLoadingAnim()
+        failView.isHidden = false
+    }
     //MARK: - Events
-    @objc func tapShadeView(tap: UITapGestureRecognizer) {
+    @objc func tapPlayView() {
+        active = true
         if let player = player,  player.rate > 0{
             
         }else {
             NotificationCenter.default.post(name: AVPlayerShouldStop, object: nil)
+            shadeView.isHidden = true
+            
             if let video_main_url = videoUrl {
                 self.videoUrl = video_main_url
             }else if let video_main_url = news?.video_main_url {
                 self.videoUrl = video_main_url
             }else {
+                startLoadingAnim()
                 tagPalyViewHandle?(news!)
             }
         }
   
     }
-    
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        
-        print(change!)
-        if let rate = keyPath, rate == "rate" {
-        }
+    @IBAction func replay(_ sender: Any) {
+        failView.isHidden = true
+        tapPlayView()
     }
+    
 }

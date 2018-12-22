@@ -38,33 +38,33 @@ enum NewsKind: String {
 
 class LCServerTool {
     //MARK: - BASE
-    static func requestData(_ partUrl: String, params: Dictionary<String, Any>, completion: @escaping Completion) -> () {
+    static func requestData(_ partUrl: String, params: Dictionary<String, Any>, completion: @escaping Completion) -> DataRequest {
         let url = baseURL + partUrl
-        requestDataFor(allUrl: url, params: params, completion: completion)
+        return requestDataFor(allUrl: url, params: params, completion: completion)
     }
     
-    static func requestDataFor(allUrl: String, params: Dictionary<String, Any>, completion: @escaping Completion) -> () {
-        Alamofire.request(allUrl, method: .get, parameters: params).responseData { completion($0) }
+    static func requestDataFor(allUrl: String, params: Dictionary<String, Any>, completion: @escaping Completion) -> DataRequest {
+        return Alamofire.request(allUrl, method: .get, parameters: params).responseData { completion($0) }
     }
     
     //MARK: - 首页
     ///首页新闻标题
-    static func requestHomeTiltes(completion: @escaping Completion) -> () {
+    static func requestHomeTiltes(completion: @escaping Completion) -> DataRequest {
         let params = ["device_id": Device_id, "iid": Iid]
-        requestData(SubPath.homeTitles.rawValue, params: params, completion: completion)
+        return requestData(SubPath.homeTitles.rawValue, params: params, completion: completion)
     }
     
     ///首页导航栏搜索接口
-    static func requsetHomeSearchBarInfo(completion: @escaping Completion) -> (){
+    static func requsetHomeSearchBarInfo(completion: @escaping Completion) -> DataRequest{
         let params = ["device_id": Device_id, "iid": Iid]
-        requestData(SubPath.homeSearchBarInfo.rawValue, params: params, completion: completion)
+        return requestData(SubPath.homeSearchBarInfo.rawValue, params: params, completion: completion)
     }
     
     
     ///首页更多新闻标题
-    static func requestHomeMoreTitles(completion: @escaping Completion) -> () {
+    static func requestHomeMoreTitles(completion: @escaping Completion) -> DataRequest {
         let params = ["device_id": Device_id, "iid": Iid]
-        requestData(SubPath.homeMoreTitles.rawValue, params: params, completion: completion)
+        return requestData(SubPath.homeMoreTitles.rawValue, params: params, completion: completion)
     }
     
     enum TTFrom: String {
@@ -86,7 +86,7 @@ class LCServerTool {
                                 min_behot_time: Double = 0,
                                 max_behot_time: Double = 0,
                                 newsKind: NewsKind = .home,
-                                completion: @escaping Completion) -> () {
+                                completion: @escaping Completion) -> DataRequest {
         
         let params = [  "device_id": Device_id,
                         "category": category,
@@ -116,9 +116,9 @@ class LCServerTool {
 //        }
         switch newsKind {
         case .home, .vdieo:
-            requestData(SubPath.homeNews.rawValue, params: params, completion: completion)
+            return requestData(SubPath.homeNews.rawValue, params: params, completion: completion)
         case .smallVideo: 
-            requestData(SubPath.homeNews.rawValue, params: params, completion: completion)
+            return requestData(SubPath.homeNews.rawValue, params: params, completion: completion)
         }
     }
     
@@ -127,8 +127,8 @@ class LCServerTool {
                                     list_count : Int,
                                     max_behot_time: Double,
                                     newsKind: NewsKind = .home,
-                                completion: @escaping Completion) -> () {
-        requestHomeNews(forCategory: category,
+                                completion: @escaping Completion) -> DataRequest {
+        return requestHomeNews(forCategory: category,
                         list_count: list_count,
                         count: 20,
                         tt_from: TTFrom.loadMore.rawValue,
@@ -141,12 +141,12 @@ class LCServerTool {
     //MARK: - 西瓜视频
     
     ///视频标题
-    static func requestVideoTiltes(completion: @escaping Completion) -> () {
+    static func requestVideoTiltes(completion: @escaping Completion) -> DataRequest {
         let params = ["device_id": Device_id, "iid": Iid]
-        requestData(SubPath.videoTitles.rawValue, params: params, completion: completion)
+        return requestData(SubPath.videoTitles.rawValue, params: params, completion: completion)
     }
     
-    static func requestVideoUrl(_ video_id: String, completion: @escaping Completion) -> () {
+    static func requestVideoUrl(_ video_id: String, completion: @escaping Completion) -> DataRequest {
 //         http://i.snssdk.com/video/urls/v/1/toutiao/mp4/9583cca5fceb4c6b9ca749c214fd1f90?r=18723666135963302&s=3807690062&callback=tt_playerzfndr
         let r = arc4random()
         let urlString = "/video/urls/v/1/toutiao/mp4/\(video_id)?r=\(r)"
@@ -156,6 +156,6 @@ class LCServerTool {
         
         print("video allUrlString ---------  \(allUrlString)")
         
-        requestDataFor(allUrl: allUrlString, params: [:], completion: completion)
+        return requestDataFor(allUrl: allUrlString, params: [:], completion: completion)
     }
 }

@@ -19,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
-        window?.rootViewController = LCTabBarController()
+        let nav = LCNavigationController(rootViewController: LCTabBarController())
+        window?.rootViewController = nav
         window?.makeKeyAndVisible()
         
 //        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback, policy: .default, options: .mixWithOthers)

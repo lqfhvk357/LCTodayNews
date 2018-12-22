@@ -52,8 +52,8 @@ class LCTabBarController: UITabBarController {
     
     func addChildViewController(_ viewController: UIViewController, withTabBarItem item: UITabBarItem) -> () {
         viewController.tabBarItem = item
-        let nav = LCNavigationController.init(rootViewController: viewController)
-        self.addChildViewController(nav)
+//        let nav = LCNavigationController.init(rootViewController: viewController)
+        self.addChildViewController(viewController)
     }
 }
 
