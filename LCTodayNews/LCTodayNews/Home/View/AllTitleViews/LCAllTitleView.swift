@@ -37,6 +37,7 @@ class LCAllTitleView: UIView {
     
     lazy var panGR = UIPanGestureRecognizer.init(target: self, action: #selector(pan))
     lazy var longPressGR = UILongPressGestureRecognizer.init(target: self, action: #selector(longPress))
+    lazy var tapGR = UITapGestureRecognizer.init(target: self, action: #selector(tapFristCell))
     var sysPan: UIPanGestureRecognizer?
     
     public typealias Completion = (_ completionTitles: Array< Array<LCHomeNewsTitle> >, _ titleShouldScroll: Bool, _ selectIndex: Int) -> Void
@@ -67,6 +68,7 @@ class LCAllTitleView: UIView {
         
     
         collectionView.addSubview(fristCell)
+        fristCell.addGestureRecognizer(tapGR)
         
         
         finishButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
@@ -108,10 +110,6 @@ class LCAllTitleView: UIView {
         }
     }
     
-//    @objc func click(button: UIButton) -> Void {
-//        button.isSelected = !button.isSelected
-//        enChange = button.isSelected
-//    }
     
     @objc func longPress(longPressGR: UILongPressGestureRecognizer) -> () {
         finishButton.isSelected = true
@@ -134,6 +132,11 @@ class LCAllTitleView: UIView {
         }
     }
 
+    @objc func tapFristCell() {
+        self.titles[0] = self.titles[0].map{ LCHomeNewsTitle(category: $0.category, name: $0.name) }
+        self.titles[0][0].pageSelect = true
+        self.removeSelf()
+    }
     
     @IBAction func removeSelf() {
         self.removeFromSuperview()
@@ -186,7 +189,9 @@ extension LCAllTitleView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        fristCell.setupCell(with: titles[0][0], enChange: false, in: IndexPath(row: 0, section: 0))
+        if indexPath.section == 0, indexPath.row == 1 {
+            fristCell.setupCell(with: titles[0][0], enChange: false, in: IndexPath(row: 0, section: 0))
+        }
         let cell = collectionView.lc_dequeueReusableCell(indexPath: indexPath) as LCTitleCell
         cell.setupCell(with: titles[indexPath.section][indexPath.row], enChange: enChange, in: indexPath)
         return cell

@@ -57,4 +57,46 @@ class LCFakeNavBar: UIView {
     @IBAction func backBtnClick(_ sender: Any) {
         backClick?()
     }
+    
+    //MARK: - Animate
+    func readyPopAnim() {
+        layoutIfNeeded()
+        whiteViewLeading.constant = 15
+        whiteViewTrailing.constant = 15
+    }
+    
+    func popAnim() {
+        searchBtn.alpha = 0
+        searchTF.alpha = 0
+        arrowBtn.alpha = 0
+        
+        tipsL.alpha = 1
+        hotBtn.alpha = 1
+        
+        updateConstraints()
+        layoutIfNeeded()
+    }
+    
+    func cancelPopAnim() {
+        whiteViewLeading.constant = 45
+        whiteViewTrailing.constant = 58
+    }
+    
+    func readyPushAnim() {
+        layoutIfNeeded()
+        whiteViewLeading.constant = 45
+        whiteViewTrailing.constant = 58
+    }
+    
+    func pushAnim() {
+        searchBtn.alpha = 1
+        searchTF.alpha = 1
+        arrowBtn.alpha = 1
+        
+        tipsL.alpha = 0
+        hotBtn.alpha = 0
+        
+        updateConstraints()
+        layoutIfNeeded()
+    }
 }
