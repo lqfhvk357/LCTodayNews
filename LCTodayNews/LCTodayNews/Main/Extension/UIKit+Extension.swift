@@ -11,28 +11,28 @@ import YogaKit
 
 //MARK: - UIView
 extension UIView {
-    var x: CGFloat {
+    var lc_x: CGFloat {
         get { return frame.origin.x }
         set(newValue){
             frame.origin.x = newValue
         }
     }
     
-    var y: CGFloat {
+    var lc_y: CGFloat {
         get { return frame.origin.y }
         set(newValue){
             frame.origin.y = newValue
         }
     }
     
-    var width: CGFloat {
+    var lc_width: CGFloat {
         get { return frame.size.width }
         set(newValue){
             frame.size.width = newValue
         }
     }
     
-    var height: CGFloat {
+    var lc_height: CGFloat {
         get { return frame.size.height }
         set(newValue){
             frame.size.height = newValue
@@ -160,7 +160,7 @@ extension String {
     func textSize(font: UIFont, width: CGFloat) -> CGSize {
         
         return self.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)),
-                                 options: .usesLineFragmentOrigin,
+                                 options: [.usesLineFragmentOrigin, .usesFontLeading],
                                  attributes: [.font: font],
                                  context: nil).size
     }

@@ -11,8 +11,8 @@ import UIKit
 
 
 /// device
-let Device_id: Int = 21482297196
-let Iid: Int = 45275915249
+let Device_id: Int64 = 21482297196
+let Iid: Int64 = 45275915249
 let ScreenWidth = UIScreen.main.bounds.width
 let ScreenHeight = UIScreen.main.bounds.height
 let NavBarHeight = CGFloat(ScreenHeight<810 ? 64 : 88)

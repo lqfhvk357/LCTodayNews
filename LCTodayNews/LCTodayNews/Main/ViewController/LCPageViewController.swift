@@ -100,8 +100,9 @@ class LCPageViewController : UIViewController {
         titleHeader.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
     }
     
-    func reloadHeader() {
+    func reloadViews() {
         self.titleHeader.reloadData()
+        pageScrollView.contentSize = CGSize(width: ScreenWidth*CGFloat(self.titles.count), height: 0)
     }
     
     func reloadAllViews(titles: [LCPageHeaderTitle], others: [LCPageHeaderTitle], selectIndex: Int) {
@@ -127,7 +128,7 @@ class LCPageViewController : UIViewController {
         for index in 0...self.titles.count-1 {
             let newsTitle = self.titles[index]
             if let vc = self.childViewControllerDict[newsTitle.pageTitleID] {
-                let height = ScreenHeight - NavBarHeight - TabBarHeight - self.titleHeader.height
+                let height = ScreenHeight - NavBarHeight - TabBarHeight - self.titleHeader.lc_height
                 vc.view.frame = CGRect(x: ScreenWidth*CGFloat(index), y: 0, width: ScreenWidth, height: height)
             }
             

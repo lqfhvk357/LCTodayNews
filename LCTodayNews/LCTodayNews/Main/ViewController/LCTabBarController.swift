@@ -11,14 +11,17 @@ import UIKit
 
 class LCTabBarController: UITabBarController {
 
+    let noVC = UIViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let appearance = UITabBar.appearance()
         appearance.tintColor = UIColor.tarbarTint
         appearance.barTintColor = UIColor.white
+        self.delegate = self
         
-        var imageNames = ["home", "video", "huoshan", ]
+        var imageNames = ["home", "video", "send_tt", "huoshan", ]
         UserDefaults.standard.bool(forKey: "login") ? imageNames.append("mine") : imageNames.append("no_login")
         
         for imageName in imageNames {
@@ -41,6 +44,9 @@ class LCTabBarController: UITabBarController {
             case "mine":
                 viewController = UIViewController()
                 title = "我的"
+            case "send_tt":
+                viewController = noVC
+                title = "发头条"
             default:
                 viewController = UIViewController()
             }
@@ -55,11 +61,27 @@ class LCTabBarController: UITabBarController {
 //        let nav = LCNavigationController.init(rootViewController: viewController)
         self.addChildViewController(viewController)
     }
+    
+
 }
 
 extension UITabBarItem {
     convenience init(_ title:String, _ imageName: String) {
         self.init(title: title, image: UIImage(named: "\(imageName)_tabbar")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "\(imageName)_tabbar_press")?.withRenderingMode(.alwaysOriginal))
+    }
+}
+
+extension LCTabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if viewController == noVC  {
+            let sendView = LCSendView.lc_loadForBundle()
+            self.view.addSubview(sendView)
+            sendView.frame = self.view.bounds
+            sendView.show()
+            return false
+        }else{
+            return true
+        }
     }
 }
 

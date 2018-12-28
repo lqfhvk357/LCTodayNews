@@ -53,5 +53,7 @@ class LCSmallVideoCell: UICollectionViewCell {
         backImageView.backgroundColor = .black
         // Initialization code
     }
+    
+    
 
 }

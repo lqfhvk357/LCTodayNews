@@ -78,9 +78,9 @@ class LCHomeNewsController: LCTableViewController {
                 print(error.localizedDescription)
                 
                 //Warning: - 
-                let testNews = LCHomeNewsData.LCHomeNews.init(code: "", content: "", contentModel: nil)
-                self.news.append(testNews)
-                self.tableView.reloadData()
+//                let testNews = LCHomeNewsData.LCHomeNews.init(code: "", content: "", contentModel: nil)
+//                self.news.append(testNews)
+//                self.tableView.reloadData()
                 
             }
         }

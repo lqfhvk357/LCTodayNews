@@ -140,6 +140,7 @@ class LCNewsCell: UITableViewCell {
     }
     
     fileprivate func setupContentView() {
+        contentView.isOpaque = true
         contentView.configureLayout { layout in
             layout.isEnabled = true
             layout.padding = 15
@@ -149,6 +150,7 @@ class LCNewsCell: UITableViewCell {
     
     fileprivate func setupTitleView() {
         contentView.addSubview(titleV)
+        titleV.isOpaque = true
         titleV.configureLayout { layout in
             layout.isEnabled = true
             layout.flexDirection = .row
@@ -157,8 +159,8 @@ class LCNewsCell: UITableViewCell {
         
         bigTitleL.numberOfLines = 2
         bigTitleL.font = UIFont.systemFont(ofSize: 16.5)
-//        bigTitleL.backgroundColor = UIColor.yellow
         titleV.addSubview(bigTitleL)
+        bigTitleL.isOpaque = true
         bigTitleL.configureLayout { layout in
             layout.isEnabled = true
             layout.flexGrow = 1
@@ -168,6 +170,7 @@ class LCNewsCell: UITableViewCell {
         
         titleImageV.backgroundColor = UIColor.gray
         titleV.addSubview(titleImageV)
+        titleImageV.isOpaque = true
         titleImageV.configureLayout { layout in
             layout.isEnabled = true
             layout.marginLeft = 15
@@ -178,7 +181,7 @@ class LCNewsCell: UITableViewCell {
     
     fileprivate func setupSourceView() {
         contentView.addSubview(sourceV)
-//        sourceV.backgroundColor = UIColor.green
+        sourceV.isOpaque = true
         sourceV.configureLayout { layout in
             layout.isEnabled = true
             layout.flexDirection = .row
@@ -196,8 +199,9 @@ class LCNewsCell: UITableViewCell {
         stateL.layer.masksToBounds = true
         
         let sysFont12 = UIFont.systemFont(ofSize: 12)
-        let textSize = stateL.text?.textSize(font: sysFont12, width: contentView.width-30)
+        let textSize = stateL.text?.textSize(font: sysFont12, width: contentView.lc_width-30)
         sourceV.addSubview(stateL)
+        stateL.isOpaque = true
         stateL.configureLayout { layout in
             layout.isEnabled = true
             layout.width = YGValue(textSize!.width + CGFloat(5))
@@ -213,8 +217,9 @@ class LCNewsCell: UITableViewCell {
         hotL.layer.cornerRadius = 3
         hotL.layer.masksToBounds = true
         
-        let hotTextSize = hotL.text?.textSize(font: sysFont12, width: contentView.width-30)
+        let hotTextSize = hotL.text?.textSize(font: sysFont12, width: contentView.lc_width-30)
         sourceV.addSubview(hotL)
+        hotL.isOpaque = true
         hotL.configureLayout { layout in
             layout.isEnabled = true
             layout.width = YGValue(hotTextSize!.width + CGFloat(5))
@@ -225,6 +230,7 @@ class LCNewsCell: UITableViewCell {
 //        sourceL.backgroundColor = .yellow
         sourceL.font = UIFont.systemFont(ofSize: 11)
         sourceV.addSubview(sourceL)
+        sourceL.isOpaque = true
         sourceL.configureLayout { layout in
             layout.isEnabled = true
             layout.marginRight = 5
@@ -235,6 +241,7 @@ class LCNewsCell: UITableViewCell {
 //        commentL.backgroundColor = .yellow
         commentL.font = UIFont.systemFont(ofSize: 11)
         sourceV.addSubview(commentL)
+        commentL.isOpaque = true
         commentL.configureLayout { layout in
             layout.isEnabled = true
             layout.marginRight = 6
@@ -245,6 +252,7 @@ class LCNewsCell: UITableViewCell {
 //        timeL.backgroundColor = .yellow
         timeL.font = UIFont.systemFont(ofSize: 11)
         sourceV.addSubview(timeL)
+        timeL.isOpaque = true
         timeL.configureLayout { layout in
             layout.isEnabled = true
         }
@@ -256,6 +264,7 @@ class LCNewsCell: UITableViewCell {
         closeBtn.layer.cornerRadius = 4
         closeBtn.layer.masksToBounds = true
         sourceV.addSubview(closeBtn)
+        closeBtn.isOpaque = true
         closeBtn.configureLayout { layout in
             layout.isEnabled = true
             layout.width = 18
@@ -268,6 +277,7 @@ class LCNewsCell: UITableViewCell {
     fileprivate func setupGroupView() {
 //        groupImageView.backgroundColor = UIColor.gray
         contentView.addSubview(groupImageView)
+        groupImageView.isOpaque = true
         groupImageView.configureLayout { layout in
             layout.isEnabled = true
             layout.aspectRatio = 288/70
@@ -280,6 +290,7 @@ class LCNewsCell: UITableViewCell {
             let imageV = UIImageView()
             imageV.backgroundColor = UIColor.gray
             groupImageView.addSubview(imageV)
+            imageV.isOpaque = true
             imageV.configureLayout { layout in
                 layout.isEnabled = true
                 if i != 0 {
@@ -305,6 +316,7 @@ class LCNewsCell: UITableViewCell {
         contentView.addSubview(bigImageView)
         bigImageView.backgroundColor = UIColor.gray
         bigImageView.isUserInteractionEnabled = true
+        bigImageView.isOpaque = true
         bigImageView.configureLayout { layout in
             layout.isEnabled = true
             layout.aspectRatio = 580 / 326
@@ -316,6 +328,7 @@ class LCNewsCell: UITableViewCell {
         moreV.layer.cornerRadius = 5
         moreV.layer.masksToBounds = true
         contentView.addSubview(moreV)
+        moreV.isOpaque = true
         moreV.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15

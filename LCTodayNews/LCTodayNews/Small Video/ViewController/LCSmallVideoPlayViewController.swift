@@ -32,11 +32,13 @@ class LCSmallVideoPlayViewController: UIViewController {
     let playView = LCPlayView()
     let animView = UIImageView()
     var beginFrame: CGRect?
-    var fakeTaBar: UIView?
-    var fakeWindow: UIView?
+    var fakeTabBar: UIView?
+    var fakeNavBar: UIView?
+//    var fakeWindow: UIView?
     
     let closeBtn = UIButton()
     
+    //MARK: - VC Life
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -81,16 +83,11 @@ class LCSmallVideoPlayViewController: UIViewController {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         
         closeBtn.rx.controlEvent(.touchUpInside).subscribe {[weak self] _ in
+            self?.playView.player?.pause()
             self?.navigationController?.popViewController(animated: true)
         }.disposed(by: bag)
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { _ in
-            self.playView.player?.seek(to: CMTime(seconds: 0, preferredTimescale: 1))
-            self.playView.player?.play()
-        }
-
-        
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(playerDidEnd), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -105,6 +102,11 @@ class LCSmallVideoPlayViewController: UIViewController {
         self.playView.player = nil
     }
     
+    //MARK: - Observer Call
+    @objc func playerDidEnd() {
+        self.playView.player?.seek(to: CMTime(seconds: 0, preferredTimescale: 1))
+        self.playView.player?.play()
+    }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "timeControlStatus", let timeControlStatus = change?[.newKey] as? Int, timeControlStatus == 2{
@@ -113,6 +115,4 @@ class LCSmallVideoPlayViewController: UIViewController {
     }
 }
 
-extension LCSmallVideoPlayViewController: UIGestureRecognizerDelegate {
-    
-}
+extension LCSmallVideoPlayViewController: UIGestureRecognizerDelegate {}

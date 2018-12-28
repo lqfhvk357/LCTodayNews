@@ -48,16 +48,20 @@ class AnimationController: NSObject,  UIViewControllerAnimatedTransitioning{
             let containerView = transitionContext.containerView
             let toView = toVC?.view
             containerView.addSubview(toView!)
-            containerView.addSubview(fromVC.fakeWindow!)
-            fromVC.fakeTaBar!.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight)
+//            containerView.addSubview(fromVC.fakeWindow!)
             
             let animView = UIImageView(image: fromVC.animView.image)
             animView.backgroundColor = .black
             animView.contentMode = .scaleAspectFit
             animView.frame = fromVC.view.frame
             containerView.addSubview(animView)
-            containerView.addSubview(fromVC.fakeTaBar!)
-            fromVC.fakeTaBar!.frame = CGRect(x: 0, y: ScreenHeight-TabBarHeight, width: ScreenWidth, height: TabBarHeight)
+            
+            
+            containerView.addSubview(fromVC.fakeNavBar!)
+            fromVC.fakeNavBar!.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: NavBarHeight)
+            
+            containerView.addSubview(fromVC.fakeTabBar!)
+            fromVC.fakeTabBar!.frame = CGRect(x: 0, y: ScreenHeight-TabBarHeight, width: ScreenWidth, height: TabBarHeight)
             
             UIView.animate(withDuration: 0.2, animations: {
                 animView.frame = fromVC.beginFrame!
@@ -67,8 +71,9 @@ class AnimationController: NSObject,  UIViewControllerAnimatedTransitioning{
                     animView.removeFromSuperview()
                     
 //                    toVC.tabBarController?.tabBar.isHidden = false
-                    fromVC.fakeTaBar?.removeFromSuperview()
-                    fromVC.fakeWindow?.removeFromSuperview()
+                    fromVC.fakeNavBar?.removeFromSuperview()
+                    fromVC.fakeTabBar?.removeFromSuperview()
+//                    fromVC.fakeWindow?.removeFromSuperview()
                 }
             }
             

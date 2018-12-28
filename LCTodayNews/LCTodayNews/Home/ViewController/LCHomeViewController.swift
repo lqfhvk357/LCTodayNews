@@ -12,6 +12,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 import Alamofire
+import Spring
 
 class LCHomeViewController: LCPageViewController {
     
@@ -41,6 +42,8 @@ class LCHomeViewController: LCPageViewController {
         
         return titleV
     }()
+
+    let springView = SpringView()
     
     lazy var moreTitleButton: UIButton = {
         let moreTitleButton = UIButton()
@@ -105,7 +108,7 @@ class LCHomeViewController: LCPageViewController {
                     if let titleDatas = LCHomeNewsTitleData.modelform(data: responseData){
                         self.titles = titleDatas.data.data
                         self.titles.insert(defaultTitle, at: 0)
-                        self.titleHeader.reloadData()
+                        self.reloadViews()
                         
                         LCHomeNewsTitle.save(newsTitles: self.titles as! [LCHomeNewsTitle], for: KHomeTitlesKey)
                     }
@@ -164,7 +167,7 @@ class LCHomeViewController: LCPageViewController {
         selectVC.newsTitle = newsTitle
         self.addChildViewController(selectVC)
         pageScrollView.addSubview(selectVC.view)
-        let height = ScreenHeight - NavBarHeight - TabBarHeight - titleHeader.height
+        let height = ScreenHeight - NavBarHeight - TabBarHeight - titleHeader.lc_height
         selectVC.view.frame = CGRect(x: ScreenWidth*CGFloat(index), y: 0, width: ScreenWidth, height: height)
         childViewControllerDict[newsTitle.pageTitleID] = selectVC
     }
@@ -202,23 +205,19 @@ class LCHomeViewController: LCPageViewController {
     func showTitlesView() {
         titleView.enChange = false
         titleView.titles = [self.titles as! [LCHomeNewsTitle], self.others as! [LCHomeNewsTitle]]
+        titleView.show()
+
+//        springView.backgroundColor = UIColor.blue
+//        view.addSubview(springView)
+//        springView.snp.makeConstraints { (make) in
+//            make.width.height.equalTo(100)
+//            make.center.equalTo(view)
+//        }
+//        springView.animation = "fadeInDown"
+//        springView.curve = "easeIn"
+//        springView.duration = 1
+//        springView.animate()
         
-        let keyWindow = UIApplication.shared.keyWindow!
-        keyWindow.addSubview(titleView)
-        titleView.snp.makeConstraints { (make) in
-            if #available(iOS 11.0, *) {
-                make.edges.equalTo(keyWindow.safeAreaLayoutGuide)
-            }else{
-                make.top.equalTo(keyWindow).offset(20)
-                make.left.right.bottom.equalTo(keyWindow)
-            }
-        }
-        
-        
-        titleView.transform = CGAffineTransform(translationX: 0, y: ScreenHeight)
-        UIView.animate(withDuration: 0.3) {
-            self.titleView.transform = CGAffineTransform.identity
-        }
     }
     
     override func viewDidLayoutSubviews() {

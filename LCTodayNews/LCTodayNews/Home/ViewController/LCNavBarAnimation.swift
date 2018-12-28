@@ -59,9 +59,9 @@ class LCNavBarAnimation: NSObject, UIViewControllerAnimatedTransitioning {
             containerView.addSubview(maskV)
             
             let fromView = fromVC.view
-            fromView?.layer.shadowRadius = 8
-            fromView?.layer.shadowColor = UIColor.black.cgColor
-            fromView?.layer.shadowOpacity = 0.6
+//            fromView?.layer.shadowRadius = 8
+//            fromView?.layer.shadowColor = UIColor.green.cgColor
+//            fromView?.layer.shadowOpacity = 0.6
             containerView.addSubview(fromView!)
             
             var navBar: LCFakeNavBar?
@@ -71,14 +71,14 @@ class LCNavBarAnimation: NSObject, UIViewControllerAnimatedTransitioning {
             }
 
             navBar?.readyPopAnim()
-            toView?.x = -100
-            fromView?.x = 0
+            toView?.lc_x = -100
+            fromView?.lc_x = 0
             
             UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: {
                 navBar?.popAnim()
                 maskV.alpha = 0
-                toView?.x = 0
-                fromView?.x = ScreenWidth
+                toView?.lc_x = 0
+                fromView?.lc_x = ScreenWidth
                 fromView?.layer.shadowOpacity = 0
             }) { _ in
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)

@@ -16,13 +16,13 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zeS-5d-4kL">
-                    <rect key="frame" x="15" y="29.5" width="24" height="24"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zeS-5d-4kL">
+                    <rect key="frame" x="15" y="23.5" width="30" height="36"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="24" id="fWx-7c-Fdi"/>
-                        <constraint firstAttribute="width" constant="24" id="g5E-Mj-1I9"/>
+                        <constraint firstAttribute="height" constant="36" id="fWx-7c-Fdi"/>
+                        <constraint firstAttribute="width" constant="30" id="xkh-tb-8qI"/>
                     </constraints>
-                    <state key="normal" backgroundImage="tsv_overlaytop_search_back"/>
+                    <state key="normal" image="tsv_overlaytop_search_back"/>
                     <connections>
                         <action selector="backBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="ggt-DM-Ig3"/>
                     </connections>

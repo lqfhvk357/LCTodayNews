@@ -32,6 +32,15 @@ class LCVideoViewController: LCPageViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIDeviceOrientationDidChange, object: nil, queue: nil) { noti in
+            print(noti.userInfo)
+            print(UIDevice.current.orientation == .landscapeLeft)
+            
+            UIApplication.shared.setStatusBarOrientation(UIInterfaceOrientation.landscapeLeft, animated: true)
+        }
+        
+        UIDevice.current.beginGeneratingDeviceOrientationNotifications()
     }
     
 
@@ -53,7 +62,7 @@ class LCVideoViewController: LCPageViewController {
                     if let titleDatas = LCVideoTitleData.modelform(data: responseData){
                         self.titles = titleDatas.data
                         self.titles.insert(defaultTitle, at: 0)
-                        self.titleHeader.reloadData()
+                        self.reloadViews()
                         
                         LCHomeNewsTitle.save(newsTitles: self.titles as! [LCHomeNewsTitle], for: KVideoTitlesKey)
                     }
@@ -77,7 +86,7 @@ class LCVideoViewController: LCPageViewController {
         selectVC.newsTitle = newsTitle
         self.addChildViewController(selectVC)
         pageScrollView.addSubview(selectVC.view)
-        let height = ScreenHeight - NavBarHeight - TabBarHeight - titleHeader.height
+        let height = ScreenHeight - NavBarHeight - TabBarHeight - titleHeader.lc_height
         selectVC.view.frame = CGRect(x: ScreenWidth*CGFloat(index), y: 0, width: ScreenWidth, height: height)
         childViewControllerDict[newsTitle.pageTitleID] = selectVC
     }

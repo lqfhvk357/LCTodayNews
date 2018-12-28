@@ -9,12 +9,14 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Spring
 
-class LCAllTitleView: UIView {
+class LCAllTitleView: SpringView {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var flowLayout: LCTitleFlowLayout!
     lazy var finishButton = UIButton()
+    let backView = UIView()
     
     var disposeBag = DisposeBag()
     var titles: Array< Array<LCHomeNewsTitle> > = [[]]
@@ -48,6 +50,41 @@ class LCAllTitleView: UIView {
         super.awakeFromNib()
         self.setupViews()
         self.setupViewEvents()
+    }
+    
+    func show(in view: UIView = UIApplication.shared.keyWindow!) {
+        view.addSubview(self)
+        self.snp.makeConstraints { (make) in
+            if #available(iOS 11.0, *) {
+                make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            }else{
+                make.top.equalTo(view).offset(20)
+            }
+            make.left.right.height.equalTo(view)
+        }
+        
+        
+        view.insertSubview(backView, belowSubview: self)
+        backView.snp.makeConstraints { make in
+            make.edges.equalTo(view)
+        }
+        backView.backgroundColor = UIColor.black
+        backView.alpha = 0
+        
+        
+//        let baseAnim = CASpringAnimation(keyPath: "transform.translation.y")
+//        baseAnim.fromValue = ScreenHeight
+//        baseAnim.toValue = 0
+//        baseAnim.duration = 0.25
+//        self.layer.add(baseAnim, forKey: "")
+        self.animation = "slideUp"
+        self.curve = "easeIn"
+        self.duration = 0.5
+        self.animate()
+        
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
+            self.backView.alpha = 0.5
+        }, completion: nil)
     }
     
     //MARK: - Views
@@ -139,7 +176,18 @@ class LCAllTitleView: UIView {
     }
     
     @IBAction func removeSelf() {
-        self.removeFromSuperview()
+        
+        self.y = ScreenHeight
+        self.animation = "slideDwon"
+        self.curve = "easeIn"
+        self.duration = 0.5
+        self.animateTo()
+        
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
+            self.backView.alpha = 0
+        }, completion: { _ in
+            self.backView.removeFromSuperview()
+        })
         
         var index = 0
         for i in 0...self.titles[0].count-1 {
