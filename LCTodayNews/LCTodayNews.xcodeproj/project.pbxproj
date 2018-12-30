@@ -10,6 +10,7 @@
 		3E55152AC0EADFA8E2E3EF15 /* Pods_LCTodayNews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D86AF4DAC1125117EF54439 /* Pods_LCTodayNews.framework */; };
 		43015197215E05A200D3F5E6 /* LCHomeSearchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43015196215E05A200D3F5E6 /* LCHomeSearchInfo.swift */; };
 		43015199215E28BB00D3F5E6 /* LCHomeNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43015198215E28BB00D3F5E6 /* LCHomeNews.swift */; };
+		431CB15C21D888A900A163F2 /* LCTimeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431CB15B21D888A900A163F2 /* LCTimeSlider.swift */; };
 		4321AA9321BE24ED009542F3 /* LCVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4321AA9221BE24ED009542F3 /* LCVideoViewController.swift */; };
 		4321AA9721BE51D7009542F3 /* LCVideoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4321AA9621BE51D7009542F3 /* LCVideoTableViewController.swift */; };
 		4321AA9921BE5690009542F3 /* LCVideoTitleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4321AA9821BE5690009542F3 /* LCVideoTitleData.swift */; };
@@ -118,6 +119,9 @@
 		436C7657216B8C6B0008D444 /* LCNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436C7655216B8C6B0008D444 /* LCNewsCell.xib */; };
 		436C7659216B9F4D0008D444 /* LCHomeNewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436C7658216B9F4D0008D444 /* LCHomeNewsController.swift */; };
 		43924F63215F832500ACFD15 /* LCNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43924F62215F832500ACFD15 /* LCNavigationController.swift */; };
+		439A75ED21D67317003CE187 /* LCScaleImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A75EC21D67317003CE187 /* LCScaleImageButton.swift */; };
+		439A761B21D7150A003CE187 /* LCVideoPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A761A21D7150A003CE187 /* LCVideoPlayView.swift */; };
+		439A761D21D7152E003CE187 /* LCVideoPlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439A761C21D7152E003CE187 /* LCVideoPlayView.xib */; };
 		439E732721CE684600D3B493 /* LCTitleFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439E732621CE684600D3B493 /* LCTitleFlowLayout.swift */; };
 		43AE433B21BE0D2900022B41 /* LCVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AE433921BE0D2900022B41 /* LCVideoCell.swift */; };
 		43AE433C21BE0D2900022B41 /* LCVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43AE433A21BE0D2900022B41 /* LCVideoCell.xib */; };
@@ -169,6 +173,7 @@
 /* Begin PBXFileReference section */
 		43015196215E05A200D3F5E6 /* LCHomeSearchInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCHomeSearchInfo.swift; sourceTree = "<group>"; };
 		43015198215E28BB00D3F5E6 /* LCHomeNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCHomeNews.swift; sourceTree = "<group>"; };
+		431CB15B21D888A900A163F2 /* LCTimeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCTimeSlider.swift; sourceTree = "<group>"; };
 		4321AA9221BE24ED009542F3 /* LCVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCVideoViewController.swift; sourceTree = "<group>"; };
 		4321AA9621BE51D7009542F3 /* LCVideoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCVideoTableViewController.swift; sourceTree = "<group>"; };
 		4321AA9821BE5690009542F3 /* LCVideoTitleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCVideoTitleData.swift; sourceTree = "<group>"; };
@@ -281,6 +286,9 @@
 		436C7655216B8C6B0008D444 /* LCNewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LCNewsCell.xib; sourceTree = "<group>"; };
 		436C7658216B9F4D0008D444 /* LCHomeNewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCHomeNewsController.swift; sourceTree = "<group>"; };
 		43924F62215F832500ACFD15 /* LCNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCNavigationController.swift; sourceTree = "<group>"; };
+		439A75EC21D67317003CE187 /* LCScaleImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCScaleImageButton.swift; sourceTree = "<group>"; };
+		439A761A21D7150A003CE187 /* LCVideoPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCVideoPlayView.swift; sourceTree = "<group>"; };
+		439A761C21D7152E003CE187 /* LCVideoPlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LCVideoPlayView.xib; sourceTree = "<group>"; };
 		439E732621CE684600D3B493 /* LCTitleFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCTitleFlowLayout.swift; sourceTree = "<group>"; };
 		43AE433921BE0D2900022B41 /* LCVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCVideoCell.swift; sourceTree = "<group>"; };
 		43AE433A21BE0D2900022B41 /* LCVideoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LCVideoCell.xib; sourceTree = "<group>"; };
@@ -367,6 +375,10 @@
 				43AE433A21BE0D2900022B41 /* LCVideoCell.xib */,
 				4321AA9A21BE5E73009542F3 /* LCPlayView.swift */,
 				4321AA9C21BE5FFC009542F3 /* LCShadeView.swift */,
+				439A75EC21D67317003CE187 /* LCScaleImageButton.swift */,
+				431CB15B21D888A900A163F2 /* LCTimeSlider.swift */,
+				439A761A21D7150A003CE187 /* LCVideoPlayView.swift */,
+				439A761C21D7152E003CE187 /* LCVideoPlayView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -972,6 +984,7 @@
 				435B204A2156564100A2AB3B /* index.md in Resources */,
 				435B203A2156564100A2AB3B /* mine-first-cell-1.png in Resources */,
 				435B20092156564100A2AB3B /* user_detail_4.jpeg in Resources */,
+				439A761D21D7152E003CE187 /* LCVideoPlayView.xib in Resources */,
 				435B20452156564100A2AB3B /* weitoutiao_2.png in Resources */,
 				435B20262156564100A2AB3B /* 首页-直播-2.png in Resources */,
 				43DEA6E121CC9020001A6149 /* LCTitleChannelCell.xib in Resources */,
@@ -1100,10 +1113,12 @@
 				43AE433B21BE0D2900022B41 /* LCVideoCell.swift in Sources */,
 				43C559AE21BF66E700C143B0 /* LCSmallVideoPlayViewController.swift in Sources */,
 				43C559A921BF5A4A00C143B0 /* LCSmallVideoCell.swift in Sources */,
+				439A75ED21D67317003CE187 /* LCScaleImageButton.swift in Sources */,
 				435B1F8D2154785300A2AB3B /* LCTableViewController.swift in Sources */,
 				4321AA9B21BE5E73009542F3 /* LCPlayView.swift in Sources */,
 				435B1F9B2155CC9000A2AB3B /* LCServerTool.swift in Sources */,
 				43C559A621BF508C00C143B0 /* LCSmallVideoViewController.swift in Sources */,
+				431CB15C21D888A900A163F2 /* LCTimeSlider.swift in Sources */,
 				4321AA9321BE24ED009542F3 /* LCVideoViewController.swift in Sources */,
 				43DEA6EB21CC90FD001A6149 /* LCKeyWordCell.swift in Sources */,
 				43DEA6C521C8EB63001A6149 /* LCNavBarAnimation.swift in Sources */,
@@ -1129,6 +1144,7 @@
 				43DEA6DD21CC9020001A6149 /* LCHomePageScrollView.swift in Sources */,
 				435B1F96215502C900A2AB3B /* LCHomeNewsTitle.swift in Sources */,
 				435B1F9D215646E300A2AB3B /* Const.swift in Sources */,
+				439A761B21D7150A003CE187 /* LCVideoPlayView.swift in Sources */,
 				4321AA9D21BE5FFC009542F3 /* LCShadeView.swift in Sources */,
 				43DEA6DE21CC9020001A6149 /* LCTitleChannelCell.swift in Sources */,
 				4321AA9921BE5690009542F3 /* LCVideoTitleData.swift in Sources */,

@@ -14,7 +14,7 @@ class LCShadeView: UIView {
         return CAGradientLayer.self
     }
     
-    var colors: [CGColor] = [UIColor(r: 0, g: 0, b: 0, a: 0.8).cgColor, UIColor(r: 0, g: 0, b: 0, a: 0.2).cgColor] {
+    var colors: [CGColor]? = [UIColor(r: 0, g: 0, b: 0, a: 0.9).cgColor, UIColor(r: 0, g: 0, b: 0, a: 0.382).cgColor] {
         didSet {
             let gradientLayer = layer as! CAGradientLayer
             gradientLayer.colors = colors
@@ -22,18 +22,27 @@ class LCShadeView: UIView {
     }
     
     // 0 ~ 1
-    var startPoint = CGPoint(x: 0, y: 0) {
+    var startPoint: CGPoint = CGPoint(x: 0, y: 0) {
         didSet {
             let gradientLayer = layer as! CAGradientLayer
             gradientLayer.startPoint = startPoint
         }
     }
-    var endPoint = CGPoint(x: 0, y: 0.45) {
+    var endPoint = CGPoint(x: 0, y: 1) {
         didSet {
             let gradientLayer = layer as! CAGradientLayer
             gradientLayer.endPoint = endPoint
         }
     }
+    
+    //
+    var locations: [NSNumber]? {
+        didSet {
+            let gradientLayer = layer as! CAGradientLayer
+            gradientLayer.locations = locations
+        }
+    }
+    
     
     
     override init(frame: CGRect) {

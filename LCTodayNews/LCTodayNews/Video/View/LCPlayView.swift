@@ -27,7 +27,7 @@ class LCPlayView: UIView {
         self.player = player
         let playerLayer = self.layer as! AVPlayerLayer
         playerLayer.player = self.player
-        playerLayer.videoGravity = .resizeAspectFill
+        playerLayer.videoGravity = .resizeAspect
         
     }
     

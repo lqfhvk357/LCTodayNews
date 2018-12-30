@@ -15,8 +15,10 @@ class LCVideoViewController: LCPageViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { return .slide }
+    override var prefersStatusBarHidden: Bool {return shouldHiddenStatus}
     
     var request: DataRequest?
+    var shouldHiddenStatus = false
     
     
     lazy var navBar: LCFakeNavBar = {
@@ -30,17 +32,15 @@ class LCVideoViewController: LCPageViewController {
         return navBar
     }()
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIDeviceOrientationDidChange, object: nil, queue: nil) { noti in
-            print(noti.userInfo)
-            print(UIDevice.current.orientation == .landscapeLeft)
-            
-            UIApplication.shared.setStatusBarOrientation(UIInterfaceOrientation.landscapeLeft, animated: true)
-        }
-        
-        UIDevice.current.beginGeneratingDeviceOrientationNotifications()
+        NotificationCenter.default.addObserver(self, selector: #selector(hiddenStatusBar), name: statusBarShouldHidden, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appearStatusBar), name: statusBarShouldAppear, object: nil)
     }
     
 
@@ -99,5 +99,17 @@ class LCVideoViewController: LCPageViewController {
             make.top.left.right.equalTo(self.view)
             make.height.equalTo(NavBarHeight)
         }
+    }
+    
+    //MARK: -
+    
+    @objc func hiddenStatusBar() {
+        shouldHiddenStatus = true
+        self.setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    @objc func appearStatusBar() {
+        shouldHiddenStatus = false
+        self.setNeedsStatusBarAppearanceUpdate()
     }
 }

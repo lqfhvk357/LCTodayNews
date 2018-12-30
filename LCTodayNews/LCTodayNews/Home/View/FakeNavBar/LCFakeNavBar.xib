@@ -16,13 +16,9 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zeS-5d-4kL">
-                    <rect key="frame" x="15" y="23.5" width="30" height="36"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="36" id="fWx-7c-Fdi"/>
-                        <constraint firstAttribute="width" constant="30" id="xkh-tb-8qI"/>
-                    </constraints>
-                    <state key="normal" image="tsv_overlaytop_search_back"/>
+                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zeS-5d-4kL">
+                    <rect key="frame" x="9" y="29.5" width="24" height="24"/>
+                    <state key="normal" backgroundImage="personal_home_back_white"/>
                     <connections>
                         <action selector="backBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="ggt-DM-Ig3"/>
                     </connections>
@@ -85,7 +81,7 @@
             <color key="backgroundColor" red="1" green="0.22428303466177058" blue="0.041497871469525105" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="zeS-5d-4kL" firstAttribute="centerY" secondItem="yIm-aY-KUd" secondAttribute="centerY" id="4Vm-bb-q3U"/>
-                <constraint firstItem="zeS-5d-4kL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="5dM-9M-1oY"/>
+                <constraint firstItem="zeS-5d-4kL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="9" id="5dM-9M-1oY"/>
                 <constraint firstItem="Wi4-K0-f8P" firstAttribute="centerY" secondItem="yIm-aY-KUd" secondAttribute="centerY" id="Q8V-3Z-CP8"/>
                 <constraint firstItem="yIm-aY-KUd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="Rnp-Qy-hsK"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Wi4-K0-f8P" secondAttribute="trailing" constant="15" id="hr3-7G-Jq8"/>
@@ -109,6 +105,6 @@
     </objects>
     <resources>
         <image name="Search" width="24" height="24"/>
-        <image name="tsv_overlaytop_search_back" width="24" height="24"/>
+        <image name="personal_home_back_white" width="24" height="24"/>
     </resources>
 </document>

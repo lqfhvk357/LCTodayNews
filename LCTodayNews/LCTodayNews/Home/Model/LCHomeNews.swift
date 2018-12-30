@@ -185,6 +185,7 @@ struct LCHomeNewsDesc: Decodable {
     }
     let video_detail_info: newVideo_detail_info?
     let video_style: Int
+    let video_duration: Int?
     var video_main_url: String?
     
 }

@@ -42,7 +42,7 @@ class LCVideoTableViewController: LCHomeNewsController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.lc_dequeueReusableCell(indexPath: indexPath) as LCVideoCell
         cell.news = self.news[indexPath.row].contentModel
-        cell.tagPalyViewHandle = {[weak self] model in
+        cell.tapPalyViewHandle = {[weak self] model in
             if let video_id = model.video_detail_info?.video_id {
                 self!.videoRequest = LCServerTool.requestVideoUrl(video_id, completion: {[weak cell, self] (data)  in
                     switch data.result {

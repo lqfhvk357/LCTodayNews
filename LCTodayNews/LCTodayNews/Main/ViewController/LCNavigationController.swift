@@ -11,6 +11,7 @@ import UIKit
 class LCNavigationController: UINavigationController {
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { return .slide }
+    override var shouldAutorotate: Bool {return false}
     
     var isActive = false
     var interactive = UIPercentDrivenInteractiveTransition()
