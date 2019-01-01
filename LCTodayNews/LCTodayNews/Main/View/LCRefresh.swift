@@ -22,5 +22,15 @@ class LCRefreshHeader: MJRefreshStateHeader {
 }
 
 class LCRefreshFooter: MJRefreshAutoNormalFooter {
-    
+//    override var state: MJRefreshState {
+//        set {
+//            super.state = newValue
+//            layoutSubviews()
+//        }
+//        
+//        get {
+//            return super.state
+//        }
+//    }
+
 }

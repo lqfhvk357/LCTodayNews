@@ -129,7 +129,7 @@ class LCNewsCell: UITableViewCell {
     }
     
     //MARK: -  Views
-    func setupCell() {
+    fileprivate func setupCell() {
         setupContentView()
         setupTitleView()
         setupGroupView()

@@ -84,6 +84,8 @@ class LCVideoPlayView: LCPlayView {
                 
                 let time = String(format: "%02d:%02d", min, sec)
                 endTimeL.text = time
+                beginTimeL.text = "00:00"
+                timeSlider.value = 0
             }
         }
     }
@@ -218,7 +220,7 @@ class LCVideoPlayView: LCPlayView {
     }
     
     func showFailView() {
-//        stopLoadingAnim()
+        stopLoadingAnim()
         failView.isHidden = false
     }
     

@@ -130,7 +130,6 @@ class LCAllTitleView: SpringView {
         _ = finishButton.rx.controlEvent(UIControlEvents.touchUpInside).subscribe { [weak self] _ in
             self!.finishButton.isSelected = !self!.finishButton.isSelected
             self!.enChange = self!.finishButton.isSelected
-            print("ssadasdad")
         }
 //        finishButton.addTarget(self, action: #selector(click), for: .touchUpInside)
         

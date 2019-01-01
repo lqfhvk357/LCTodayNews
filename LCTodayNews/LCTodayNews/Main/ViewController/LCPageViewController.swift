@@ -12,6 +12,10 @@ protocol LCPageHeaderTitle {
     var pageTitle: String {get}
     var pageTitleID: String {get}
     var pageSelect: Bool? {get set}
+    
+    
+    static func save(newsTitles: [LCPageHeaderTitle], for key: String)
+    static func readNewsTitles(for key: String) -> [LCPageHeaderTitle]?
 }
 
 protocol LCPageTitleProtocol where Self: UIViewController  {
@@ -110,8 +114,8 @@ class LCPageViewController : UIViewController {
         self.titles = titles
         self.others = others
         
-//        LCHomeNewsTitle.save(newsTitles: completionTitles[0], for: KHomeTitlesKey)
-//        LCHomeNewsTitle.save(newsTitles: completionTitles[1], for: KHomeOtherTitlesKey)
+        LCHomeNewsTitle.save(newsTitles: titles, for: KHomeTitlesKey)
+        LCHomeNewsTitle.save(newsTitles: others, for: KHomeOtherTitlesKey)
         
         self.titleHeader.reloadData()
         self.pageScrollView.contentSize = CGSize(width: ScreenWidth*CGFloat(self.titles.count), height: 0)

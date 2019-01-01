@@ -66,4 +66,10 @@ class LCVideoTableViewController: LCHomeNewsController {
     }
 
 
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if let lastIndexPath = self.tableView.indexPathsForVisibleRows?.last, lastIndexPath.row > self.news.count - 8{
+            requestMoreData(with: false)
+        }
+        
+    }
 }

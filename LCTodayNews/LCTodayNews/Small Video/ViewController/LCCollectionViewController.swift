@@ -46,7 +46,7 @@ class LCCollectionViewController: UICollectionViewController, LCPageTitleProtoco
     //Views
     func setupViews() {
         self.collectionView!.lc_registerNibCell(cellClass: LCSmallVideoCell.self)
-        self.collectionView!.backgroundColor = UIColor.clear
+        self.collectionView!.backgroundColor = UIColor.white
         let flowLayout = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
         
         let width = ScreenWidth / 2 - 0.5
@@ -58,6 +58,8 @@ class LCCollectionViewController: UICollectionViewController, LCPageTitleProtoco
         self.addRefreshHeader()
         self.addRefreshFooter()
         self.shouldHiddenFooter(with: news)
+        
+        NotificationCenter.init()
     }
     
     // MARK: UICollectionViewDataSource

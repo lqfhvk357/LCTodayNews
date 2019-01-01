@@ -23,7 +23,6 @@ class LCTableViewController: UITableViewController, LCPageTitleProtocol, ScrollV
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { return .slide }
 
     var newsTitle: LCPageHeaderTitle?
-//    var newsTitle: LCHomeNewsTitle?
     var news = [LCHomeNewsData.LCHomeNews]()
     var pullTime: TimeInterval = 0.0
     //MARK: - life cycle

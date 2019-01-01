@@ -49,12 +49,12 @@ struct LCHomeNewsTitle : Decodable, LCPageHeaderTitle{
         }
     }
     
-    static func save(newsTitles: [LCHomeNewsTitle], for key: String) -> Void {
-        UserDefaults.standard.set(newsTitles.map { $0.titleDict }, forKey: key)
+    static func save(newsTitles: [LCPageHeaderTitle], for key: String) -> Void {
+        UserDefaults.standard.set(newsTitles.map { ($0 as! LCHomeNewsTitle).titleDict }, forKey: key)
         UserDefaults.standard.synchronize()
     }
     
-    static func readNewsTitles(for key: String) -> [LCHomeNewsTitle]? {
+    static func readNewsTitles(for key: String) -> [LCPageHeaderTitle]? {
         if let titleDicts = UserDefaults.standard.object(forKey: key) as? Array<Dictionary<String, String>>, titleDicts.count>0 {
             return titleDicts.compactMap { dict -> LCHomeNewsTitle? in
                 if let category = dict["category"], let name = dict["name"]{
