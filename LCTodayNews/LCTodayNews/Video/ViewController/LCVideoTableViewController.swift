@@ -23,7 +23,6 @@ class LCVideoTableViewController: LCHomeNewsController {
         tableView.estimatedRowHeight = 0
         tableView.estimatedSectionFooterHeight = 0
         tableView.estimatedSectionHeaderHeight = 0
-        tableView.rowHeight = 180 * ScreenWidth/320 + 58
         tableView.separatorStyle = .none
         tableView.lc_registerNibCell(cellClass: LCVideoCell.self)
         
@@ -65,6 +64,9 @@ class LCVideoTableViewController: LCHomeNewsController {
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 180 * ScreenWidth/320 + 58
+    }
 
     override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if let lastIndexPath = self.tableView.indexPathsForVisibleRows?.last, lastIndexPath.row > self.news.count - 8{
@@ -72,4 +74,13 @@ class LCVideoTableViewController: LCHomeNewsController {
         }
         
     }
+    
+//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        if let cells = self.tableView.visibleCells as? [LCVideoCell]{
+//            for cell in cells {
+//                if cell.playView.active {return}
+//            }
+//            NotificationCenter.default.post(AVPlayerShouldStop)
+//        }
+//    }
 }

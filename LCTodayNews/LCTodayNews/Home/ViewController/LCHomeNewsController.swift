@@ -17,6 +17,7 @@ class LCHomeNewsController: LCTableViewController {
     var moreRequest: DataRequest?
     var bufferNews = [LCHomeNewsData.LCHomeNews]()
     var lock = false
+    var cellHeight = [IndexPath: CGFloat]()
     
     
     
@@ -56,10 +57,23 @@ class LCHomeNewsController: LCTableViewController {
     
     // MARK: - Table view data delegate
     
+//    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        cellHeight[indexPath] = cell.frame.height
+//    }
+//    
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        if let height = cellHeight[indexPath] {
+//            return height
+//            
+//        }
+//        return UITableViewAutomaticDimension
+//    }
+    
     
     // MARK: headerRefresh & footerRefresh
     override func headerDidRefresh() {
         super.headerDidRefresh()
+        cellHeight.removeAll()
         requestData()
     }
     
@@ -159,4 +173,11 @@ class LCHomeNewsController: LCTableViewController {
         self.tableView.reloadData()
     }
     
+    
+//    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        if let lastIndexPath = self.tableView.indexPathsForVisibleRows?.last, lastIndexPath.row > self.news.count - 8{
+//            requestMoreData(with: false)
+//        }
+//
+//    }
 }

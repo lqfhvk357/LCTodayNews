@@ -47,11 +47,16 @@ class LCVideoCell: UITableViewCell {
         }
     }
     
-    var news: LCHomeNewsDesc? {
+    var news: LCHomeNewsDesc?{
+        willSet {
+            if news?.item_id != newValue?.item_id {
+                playView.stopPlay()
+                playView.videoUrl = nil
+            }
+        }
+        
         didSet {
-            playView.stopPlay()
-            playView.videoUrl = nil
-            
+
             guard let news = news else {
                 playView.tap?.isEnabled = false
                 return
