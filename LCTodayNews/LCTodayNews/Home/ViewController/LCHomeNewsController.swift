@@ -36,17 +36,17 @@ class LCHomeNewsController: LCTableViewController {
         
         self.headerDidRefresh()
 //
-        let runloop = CFRunLoopGetCurrent()
-        let mode = CFRunLoopMode.defaultMode
-        let observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, CFRunLoopActivity.allActivities.rawValue, true, 0xFFFFFF) { (observer, activity) in
-            print("activity ----  \(activity)")
-
-
-//            if activity.rawValue == CFRunLoopActivity.beforeWaiting.rawValue || activity.rawValue == CFRunLoopActivity.exit.rawValue, self.bufferNews.count > 0 {
+//        let runloop = CFRunLoopGetCurrent()
+//        let mode = CFRunLoopMode.defaultMode
+//        let observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, CFRunLoopActivity.beforeWaiting.rawValue | CFRunLoopActivity.exit.rawValue, true, 0xFFFFFF) { (observer, activity) in
+//            print("activity ----  \(activity)")
+//
+//
+//            if self.bufferNews.count > 0 {
 //                self.performSelector(onMainThread: #selector(LCHomeNewsController.endRefreshAndReloadData), with: nil, waitUntilDone: false, modes: [CFRunLoopMode.defaultMode.rawValue as String])
 //            }
-        }
-        CFRunLoopAddObserver(runloop, observer, mode)
+//        }
+//        CFRunLoopAddObserver(runloop, observer, mode)
     }
     
 
@@ -136,17 +136,8 @@ class LCHomeNewsController: LCTableViewController {
         guard let title = newsTitle as? LCHomeNewsTitle else {
             return
         }
-        guard !lock else {return}
-        
-        if bufferNews.count != 0 {
-            if isPull {
-                self.endRefreshAndReloadData()
-                self.footerEndRefresh()
-                self.shouldHiddenFooter(with: self.news)
-            }else{
-                return
-            }
-        }
+        guard !lock, bufferNews.count == 0 else {return}
+    
         
         lock = true
         pullTime = Date().timeIntervalSince1970
