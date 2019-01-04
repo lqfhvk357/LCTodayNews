@@ -20,7 +20,7 @@ class LCVideoCell: UITableViewCell {
     lazy var playView: LCVideoPlayView = {
         let playView = LCVideoPlayView.lc_loadForBundle()
         
-        playView.tapHandle = { [weak self] in
+        playView.didTapHandle = { [weak self] in
             if let url = self!.news?.video_main_url {
                 playView.videoUrl = url
             }else{

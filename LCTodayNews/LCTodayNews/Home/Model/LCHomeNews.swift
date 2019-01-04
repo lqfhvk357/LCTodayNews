@@ -188,6 +188,68 @@ struct LCHomeNewsDesc: Decodable {
     let video_duration: Int?
     var video_main_url: String?
     
+    var shouldHeight: CGFloat {
+        
+        var height: CGFloat = 0
+        
+        height = topPadding + bottomPadding + height
+        
+        let titleRightMargin: CGFloat = 15
+        var titleH = title.textSize(font: UIFont.systemFont(ofSize: 16.5), width: ScreenWidth - leftPadding - rightPadding - titleRightMargin).height
+        if titleH > 40 { titleH = 40 }
+        
+        var imageH: CGFloat = 0
+
+        if let has_video = has_video, has_video {
+            if let has_image = has_image, has_image, video_style == 0 { //右侧小图
+                imageH = rightImageHeight
+                titleH = 0
+            }else if video_style == 2 {
+                if video_detail_info?.detail_video_large_image != nil {
+                    imageH = bigImageHeight
+                }else {
+                    imageH = 0
+                }
+            }else if middle_image != nil { //右侧小图
+                imageH = rightImageHeight
+                titleH = 0
+            }else {
+                imageH = 0
+            }
+        }else {
+            if let has_image = has_image, has_image {
+                if let image_list = image_list, image_list.count == 1 { //右侧小图
+                    imageH = rightImageHeight
+                    titleH = 0
+                }else if let image_list = image_list, image_list.count > 1 { //三张小图
+                    imageH = groupImageHeight
+                }else if large_image_list?.first != nil{ //大图
+                    imageH = bigImageHeight
+                }else if middle_image != nil { //右侧小图
+                    imageH = rightImageHeight
+                    titleH = 0
+                } else {
+                    imageH = 0
+                }
+            }else {
+                imageH = 0
+            }
+        }
+        height = height + imageH + titleH
+        height = height + sourceHeight
+        
+        return height
+    }
+    
+    var topPadding: CGFloat { return 15 }
+    var bottomPadding: CGFloat { return 15 }
+    var leftPadding: CGFloat { return 15 }
+    var rightPadding: CGFloat { return 15 }
+    var rightImageHeight: CGFloat { return 93 * ScreenWidth / 320 * 60.0 / 93.0 }
+    var bigImageHeight: CGFloat { return (ScreenWidth - rightPadding - leftPadding) * 326 / 580 }
+    var groupImageHeight: CGFloat { return (ScreenWidth - rightPadding - leftPadding) * 70 / 288 }
+    var sourceHeight: CGFloat { return 18 }
+    
 }
 
 

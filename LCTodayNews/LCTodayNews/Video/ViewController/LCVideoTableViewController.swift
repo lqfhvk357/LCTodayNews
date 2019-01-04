@@ -20,9 +20,9 @@ class LCVideoTableViewController: LCHomeNewsController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.estimatedRowHeight = 0
-        tableView.estimatedSectionFooterHeight = 0
-        tableView.estimatedSectionHeaderHeight = 0
+//        tableView.estimatedRowHeight = 0
+//        tableView.estimatedSectionFooterHeight = 0
+//        tableView.estimatedSectionHeaderHeight = 0
         tableView.separatorStyle = .none
         tableView.lc_registerNibCell(cellClass: LCVideoCell.self)
         
@@ -64,7 +64,7 @@ class LCVideoTableViewController: LCHomeNewsController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 180 * ScreenWidth/320 + 58
     }
 
@@ -72,7 +72,7 @@ class LCVideoTableViewController: LCHomeNewsController {
         if let lastIndexPath = self.tableView.indexPathsForVisibleRows?.last, lastIndexPath.row > self.news.count - 8{
             requestMoreData(with: false)
         }
-        
+
     }
     
 //    override func scrollViewDidScroll(_ scrollView: UIScrollView) {

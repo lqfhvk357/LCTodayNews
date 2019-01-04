@@ -180,7 +180,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LCTodayNews/Video/View/LCVideoPlayView.swift"
-            timestampString = "568121502.797134"
+            timestampString = "568211925.628365"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "74"
@@ -196,11 +196,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LCTodayNews/Video/View/LCVideoPlayView.swift"
-            timestampString = "568121502.7975349"
+            timestampString = "568211925.628518"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "432"
-            endingLineNumber = "432"
+            startingLineNumber = "450"
+            endingLineNumber = "450"
             landmarkName = "sliderValueChanged(slide:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -212,11 +212,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LCTodayNews/Video/View/LCVideoPlayView.swift"
-            timestampString = "568121502.797821"
+            timestampString = "568211925.628636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "327"
-            endingLineNumber = "327"
+            startingLineNumber = "345"
+            endingLineNumber = "345"
             landmarkName = "LCVideoPlayView"
             landmarkType = "3">
          </BreakpointContent>

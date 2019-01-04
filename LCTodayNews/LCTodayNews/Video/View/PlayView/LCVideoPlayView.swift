@@ -24,21 +24,19 @@ class LCVideoPlayView: LCPlayView {
     @IBOutlet weak var controlView: UIView!
     @IBOutlet weak var shadeView: LCShadeView!
     
+    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var allScreenButton: UIButton!
+    @IBOutlet weak var beginTimeL: UILabel!
+    @IBOutlet weak var endTimeL: UILabel!
+    @IBOutlet weak var lockButton: UIButton!
+    @IBOutlet weak var timeSlider: LCTimeSlider!
+    
     @IBOutlet weak var videoTltleL: UILabel!
     @IBOutlet weak var playNumsL: UILabel!
     
     @IBOutlet weak var failView: UIView!
     @IBOutlet weak var replayButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
-    
-    
-    @IBOutlet weak var bottomView: UIView!
-    @IBOutlet weak var allScreenButton: UIButton!
-    @IBOutlet weak var beginTimeL: UILabel!
-    @IBOutlet weak var endTimeL: UILabel!
-    @IBOutlet weak var lockButton: UIButton!
-    
-    @IBOutlet weak var timeSlider: LCTimeSlider!
     
     @IBOutlet weak var titleLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
@@ -52,7 +50,7 @@ class LCVideoPlayView: LCPlayView {
     var convertToWindowFrame: CGRect = .zero
     
     
-    var tapHandle: EnevtsHandle?
+    var didTapHandle: EnevtsHandle?
     var didPlayHandle: EnevtsHandle?
     var didStopHandle: EnevtsHandle?
     
@@ -89,7 +87,6 @@ class LCVideoPlayView: LCPlayView {
                 let time = String(format: "%02d:%02d", min, sec)
                 endTimeL.text = time
                 beginTimeL.text = "00:00"
-                timeSlider.value = 0
             }
         }
     }
@@ -108,7 +105,7 @@ class LCVideoPlayView: LCPlayView {
         playButton.layer.cornerRadius = 24
         playButton.layer.masksToBounds = true
         
-        let tap = UITapGestureRecognizer.init(target: self, action: #selector(tapPlayView))
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(tapHandle))
         self.addGestureRecognizer(tap)
         self.tap = tap
         
@@ -125,11 +122,51 @@ class LCVideoPlayView: LCPlayView {
         timeSlider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
         timeSlider.addTarget(self, action: #selector(sliderTouchCancel), for: [.touchUpInside, .touchUpOutside, .touchCancel])
         
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(panHandle))
+        
+        
         
     }
     
+    //MARK: - Public
+    /// 停止播放
+    func stopPlay() {
+        stopLoadingAnim()
+        pausePlay()
+        
+        active = false
+        videoImage.isHidden = false
+        failView.isHidden = true
+        bottomView.isHidden = true
+        
+        playButton.isUserInteractionEnabled = false
+        playButton.isSelected = false
+        
+        lockButton.isSelected = false
+        controlView.isHidden = false
+        timeSlider.value = 0
+        
+        NotificationCenter.default.removeObserver(self)
+        
+        didStopHandle?()
+    }
+    
+    /// 暂停播放
+    func pausePlay() {
+        playing = false
+        self.shadeView.isHidden = false
+        self.player?.pause()
+        
+        removePlayTimer()
+        removeHiddenViewsTimer()
+    }
+    
     //MARK: - Private
-    func play(urlString: String) {
+    
+    /** 播放
+     * urlString: 视频地址
+     */
+    fileprivate func play(urlString: String) {
         let decodeData = Data(base64Encoded: urlString, options: Data.Base64DecodingOptions(rawValue: 0))
         let url = String(data: decodeData!, encoding: .utf8)!
         let playerItem = AVPlayerItem.init(url: URL(string: url)!)
@@ -145,7 +182,8 @@ class LCVideoPlayView: LCPlayView {
         player.play()
     }
     
-    func didPlay() {
+    // 开始播放
+    fileprivate func didPlay() {
         stopLoadingAnim()
         addPlayTimer()
         
@@ -161,36 +199,8 @@ class LCVideoPlayView: LCPlayView {
         didPlayHandle?()
     }
     
-    func pausePlay() {
-        playing = false
-        self.shadeView.isHidden = false
-        self.player?.pause()
-        
-        removePlayTimer()
-        removeHiddenViewsTimer()
-    }
-    
-    func stopPlay() {
-        stopLoadingAnim()
-        pausePlay()
-        
-        active = false
-        videoImage.isHidden = false
-        failView.isHidden = true
-        bottomView.isHidden = true
-        
-        playButton.isUserInteractionEnabled = false
-        playButton.isSelected = false
-        
-        lockButton.isSelected = false
-        controlView.isHidden = false
-        
-        NotificationCenter.default.removeObserver(self)
-        
-        didStopHandle?()
-    }
-    
-    func addPlayTimer() {
+    // 添加播放时间定时器
+    fileprivate func addPlayTimer() {
         playTimer = Timer(timeInterval: 1, repeats: true, block: {[weak self] _ in
             if let currentTime = self!.player?.currentTime() {
                 let currentTimeSec = Int(currentTime.value) / Int(currentTime.timescale)
@@ -206,12 +216,14 @@ class LCVideoPlayView: LCPlayView {
         RunLoop.current.add(playTimer!, forMode: .commonModes)
     }
     
-    func removePlayTimer() {
+    // 移除播放时间定时器
+    fileprivate func removePlayTimer() {
         playTimer?.invalidate()
         playTimer = nil
     }
     
-    func addHiddenViewsTimer() {
+    // 添加隐藏shadeView定时器
+    fileprivate func addHiddenViewsTimer() {
         timer = Timer(timeInterval: 2, repeats: false, block: {[weak self] _ in
             self!.shadeView.isHidden = true
             if self!.oldOrientation == .landscapeRight || self!.oldOrientation == .landscapeLeft {
@@ -222,17 +234,20 @@ class LCVideoPlayView: LCPlayView {
         RunLoop.current.add(timer!, forMode: .commonModes)
     }
     
-    func removeHiddenViewsTimer() {
+    // 移除隐藏shadeView定时器
+    fileprivate func removeHiddenViewsTimer() {
         self.timer?.invalidate()
         self.timer = nil
     }
     
-    func showFailView() {
+    // 显示视频地址获取失败
+    fileprivate func showFailView() {
         stopLoadingAnim()
         failView.isHidden = false
     }
     
-    func startLoadingAnim() {
+    // 加载动画
+    fileprivate func startLoadingAnim() {
         let baseAnim = CABasicAnimation(keyPath: "transform.rotation.z")
         baseAnim.fromValue = 0
         baseAnim.toValue = CGFloat(Double.pi*2)
@@ -243,12 +258,16 @@ class LCVideoPlayView: LCPlayView {
         loadImageV.isHidden = false
     }
     
-    func stopLoadingAnim() {
+    // 移除加载动画
+    fileprivate func stopLoadingAnim() {
         loadImageV.isHidden = true
         loadImageV.layer.removeAnimation(forKey: loadImageAnimKey)
     }
     
-    func transform(_ orientation: UIDeviceOrientation) {
+    /** 屏幕旋转
+     * orientation: 旋转方向
+     */
+    fileprivate func transform(_ orientation: UIDeviceOrientation) {
         let keyWindow = UIApplication.shared.keyWindow
         
         if orientation == .portrait {
@@ -326,7 +345,7 @@ class LCVideoPlayView: LCPlayView {
     }
     
     //MARK: - Events
-    @objc func tapPlayView() {
+    @objc func tapHandle() {
         if active {
             shadeView.isHidden = !shadeView.isHidden
             if shadeView.isHidden {
@@ -362,14 +381,19 @@ class LCVideoPlayView: LCPlayView {
             if let video_main_url = videoUrl {
                 self.videoUrl = video_main_url
             }else {
-                tapHandle?()
+                didTapHandle?()
             }
         }
         
     }
+    
+    @objc func panHandle() {
+        
+    }
+    
     @IBAction func replay(_ sender: Any) {
         failView.isHidden = true
-        tapPlayView()
+        tapHandle()
     }
     
     @IBAction func playButtonClick(_ sender: Any) {
@@ -399,6 +423,7 @@ class LCVideoPlayView: LCPlayView {
             oldOrientation = .landscapeLeft
             allScreenButton.isSelected = true
             
+            removeHiddenViewsTimer()
             shadeView.isHidden = true
             if shadeView.isHidden {
                 NotificationCenter.default.post(name: statusBarShouldHidden, object: nil)
@@ -490,6 +515,7 @@ class LCVideoPlayView: LCPlayView {
             transform(UIDevice.current.orientation)
             allScreenButton.isSelected = true
             if oldOrientation == .portrait {
+                removeHiddenViewsTimer()
                 shadeView.isHidden = true
                 if shadeView.isHidden {
                     NotificationCenter.default.post(name: statusBarShouldHidden, object: nil)

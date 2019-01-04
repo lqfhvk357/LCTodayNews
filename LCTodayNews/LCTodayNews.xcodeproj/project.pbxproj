@@ -371,14 +371,9 @@
 		4321AA9021BE24B6009542F3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				43A3F63D21DF293700A67075 /* PlayView */,
 				43AE433921BE0D2900022B41 /* LCVideoCell.swift */,
 				43AE433A21BE0D2900022B41 /* LCVideoCell.xib */,
-				4321AA9A21BE5E73009542F3 /* LCPlayView.swift */,
-				4321AA9C21BE5FFC009542F3 /* LCShadeView.swift */,
-				439A75EC21D67317003CE187 /* LCScaleImageButton.swift */,
-				431CB15B21D888A900A163F2 /* LCTimeSlider.swift */,
-				439A761A21D7150A003CE187 /* LCVideoPlayView.swift */,
-				439A761C21D7152E003CE187 /* LCVideoPlayView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -722,6 +717,19 @@
 				435B1FFC2156564100A2AB3B /* settings.json */,
 			);
 			path = .vscode;
+			sourceTree = "<group>";
+		};
+		43A3F63D21DF293700A67075 /* PlayView */ = {
+			isa = PBXGroup;
+			children = (
+				4321AA9A21BE5E73009542F3 /* LCPlayView.swift */,
+				4321AA9C21BE5FFC009542F3 /* LCShadeView.swift */,
+				439A75EC21D67317003CE187 /* LCScaleImageButton.swift */,
+				431CB15B21D888A900A163F2 /* LCTimeSlider.swift */,
+				439A761A21D7150A003CE187 /* LCVideoPlayView.swift */,
+				439A761C21D7152E003CE187 /* LCVideoPlayView.xib */,
+			);
+			path = PlayView;
 			sourceTree = "<group>";
 		};
 		43C5599F21BF4F8000C143B0 /* Small Video */ = {

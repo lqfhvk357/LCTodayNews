@@ -9,8 +9,7 @@
 import UIKit
 import SwiftyJSON
 import Alamofire
-    
-//MARK: - life cycle
+
 class LCHomeNewsController: LCTableViewController {
     
     var pullRequest: DataRequest?
@@ -27,22 +26,27 @@ class LCHomeNewsController: LCTableViewController {
         return loadV
     }()
 
+    
+    //MARK: - life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.tableView.estimatedRowHeight = 0
         self.tableView.lc_registerClassCell(cellClass: LCNewsCell.self)
         print("__\(#file)__\(#function)__\(#line)__")
         
         self.headerDidRefresh()
-        
-//        let runloop = CFRunLoopGetCurrent()
-//        let mode = CFRunLoopMode.defaultMode
-//        let observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, CFRunLoopActivity.beforeWaiting.rawValue, true, 0) { (observer, _) in
-//            if self.bufferNews.count > 0 {
-//                self.performSelector(onMainThread: #selector(LCHomeNewsController.endRefreshAndReloadData), with: nil, waitUntilDone: false, modes: [CFRunLoopMode.commonModes.rawValue as String])
+//
+        let runloop = CFRunLoopGetCurrent()
+        let mode = CFRunLoopMode.defaultMode
+        let observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, CFRunLoopActivity.allActivities.rawValue, true, 0xFFFFFF) { (observer, activity) in
+            print("activity ----  \(activity)")
+
+
+//            if activity.rawValue == CFRunLoopActivity.beforeWaiting.rawValue || activity.rawValue == CFRunLoopActivity.exit.rawValue, self.bufferNews.count > 0 {
+//                self.performSelector(onMainThread: #selector(LCHomeNewsController.endRefreshAndReloadData), with: nil, waitUntilDone: false, modes: [CFRunLoopMode.defaultMode.rawValue as String])
 //            }
-////            [self performSelector:@selector(_notifyAllObservers) withObject:nil afterDelay:0 inModes:@[NSRunLoopCommonModes]];
-//        }
-//        CFRunLoopAddObserver(runloop, observer, mode)
+        }
+        CFRunLoopAddObserver(runloop, observer, mode)
     }
     
 
@@ -60,13 +64,13 @@ class LCHomeNewsController: LCTableViewController {
 //    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 //        cellHeight[indexPath] = cell.frame.height
 //    }
-//    
+//
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.news[indexPath.row].contentModel!.shouldHeight
+    }
 //    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if let height = cellHeight[indexPath] {
-//            return height
-//            
-//        }
-//        return UITableViewAutomaticDimension
+//        return self.news[indexPath.row].contentModel!.shouldHeight
 //    }
     
     
@@ -132,7 +136,18 @@ class LCHomeNewsController: LCTableViewController {
         guard let title = newsTitle as? LCHomeNewsTitle else {
             return
         }
-        guard !lock, bufferNews.count == 0 else {return}
+        guard !lock else {return}
+        
+        if bufferNews.count != 0 {
+            if isPull {
+                self.endRefreshAndReloadData()
+                self.footerEndRefresh()
+                self.shouldHiddenFooter(with: self.news)
+            }else{
+                return
+            }
+        }
+        
         lock = true
         pullTime = Date().timeIntervalSince1970
         moreRequest = LCServerTool.requestMoreHomeNews(forCategory: title.category, list_count: self.news.count, max_behot_time: pullTime){ data in
@@ -173,11 +188,13 @@ class LCHomeNewsController: LCTableViewController {
         self.tableView.reloadData()
     }
     
-    
 //    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 //        if let lastIndexPath = self.tableView.indexPathsForVisibleRows?.last, lastIndexPath.row > self.news.count - 8{
 //            requestMoreData(with: false)
 //        }
 //
 //    }
+    
+    
+    
 }
