@@ -122,7 +122,7 @@ class LCVideoPlayView: LCPlayView {
         timeSlider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
         timeSlider.addTarget(self, action: #selector(sliderTouchCancel), for: [.touchUpInside, .touchUpOutside, .touchCancel])
         
-        let pan = UIPanGestureRecognizer(target: self, action: #selector(panHandle))
+//        let pan = UIPanGestureRecognizer(target: self, action: #selector(panHandle))
         
         
         
@@ -142,12 +142,12 @@ class LCVideoPlayView: LCPlayView {
         playButton.isUserInteractionEnabled = false
         playButton.isSelected = false
         
-        lockButton.isSelected = false
         controlView.isHidden = false
         timeSlider.value = 0
         
         NotificationCenter.default.removeObserver(self)
         
+        lockButton.isSelected = false
         didStopHandle?()
     }
     
@@ -425,9 +425,7 @@ class LCVideoPlayView: LCPlayView {
             
             removeHiddenViewsTimer()
             shadeView.isHidden = true
-            if shadeView.isHidden {
-                NotificationCenter.default.post(name: statusBarShouldHidden, object: nil)
-            }
+            NotificationCenter.default.post(name: statusBarShouldHidden, object: nil)
         }else {
             transform(.portrait)
             oldOrientation = .portrait
@@ -517,9 +515,7 @@ class LCVideoPlayView: LCPlayView {
             if oldOrientation == .portrait {
                 removeHiddenViewsTimer()
                 shadeView.isHidden = true
-                if shadeView.isHidden {
-                    NotificationCenter.default.post(name: statusBarShouldHidden, object: nil)
-                }
+                NotificationCenter.default.post(name: statusBarShouldHidden, object: nil)
             }
             oldOrientation = UIDevice.current.orientation
         case .portrait:

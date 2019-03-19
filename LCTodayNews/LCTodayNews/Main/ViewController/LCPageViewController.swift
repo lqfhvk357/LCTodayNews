@@ -22,12 +22,14 @@ protocol LCPageTitleProtocol where Self: UIViewController  {
     var newsTitle: LCPageHeaderTitle? { set get }
 }
 
-protocol LCPageSubViewFrame {
-    var pageContentViewFrame: CGRect {get}
-    var pageHeaderViewFrame: CGRect {get}
-}
+//protocol LCPageSubViewFrame {
+//    var pageContentViewFrame: CGRect {get}
+//    var pageHeaderViewFrame: CGRect {get}
+//}
 
 let titleHeight: CGFloat = 44
+
+
 class LCPageViewController : UIViewController {
     func selectVC(_ index: Int) {
         print("select to page \(index)")
@@ -78,6 +80,8 @@ class LCPageViewController : UIViewController {
         selectVC(0)
     }
     
+    
+    //MARK - Public
     func setupTitleHeader() {
         self.view.addSubview(titleHeader)
         
@@ -100,6 +104,7 @@ class LCPageViewController : UIViewController {
         self.titles[selectIndex].pageSelect = false
         self.titles[index].pageSelect = true
         selectIndex = index
+        
         titleHeader.reloadData()
         titleHeader.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
     }
@@ -168,7 +173,7 @@ extension LCPageViewController: UICollectionViewDelegate {
         
         selectVC(indexPath.row)
         self.updateSelectTitle(in: indexPath.row)
-        pageScrollView.setContentOffset(CGPoint(x: CGFloat(indexPath.row)*ScreenWidth, y: 0), animated: true)
+        pageScrollView.setContentOffset(CGPoint(x: CGFloat(indexPath.row)*ScreenWidth, y: 0), animated: false)
     }
 }
 

@@ -35,7 +35,7 @@ class LCHomeNewsController: LCTableViewController {
         print("__\(#file)__\(#function)__\(#line)__")
         
         self.headerDidRefresh()
-//
+        
 //        let runloop = CFRunLoopGetCurrent()
 //        let mode = CFRunLoopMode.defaultMode
 //        let observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, CFRunLoopActivity.beforeWaiting.rawValue | CFRunLoopActivity.exit.rawValue, true, 0xFFFFFF) { (observer, activity) in
@@ -69,22 +69,16 @@ class LCHomeNewsController: LCTableViewController {
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.news[indexPath.row].contentModel!.shouldHeight
     }
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return self.news[indexPath.row].contentModel!.shouldHeight
-//    }
     
     
     // MARK: headerRefresh & footerRefresh
     override func headerDidRefresh() {
         super.headerDidRefresh()
-        cellHeight.removeAll()
         requestData()
     }
     
     override func footerDidRefresh() {
         super.footerDidRefresh()
-        
-        print(self.tableView.contentOffset)
         requestMoreData(with: true)
     }
     
@@ -96,38 +90,49 @@ class LCHomeNewsController: LCTableViewController {
         if news.count == 0 {
             self.headerEndRefresh()
             self.view.addSubview(loadingView)
+            self.tableView.isUserInteractionEnabled = false
             loadingView.anim()
         }
         
         pullRequest = LCServerTool.requestHomeNews(forCategory: title.category, min_behot_time: pullTime){ data in
-            self.headerEndRefresh()
-            self.loadingView.removeFromSuperview()
-            switch data.result {
-            case .success(let responseData):
-                print("\(title.category) --- requsetHomeNews:\n\(JSON(responseData))")
-                if let datas = LCHomeNewsData.modelformNewsData(responseData){
-                    let noNULLDatas = datas.data.filter{ newsData -> Bool in
-                        newsData.contentModel != nil
+            DispatchQueue.global().async {
+                switch data.result {
+                case .success(let responseData):
+                    print("\(title.category) --- requsetHomeNews:\n\(JSON(responseData))")
+                    if let datas = LCHomeNewsData.modelformNewsData(responseData){
+                        let noNULLDatas = datas.data.filter{ newsData -> Bool in
+                            newsData.contentModel != nil
+                        }
+                        self.news = noNULLDatas
+                        
+                        print("models:\n\(datas)")
+                        if noNULLDatas.count != datas.data.count {
+                            print("errer!!!!!!!!!!!!!!!! noNULLDatas.count : \(noNULLDatas.count)  --- datas.data.count : \(datas.data.count)")
+                        }
+                        
+                        DispatchQueue.main.async(execute: {
+                            self.finishHeaderRefresh()
+                            self.tableView.reloadData()
+                            self.shouldHiddenFooter(with: self.news)
+                        })
                     }
-                    self.news = noNULLDatas
+                    DispatchQueue.main.async(execute: {
+                        self.finishHeaderRefresh()
+                    })
                     
-                    print("models:\n\(datas)")
-                    if noNULLDatas.count != datas.data.count {
-                        print("errer!!!!!!!!!!!!!!!! noNULLDatas.count : \(noNULLDatas.count)  --- datas.data.count : \(datas.data.count)")
-                    }
+                case .failure(let error):
+                    DispatchQueue.main.async(execute: {
+                        self.finishHeaderRefresh()
+                    })
+
+                    print(error.localizedDescription)
                     
-                    self.tableView.reloadData()
-                    self.shouldHiddenFooter(with: self.news)
+                    //Warning: -
+                    //                let testNews = LCHomeNewsData.LCHomeNews.init(code: "", content: "", contentModel: nil)
+                    //                self.news.append(testNews)
+                    //                self.tableView.reloadData()
+                    
                 }
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-                
-                //Warning: -
-                //                let testNews = LCHomeNewsData.LCHomeNews.init(code: "", content: "", contentModel: nil)
-                //                self.news.append(testNews)
-                //                self.tableView.reloadData()
-                
             }
         }
     }
@@ -136,7 +141,10 @@ class LCHomeNewsController: LCTableViewController {
         guard let title = newsTitle as? LCHomeNewsTitle else {
             return
         }
-        guard !lock, bufferNews.count == 0 else {return}
+        guard !lock, bufferNews.count == 0 else {
+            if isPull {self.footerEndRefresh()}
+            return
+        }
     
         
         lock = true
@@ -157,11 +165,11 @@ class LCHomeNewsController: LCTableViewController {
                         print("errer!!!!!!!!!!!!!!!! noNULLDatas.count : \(self.bufferNews.count)  --- datas.data.count : \(datas.data.count)")
                     }
                     if isPull {
-                        self.endRefreshAndReloadData()
+                        self.reloadData()
                         self.footerEndRefresh()
                         self.shouldHiddenFooter(with: self.news)
                     }else{
-                        self.endRefreshAndReloadData()
+                        self.reloadData()
                     }
                 }
                 
@@ -173,10 +181,16 @@ class LCHomeNewsController: LCTableViewController {
     }
     
     //MARK: - Private
-    @objc func endRefreshAndReloadData() {
+    @objc func reloadData() {
         self.news.append(contentsOf: self.bufferNews)
         self.bufferNews.removeAll()
         self.tableView.reloadData()
+    }
+    
+    func finishHeaderRefresh() {
+        self.headerEndRefresh()
+        self.tableView.isUserInteractionEnabled = true
+        self.loadingView.removeFromSuperview()
     }
     
 //    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
