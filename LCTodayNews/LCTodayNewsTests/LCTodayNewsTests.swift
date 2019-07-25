@@ -15,11 +15,6 @@ class LCTodayNewsTests: XCTestCase {
     }
 
     override func tearDown() {
-        let view = UIView()
-        view.bounds = CGRect(x: 0, y: 0, width: 100, height: 100)
-        view.backgroundColor = .red
-        view.alpha = 0.5
-        view.layer.bounds = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
