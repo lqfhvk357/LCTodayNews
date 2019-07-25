@@ -10,6 +10,10 @@ import UIKit
 import Kingfisher
 import AVKit
 
+public func luochao() -> String {
+    return "lc"
+}
+
 class LCVideoCell: UITableViewCell {
     
     
@@ -47,6 +51,9 @@ class LCVideoCell: UITableViewCell {
         }
     }
     
+    
+    
+    
     var news: LCHomeNewsDesc?{
         willSet {
             if news?.item_id != newValue?.item_id {
@@ -63,6 +70,13 @@ class LCVideoCell: UITableViewCell {
             }
             playView.tap?.isEnabled = true
             
+            let url = URL(string: "www.baidu.com:8080/share?username=luo&password=123456&sex=man")
+            
+            
+            
+//            let req = 
+            
+            
             playView.videoTltleL.text = news.title
             commentButton.setTitle("\(news.comment_count)", for: .normal)
             if let video_detail_info = news.video_detail_info {
@@ -73,6 +87,8 @@ class LCVideoCell: UITableViewCell {
                 }else{
                     playView.playNumsL.text = "\(video_detail_info.video_watch_count)次播放"
                 }
+            }else {
+                playView.videoImage.image = nil
             }
             
             if let user_info = news.user_info {

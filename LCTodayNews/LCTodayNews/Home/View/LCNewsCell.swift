@@ -169,6 +169,8 @@ class LCNewsCell: UITableViewCell {
         
         
         titleImageV.backgroundColor = UIColor.gray
+        titleImageV.layer.borderWidth = 0.5
+        titleImageV.layer.borderColor = UIColor.lightGray.cgColor
         titleV.addSubview(titleImageV)
         titleImageV.isOpaque = true
         titleImageV.configureLayout { layout in
@@ -186,8 +188,14 @@ class LCNewsCell: UITableViewCell {
             layout.isEnabled = true
             layout.flexDirection = .row
             layout.alignItems = .center
+            layout
+//            layout.justifyContent = .center
+//            layout.alignContent = .center
+            
             layout.height = 18
         }
+        
+        
         
         stateL.text = "置顶"
         stateL.textColor = UIColor.red
@@ -291,6 +299,8 @@ class LCNewsCell: UITableViewCell {
             imageV.backgroundColor = UIColor.gray
             groupImageView.addSubview(imageV)
             imageV.isOpaque = true
+            imageV.layer.borderColor = UIColor.lightGray.cgColor
+            imageV.layer.borderWidth = 0.5
             imageV.configureLayout { layout in
                 layout.isEnabled = true
                 if i != 0 {
@@ -315,6 +325,8 @@ class LCNewsCell: UITableViewCell {
     fileprivate func setupBigImageView() {
         contentView.addSubview(bigImageView)
         bigImageView.backgroundColor = UIColor.gray
+        bigImageView.layer.borderWidth = 0.5
+        bigImageView.layer.borderColor = UIColor.lightGray.cgColor
         bigImageView.isUserInteractionEnabled = true
         bigImageView.isOpaque = true
         bigImageView.configureLayout { layout in

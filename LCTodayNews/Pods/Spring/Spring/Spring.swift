@@ -65,7 +65,7 @@ public class Spring : NSObject {
     }
     
     func commonInit() {
-        NotificationCenter.default.addObserver(self, selector: #selector(Spring.didBecomeActiveNotification(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(Spring.didBecomeActiveNotification(_:)), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
     }
     
     @objc func didBecomeActiveNotification(_ notification: NSNotification) {
@@ -77,7 +77,8 @@ public class Spring : NSObject {
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.removeObserver(self, name:
+            Notification.Name.UIApplicationDidBecomeActive, object: nil)
     }
     
     private var autostart: Bool { set { self.view.autostart = newValue } get { return self.view.autostart }}
@@ -404,16 +405,16 @@ public class Spring : NSObject {
         return CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
     }
     
-    func getAnimationOptions(curve: String) -> UIViewAnimationOptions {
+    func getAnimationOptions(curve: String) -> UIView.AnimationOptions {
         if let curve = AnimationCurve(rawValue: curve) {
             switch curve {
-            case .EaseIn: return UIViewAnimationOptions.curveEaseIn
-            case .EaseOut: return UIViewAnimationOptions.curveEaseOut
-            case .EaseInOut: return UIViewAnimationOptions()
+            case .EaseIn: return UIView.AnimationOptions.curveEaseIn
+            case .EaseOut: return UIView.AnimationOptions.curveEaseOut
+            case .EaseInOut: return UIView.AnimationOptions()
             default: break
             }
         }
-        return UIViewAnimationOptions.curveLinear
+        return UIView.AnimationOptions.curveLinear
     }
     
     public func animate() {
@@ -479,7 +480,7 @@ public class Spring : NSObject {
                         delay: TimeInterval(delay),
                         usingSpringWithDamping: damping,
                         initialSpringVelocity: velocity,
-                        options: [getAnimationOptions(curve: curve), UIViewAnimationOptions.allowUserInteraction],
+                        options: [getAnimationOptions(curve: curve), UIView.AnimationOptions.allowUserInteraction],
                         animations: { [weak self] in
                             if let _self = self
                             {
@@ -504,7 +505,7 @@ public class Spring : NSObject {
                 completion()
                 self?.resetAll()
                 
-            })
+        })
         
     }
     

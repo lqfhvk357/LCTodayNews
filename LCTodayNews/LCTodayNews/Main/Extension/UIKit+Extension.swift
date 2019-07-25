@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import YogaKit
 
 //MARK: - UIView
 extension UIView {
@@ -40,12 +39,7 @@ extension UIView {
     }
 }
 
-extension UIView {
-    func yogaLayout() {
-        self.yoga.display = .none
-        self.yoga.display = .flex
-    }
-}
+
 
 protocol bundleLoadableView: class { }
 extension bundleLoadableView where Self: UIView {

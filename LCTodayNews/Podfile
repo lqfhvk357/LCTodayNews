@@ -6,7 +6,7 @@ target 'LCTodayNews' do
   use_frameworks!
 
   pod 'Alamofire', '~> 4.7'
-  pod 'SwiftyJSON', '~> 4.0'
+  pod 'SwiftyJSON'
   pod 'SnapKit', '~> 4.0.0'
   #pod 'RxSwift',    '~> 4.0'
   pod 'RxCocoa',    '~> 4.0'
@@ -16,8 +16,8 @@ target 'LCTodayNews' do
   pod "PromiseKit", "~> 6.0"
   pod "PromiseKit/CoreLocation"
   pod 'MJRefresh'
-  pod 'HandyJSON'
-  pod 'YogaKit', '~> 1.9.0'
+  #pod 'HandyJSON'
+  pod 'YogaKit'
   pod 'Kingfisher', '~> 4.10.0'
   pod 'CryptoSwift'
 # Pods for LCTodayNews

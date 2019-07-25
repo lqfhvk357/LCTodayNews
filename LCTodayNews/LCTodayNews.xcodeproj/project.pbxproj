@@ -16,6 +16,9 @@
 		4321AA9921BE5690009542F3 /* LCVideoTitleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4321AA9821BE5690009542F3 /* LCVideoTitleData.swift */; };
 		4321AA9B21BE5E73009542F3 /* LCPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4321AA9A21BE5E73009542F3 /* LCPlayView.swift */; };
 		4321AA9D21BE5FFC009542F3 /* LCShadeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4321AA9C21BE5FFC009542F3 /* LCShadeView.swift */; };
+		4329D76B2259A0FD00BE1812 /* LCTextKitNewsCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4329D7692259A0FD00BE1812 /* LCTextKitNewsCells.swift */; };
+		4329D76C2259A0FD00BE1812 /* LCTextKitNewsCells.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4329D76A2259A0FD00BE1812 /* LCTextKitNewsCells.xib */; };
+		4329D792225C347200BE1812 /* UIView+Yoga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4329D791225C347200BE1812 /* UIView+Yoga.swift */; };
 		432C2CEC217048EC0097A642 /* LCTodayNewsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432C2CEB217048EC0097A642 /* LCTodayNewsTests.swift */; };
 		4349FD5521533B5100DDB94F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4349FD5421533B5100DDB94F /* AppDelegate.swift */; };
 		4349FD5A21533B5100DDB94F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4349FD5821533B5100DDB94F /* Main.storyboard */; };
@@ -179,6 +182,9 @@
 		4321AA9821BE5690009542F3 /* LCVideoTitleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCVideoTitleData.swift; sourceTree = "<group>"; };
 		4321AA9A21BE5E73009542F3 /* LCPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPlayView.swift; sourceTree = "<group>"; };
 		4321AA9C21BE5FFC009542F3 /* LCShadeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCShadeView.swift; sourceTree = "<group>"; };
+		4329D7692259A0FD00BE1812 /* LCTextKitNewsCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCTextKitNewsCells.swift; sourceTree = "<group>"; };
+		4329D76A2259A0FD00BE1812 /* LCTextKitNewsCells.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LCTextKitNewsCells.xib; sourceTree = "<group>"; };
+		4329D791225C347200BE1812 /* UIView+Yoga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Yoga.swift"; sourceTree = "<group>"; };
 		432C2CE9217048EC0097A642 /* LCTodayNewsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LCTodayNewsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		432C2CEB217048EC0097A642 /* LCTodayNewsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCTodayNewsTests.swift; sourceTree = "<group>"; };
 		432C2CED217048EC0097A642 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -504,6 +510,8 @@
 				43DEA6F121CCFAF1001A6149 /* LCSendView.swift */,
 				43DEA6F321CCFB03001A6149 /* LCSendView.xib */,
 				43DEA72021CD1EE8001A6149 /* LCLoadingView.swift */,
+				4329D7692259A0FD00BE1812 /* LCTextKitNewsCells.swift */,
+				4329D76A2259A0FD00BE1812 /* LCTextKitNewsCells.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -524,6 +532,7 @@
 			isa = PBXGroup;
 			children = (
 				435B1F8A2153D0C700A2AB3B /* UIKit+Extension.swift */,
+				4329D791225C347200BE1812 /* UIView+Yoga.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -948,6 +957,7 @@
 				435B20152156564100A2AB3B /* 广告-首页-4.png in Resources */,
 				435B20132156564100A2AB3B /* 首页-一般-3小图-2.png in Resources */,
 				435B20222156564100A2AB3B /* home-nav-search.png in Resources */,
+				4329D76C2259A0FD00BE1812 /* LCTextKitNewsCells.xib in Resources */,
 				435B20242156564100A2AB3B /* 首页-直播-1.png in Resources */,
 				435B20392156564100A2AB3B /* wenda_headline.jpeg in Resources */,
 				435B200F2156564100A2AB3B /* 首页-视频-1小图-3.png in Resources */,
@@ -1058,7 +1068,6 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-LCTodayNews/Pods-LCTodayNews-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
@@ -1077,7 +1086,6 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
@@ -1139,6 +1147,7 @@
 				435B1F99215516F100A2AB3B /* LCService.swift in Sources */,
 				43DEA6C821CB3F43001A6149 /* LCPageViewController.swift in Sources */,
 				43C559A421BF4FA600C143B0 /* LCCollectionViewController.swift in Sources */,
+				4329D76B2259A0FD00BE1812 /* LCTextKitNewsCells.swift in Sources */,
 				436C7651216B51E40008D444 /* FuckCrash.swift in Sources */,
 				43DEA69021C7F230001A6149 /* LCSearchResultsViewController.swift in Sources */,
 				435B1F9221548E3700A2AB3B /* LCDataSource.swift in Sources */,
@@ -1152,6 +1161,7 @@
 				43DEA6DD21CC9020001A6149 /* LCHomePageScrollView.swift in Sources */,
 				435B1F96215502C900A2AB3B /* LCHomeNewsTitle.swift in Sources */,
 				435B1F9D215646E300A2AB3B /* Const.swift in Sources */,
+				4329D792225C347200BE1812 /* UIView+Yoga.swift in Sources */,
 				439A761B21D7150A003CE187 /* LCVideoPlayView.swift in Sources */,
 				4321AA9D21BE5FFC009542F3 /* LCShadeView.swift in Sources */,
 				43DEA6DE21CC9020001A6149 /* LCTitleChannelCell.swift in Sources */,
@@ -1370,6 +1380,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lc.LCTodayNews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_ENABLE_BATCH_MODE = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -1396,6 +1407,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lc.LCTodayNews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_ENABLE_BATCH_MODE = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

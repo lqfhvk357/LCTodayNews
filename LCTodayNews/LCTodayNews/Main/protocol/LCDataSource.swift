@@ -11,7 +11,6 @@ import UIKit
 import Moya
 import Result
 import SwiftyJSON
-import HandyJSON
 
 public protocol ResponseToModel {
     static func modelform(data: Data) -> Self?
